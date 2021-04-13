@@ -2,7 +2,7 @@
 /* Este modelo de domínio deve respeitar DDD */
 @startuml
 'skinparam linetype ortho
-'left to right direction
+left to right direction
 
 class Organizacao{}
 
@@ -82,8 +82,7 @@ CriterioAcesso "*" -- "1" CatalogoServico
 
 CatalogoServico "1" -- "1..*" Servico
 Servico "*" -- "1" NiveisCriticidade
-Pedido "*" -- "1" Urgencia
-Pedido "*" -- "1" Prioridade
+
 Servico "1" -- "*" Formulario
 TarefaAutomatica "1" -- "1" Script
 
@@ -91,10 +90,11 @@ TarefaAutomatica -> Tarefa
 TarefaManual -> Tarefa
 
 Pedido "1" -- "1" Formulario
-Pedido "*" -- "1" Servico
-Pedido "1" -- "1" Feedback
-Pedido "1" -- "1" AtividadeAprovacao
-
+Pedido "*" --- "1" Servico
+Feedback "1" -- "1" Pedido
+Pedido "1" --- "1" AtividadeAprovacao
+Urgencia "*" -- "1" Pedido
+Prioridade "*" -- "1" Pedido
 Pedido "1" --- "1" Tarefa
 
 AtividadeAprovacao "1" -- "1" Tarefa
