@@ -1,0 +1,124 @@
+
+/* Este modelo de domínio deve respeitar DDD */
+@startuml
+skinparam linetype ortho
+
+class User{
+ -String email
+ -String pwd
+}
+
+class Organizacao{}
+
+class Utilizador{}
+
+class Administrador{}
+
+class GestorDeServicos{}
+
+class ResponsavelHR{}
+
+class Colaborador{
+ -int numMecanografico
+ -String nome
+ -String nomeCompleto
+ -Date dataNascimento
+ -int contacto
+}
+
+class Equipa {
+ -int id
+ -String acronimo
+ -String nomeEquipa
+}
+
+class TipoEquipa{
+ -int id
+ -String descricao
+ -String cor
+}
+
+class Morada{
+ -String local
+ -int coluna
+}
+
+class CriterioAcesso{}
+
+class CatalogoServico{
+ -int id
+ -String titulo
+ -String descBreve
+ -String descCompleta
+ -String icone
+}
+
+class Servico{
+ -int id
+ -String descBreve
+ -String descCompleta
+ -String palavrasChave
+}
+
+class Funcao{}
+
+class NiveisCriticidade{
+ -String nivel
+}
+
+class Tarefa{}
+
+class TarefaManual{}
+
+class TarefaAutomatica{}
+
+class Script{}
+
+class Formulario{
+ -int idServico
+ }
+
+class Pedido{}
+
+class Feedback{}
+
+class AtividadeAprovacao{}
+
+class PreencheFormulario{}
+
+Organizacao "1" -- "1..*" Equipa
+Organizacao "1" - "1..*" User
+
+
+User <- Utilizador
+User <-- GestorDeServicos
+User <-- ResponsavelHR
+User <- Administrador
+
+Colaborador -> Utilizador
+Colaborador "*" -- "*" Funcao
+Colaborador "1" -- "1" Morada
+
+Equipa "1" -- "1" TipoEquipa
+Equipa "*" -- "0..1" CriterioAcesso
+CriterioAcesso "*" -- "1" CatalogoServico
+
+CatalogoServico "1" -- "1..*" Servico
+Servico "*" -- "1" NiveisCriticidade
+Servico "1" -- "*" Formulario
+TarefaAutomatica "1" -- "1" Script
+
+TarefaAutomatica -> Tarefa
+TarefaManual -> Tarefa
+
+TarefaManual "1" -- "1" Formulario
+
+
+Pedido "1" -- "1" PreencheFormulario
+PreencheFormulario "1" -- "1" Formulario
+Pedido "*" -- "1" Servico
+Pedido "1" -- "1" Feedback
+Pedido "1" -- "1" AtividadeAprovacao
+
+
+@enduml
