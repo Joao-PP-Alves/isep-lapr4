@@ -1,0 +1,96 @@
+
+/* Este modelo de domínio deve respeitar DDD */
+@startuml
+left to right direction
+'skinparam linetype ortho
+
+
+namespace Agregado_Equipa #DDDDDD {
+entity Equipa {
+ -Codigo id
+ -Acronimo acronimo
+ -NomeEquipa nomeEquipa
+ -String descricao
+ -NumeroMecanografico numMecanograficoResponsaveis
+}
+
+entity TipoEquipa{
+ -Codigo id
+ -String descricao
+ -Cor cor
+}
+
+    .TipoEquipa "1" -- "1..*" .Equipa :  "< Pertence a"
+}
+
+
+namespace Agregado_Colaborador #DEEFFA {
+entity Colaborador{
+ -NumeroMecanografico numMecanografico
+ -NomeCompleto nomeCompleto
+ -NomeAbreviado nomeAbrev
+ -Data dataNascimento
+ -Morada morada
+ -Contacto contacto
+ -Email email
+ -Funcao funcao
+ -Codigo codigoEquipa
+}
+    .Equipa "1" -- "1..*" .Colaborador : "Composta por >"
+    .Colaborador "1" -- "1" .NomeCompleto : "Tem >"
+    .Colaborador "1" -- "1" .NomeAbreviado : "Tem >"
+    .Colaborador "1" -- "1" .Morada : "Tem >"
+    .Colaborador "1" -- "1" .Data : "Tem >"
+}
+
+namespace Agregado_Utilizador #DEEFFA {
+class Utilizador {
+ -NomeUtilizador nomeUtilizador
+ -Password password
+ -Email email
+ -Papel papel
+ }
+
+    .Colaborador "1" -|> "1" Utilizador : "É um >"
+
+}
+entity Organizacao{
+ -Nome nome
+ -String descricao
+}
+
+class NomeCompleto <<Value Object>>{
+ -String PrimeiroNome
+ -String[] NomesMeio
+ -String UltimoNome
+ }
+
+class NomeAbreviado <<Value Object>>{
+ -String PrimeiroNome
+ -String UltimoNome
+}
+
+class Morada <<Value Object>>{
+ -Cidade cidade
+ -String rua
+ -CodigoPostal codigoPostal
+}
+
+class Data <<Value Object>>{
+ -int dia
+ -int mes
+ -int ano
+}
+
+class Revisao{
+ -int avaliacao
+ -String observacao
+ -Data dataSubmissao
+}
+
+Organizacao "1" - "1..*" TipoEquipa
+Revisao "*" -- "1" Colaborador
+Revisao "1..*" -- "1" Data
+
+
+@enduml
