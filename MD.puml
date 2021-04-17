@@ -2,47 +2,16 @@
 /* Este modelo de domínio deve respeitar DDD */
 @startuml
 'skinparam linetype ortho
-left to right direction
+'left to right direction
 
-class Organizacao{}
 
-'class Colaborador{
- '-int numMecanografico
- '-String nome
- '-String nomeCompleto
- '-Date dataNascimento
- '-int contacto
-'}
-
-class Equipa {
- -int id
- -String acronimo
- -String nomeEquipa
-}
-
-class TipoEquipa{
- -int id
- -String descricao
- -String cor
-}
-
-class CriterioAcesso{}
-
-class CatalogoServico{
- -int id
- -String titulo
- -String descBreve
- -String descCompleta
- -String icone
-}
-
-class Servico{
+namespace Agregado_Servico #DDDDDD{
+entity Servico{
  -int id
  -String descBreve
  -String descCompleta
  -String palavrasChave
 }
-
 
 class NiveisCriticidade{
  -int nivel
@@ -56,51 +25,84 @@ class Prioridade{
  -int nivelPrioridade
 }
 
-class Tarefa{}
-
-class TarefaManual{}
-
-class TarefaAutomatica{}
-
-class Script{}
-
-class Formulario{
- -int idServico
- }
-
-class Pedido{}
+entity Pedido{}
 
 class Feedback{}
 
-class AtividadeAprovacao{}
+entity Formulario{
+ int idServico
+ }
 
-Organizacao "1" -- "1..*" Equipa
+entity CatalogoServico{
+ -int id
+ -String titulo
+ -String descBreve
+ -String descCompleta
+ -String icone
+}
 
-Equipa "1" -- "1" TipoEquipa
-Equipa "*" -- "0..1" CriterioAcesso
-CriterioAcesso "*" -- "1" CatalogoServico
+.Pedido "1" -- "1" .Formulario
+.Pedido "*" --"1" .Servico
+Feedback "1" -- "1" .Pedido
 
-CatalogoServico "1" -- "1..*" Servico
-Servico "*" -- "1" NiveisCriticidade
+Urgencia "*" -- "1" .Pedido
+Prioridade "*" -- "1" .Pedido
+.Servico "1" -- "1..*" .CatalogoServico : > Organizados em
+.Servico "*" -- "1" NiveisCriticidade
 
-Servico "1" -- "*" Formulario
-TarefaAutomatica "1" -- "1" Script
+.Servico "1" -- "1" .Formulario
+}
 
-TarefaAutomatica -> Tarefa
-TarefaManual -> Tarefa
+namespace Agregado_Tarefa #DEEEEE{
+entity Tarefa{}
 
-Pedido "1" -- "1" Formulario
-Pedido "*" --- "1" Servico
-Feedback "1" -- "1" Pedido
-Pedido "1" --- "1" AtividadeAprovacao
-Urgencia "*" -- "1" Pedido
-Prioridade "*" -- "1" Pedido
-Pedido "1" --- "1" Tarefa
+entity TarefaManual{}
 
-AtividadeAprovacao "1" -- "1" Tarefa
-TarefaManual "1" -- "1" Formulario
+entity TarefaAutomatica{}
+
+entity Script{}
+
+entity AtividadeAprovacao{}
+.AtividadeAprovacao "1" -- "1" .Tarefa
+.TarefaAutomatica "1" -- "1" .Script
+
+.TarefaAutomatica -> .Tarefa
+.TarefaManual -> .Tarefa
+
+.Pedido "1" --- "1" .Tarefa
+}
+
+namespace Agregado_Equipa #DAAAAA{
+
+
+entity Equipa {
+ -int id
+ -String acronimo
+ -String nomeEquipa
+}
+
+entity TipoEquipa{
+ -int id
+ -String descricao
+ -String cor
+}
+
+entity CriterioAcesso{}
 
 
 
+.Equipa "1" -- "1" .TipoEquipa
+.Equipa "*" -- "0..1" .CriterioAcesso
+.CriterioAcesso "*" -- "1" .CatalogoServico
 
+}
+.Pedido "1" -- "1" .AtividadeAprovacao
+Organizacao "1" -- "1..*" .Equipa
+
+
+
+.TarefaManual "1" -- "1" .Formulario
+Organizacao "1" -- "*" .Servico : disponibiliza >
+
+class Organizacao{}
 @enduml
