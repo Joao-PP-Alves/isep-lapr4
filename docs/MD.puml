@@ -1,0 +1,226 @@
+
+/* Este modelo de domínio deve respeitar DDD */
+@startuml
+skinparam linetype polyline
+'left to right direction
+
+
+namespace Agregado_Servico #DDDDDD{
+entity Servico{
+}
+class ServicoId <<Value Object>>{}
+class PalavraChave <<Value Object>>{}
+
+.Servico "1" --> "1" ServicoId
+.Servico "1" --> "1..*" PalavraChave
+
+
+entity Formulario{
+ int idServico
+ }
+
+class FormularioNome <<Value Object>>{}
+
+class FormularioId <<Value Object>>{}
+
+class FormularioTipo <<Value Object>>{}
+
+.Formulario "1" --> "1" FormularioNome
+.Formulario "1" --> "1" FormularioId
+.Formulario "1" --> "1" FormularioTipo
+.Servico "1" -- "1..*" .CatalogoServico : > Organizados em
+.Servico "1" -- "1" .Formulario
+}
+
+namespace Agregado_Tarefa #DEEEEE{
+entity Tarefa{}
+
+entity TarefaManual{}
+
+entity TarefaAutomatica{}
+
+entity Script{}
+
+entity AtividadeAprovacao{}
+
+entity TarefaAprovacao{}
+
+entity TarefaRealizacao{}
+
+.AtividadeAprovacao "1" -- "1" .Tarefa
+.TarefaAutomatica "1" --> "1" .Script : contém >
+
+.TarefaAutomatica -|> .Tarefa : é
+.TarefaManual --|> .Tarefa : é
+
+.Pedido "1" --- "1" .Tarefa
+
+.Tarefa "1" --> "1" TipoTarefa
+.Tarefa "1" -> "1" TarefaId
+.Tarefa "1" <|-- "1" .TarefaAprovacao : é
+.Tarefa "1" <|-- "1" .TarefaRealizacao : é
+}
+
+namespace Agregado_Equipa #DAAAAA{
+
+entity Equipa {
+}
+
+class EquipaId <<Value Object>>{}
+class CorEquipa <<Value Object>>{}
+class Descricao <<Value Object>>{}
+
+.Equipa "1" --> "1"  CorEquipa
+.Equipa "1" --> "1" EquipaId
+.Equipa "1" --> "1" Descricao
+}
+
+namespace Agregado_Pedido #BADDDD{
+entity Pedido{}
+
+class Urgencia <<Value Object>>{}
+class Estado <<Value Object>>{}
+class DataLimiteResolucao <<Value Object>>{}
+class FicheiroAnexado <<Value Object>>{}
+class PedidoId <<Value Object>>{}
+class Prioridade <<Value Object>>{}
+class Feedback <<Value Object>>{}
+
+.Pedido "1" -> "1" Urgencia
+.Pedido "1" -> "1" Estado
+.Pedido "1" -> "1" DataLimiteResolucao
+.Pedido "1" -> "0..*" FicheiroAnexado
+.Pedido "1" -> "1" PedidoId
+.Pedido "1" -> "1" Prioridade
+.Pedido "1" -> "1" Feedback
+
+}
+
+namespace Agregado_Colaborador #DEEFFA {
+entity Colaborador{
+}
+
+class NomeCompleto <<Value Object>>{
+ -String PrimeiroNome
+ -String[] NomesMeio
+ -String UltimoNome
+ }
+
+class NomeAbreviado <<Value Object>>{
+ -String PrimeiroNome
+ -String UltimoNome
+}
+
+class Morada <<Value Object>>{
+ -Cidade cidade
+ -String rua
+ -CodigoPostal codigoPostal
+}
+
+class Data <<Value Object>>{
+ -int dia
+ -int mes
+ -int ano
+}
+
+class NumeroMecanografico <<Value Object>>{}
+class Contacto <<Value Object>>{}
+Class Funcao <<Value Object>>{}
+Class CodigoEquipa <<Value Object>>{}
+
+    .Equipa "1" -- "1..*" .Colaborador : "Composta por >"
+    .Colaborador "1" --> "1" NomeCompleto
+    .Colaborador "1" --> "1" NomeAbreviado
+    .Colaborador "1" --> "1" Morada
+    .Colaborador "1" --> "1" Data
+    .Colaborador "1" --> "1" NumeroMecanografico
+    .Colaborador "1" --> "1" Contacto
+    .Colaborador "1" --> "1" Funcao
+    .Colaborador "1" --> "1" CodigoEquipa
+}
+
+namespace Agregado_CatalogoServico #AABBDD{
+
+entity CatalogoServico{
+}
+
+class CatalogoServicoId <<Value Object>>{}
+class Titulo <<Value Object>>{}
+class DescricaoBreve <<Value Object>>{}
+class DescricaoCompleta <<Value Object>>{}
+class Icone <<Value Object>>{}
+
+.CatalogoServico "1" --> "1" CatalogoServicoId
+.CatalogoServico "1" --> "1" Titulo
+.CatalogoServico "1" --> "1" DescricaoBreve
+.CatalogoServico "1" --> "1" DescricaoCompleta
+.CatalogoServico "1" --> "1" Icone
+
+}
+
+
+namespace Agregado_TipoEquipa #BAADDC{
+entity TipoEquipa{
+}
+class TipoEquipaId <<Value Object>>{}
+class Cor <<Value Object>>{}
+
+.TipoEquipa --> TipoEquipaId
+.TipoEquipa --> Cor
+.TipoEquipa --> Agregado_Equipa.Descricao
+}
+
+
+namespace Agregado_NivelCriticidade #CCCAAA{
+entity NivelCriticidade{}
+class NivelCriticidadeId <<Value Object>>{}
+class Objetivo <<Value Object>>{}
+class Etiqueta <<Value Object>>{}
+class Valor <<Value Object>>{}
+class Designacao <<Value Object>>{}
+class CorCriticidade <<Value Object>>{}
+
+.NivelCriticidade "1" --> "1" NivelCriticidadeId
+.NivelCriticidade "1" --> "1..*" Objetivo
+.NivelCriticidade "1" --> "1" Etiqueta
+.NivelCriticidade "1" --> "1" Valor
+.NivelCriticidade "1" --> "1" Designacao
+.NivelCriticidade "1" --> "1" CorCriticidade
+}
+
+entity CriterioAcesso{}
+
+
+
+.Equipa "1" --> "1" .TipoEquipa : pertence >
+.Equipa "*" -- "0..1" .CriterioAcesso
+.CriterioAcesso "*" -- "1" .CatalogoServico
+
+.Pedido "1" -- "1" .AtividadeAprovacao
+
+
+.TarefaManual "1" -- "1" .Formulario
+Organizacao "1" ..> "*" .Servico : disponibiliza >
+Organizacao "1" ..> "1..*" .Equipa : define >
+Organizacao "1" ..> "1..*" .TipoEquipa : define >
+
+.CatalogoServico "*" <-- "1" .CatalogoServico : contém
+.Servico "*" <-- "1" .CatalogoServico : contém
+.Servico "*" --> "1" .NivelCriticidade : pode ter >
+.Pedido "1" -- "1" .Formulario
+.Pedido "*" --> "1" .Servico : Refere >
+
+.Colaborador "1" --> "1" .Colaborador : é responsável
+.Colaborador "1" <-- "1" .Pedido : é efetuado
+.Colaborador "1" <-- "*" .Pedido : responde
+.Colaborador "1" ..> "*" .Servico : solicita
+.Colaborador "1" ..> "*" .Tarefa : executa e delega
+.Colaborador "1" ..> "*" .TarefaAprovacao : aprova
+
+Agregado_Equipa.CorEquipa --|> Cor : é
+Agregado_NivelCriticidade.CorCriticidade --|> Cor : é
+
+class Organizacao{}
+class Cor<<Value Object>>{}
+
+@enduml

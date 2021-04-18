@@ -1,7 +1,7 @@
 
 /* Este modelo de domínio deve respeitar DDD */
 @startuml
-skinparam linetype ortho
+skinparam linetype polyline
 'left to right direction
 
 
@@ -61,19 +61,7 @@ entity TarefaRealizacao{}
 .Tarefa "1" <|-- "1" .TarefaRealizacao : é
 }
 
-namespace Agregado_Equipa #DAAAAA{
 
-entity Equipa {
-}
-
-class EquipaId <<Value Object>>{}
-class Cor <<Value Object>>{}
-class Descricao <<Value Object>>{}
-
-.Equipa "1" --> "1"  Cor
-.Equipa "1" --> "1" EquipaId
-.Equipa "1" --> "1" Descricao
-}
 
 namespace Agregado_Pedido #BADDDD{
 entity Pedido{}
@@ -96,48 +84,6 @@ class Feedback <<Value Object>>{}
 
 }
 
-namespace Agregado_Colaborador #DEEFFA {
-entity Colaborador{
-}
-
-class NomeCompleto <<Value Object>>{
- -String PrimeiroNome
- -String[] NomesMeio
- -String UltimoNome
- }
-
-class NomeAbreviado <<Value Object>>{
- -String PrimeiroNome
- -String UltimoNome
-}
-
-class Morada <<Value Object>>{
- -Cidade cidade
- -String rua
- -CodigoPostal codigoPostal
-}
-
-class Data <<Value Object>>{
- -int dia
- -int mes
- -int ano
-}
-
-class NumeroMecanografico <<Value Object>>{}
-class Contacto <<Value Object>>{}
-Class Funcao <<Value Object>>{}
-Class CodigoEquipa <<Value Object>>{}
-
-    .Equipa "1" -- "1..*" .Colaborador : "Composta por >"
-    .Colaborador "1" --> "1" NomeCompleto
-    .Colaborador "1" --> "1" NomeAbreviado
-    .Colaborador "1" --> "1" Morada
-    .Colaborador "1" --> "1" Data
-    .Colaborador "1" --> "1" NumeroMecanografico
-    .Colaborador "1" --> "1" Contacto
-    .Colaborador "1" --> "1" Funcao
-    .Colaborador "1" --> "1" CodigoEquipa
-}
 
 namespace Agregado_CatalogoServico #AABBDD{
 
@@ -159,16 +105,6 @@ class Icone <<Value Object>>{}
 }
 
 
-namespace Agregado_TipoEquipa #BAADDC{
-entity TipoEquipa{
-}
-class TipoEquipaId <<Value Object>>{}
-class Cor <<Value Object>>{}
-
-.TipoEquipa --> TipoEquipaId
-.TipoEquipa --> Cor
-.TipoEquipa --> Agregado_Equipa.Descricao
-}
 
 
 namespace Agregado_NivelCriticidade #CCCAAA{
@@ -178,40 +114,35 @@ class Objetivo <<Value Object>>{}
 class Etiqueta <<Value Object>>{}
 class Valor <<Value Object>>{}
 class Designacao <<Value Object>>{}
+class CorCriticidade <<Value Object>>{}
 
 .NivelCriticidade "1" --> "1" NivelCriticidadeId
 .NivelCriticidade "1" --> "1..*" Objetivo
 .NivelCriticidade "1" --> "1" Etiqueta
 .NivelCriticidade "1" --> "1" Valor
 .NivelCriticidade "1" --> "1" Designacao
+.NivelCriticidade "1" --> "1" CorCriticidade
 }
 
 entity CriterioAcesso{}
 
 
 
-.Equipa "1" --> "1" .TipoEquipa : pertence >
-.Equipa "*" -- "0..1" .CriterioAcesso
 .CriterioAcesso "*" -- "1" .CatalogoServico
 
 .Pedido "1" -- "1" .AtividadeAprovacao
 
-
 .TarefaManual "1" -- "1" .Formulario
-Organizacao "1" ..> "*" .Servico : disponibiliza >
-Organizacao "1" ..> "1..*" .Equipa : define >
-Organizacao "1" ..> "1..*" .TipoEquipa : define >
 
+.CatalogoServico "*" <-- "1" .CatalogoServico : contém
+.Servico "*" <-- "1" .CatalogoServico : contém
 
 .Servico "*" --> "1" .NivelCriticidade : pode ter >
 .Pedido "1" -- "1" .Formulario
 .Pedido "*" --> "1" .Servico : Refere >
 
-.Colaborador "1" --> "1" .Colaborador : é responsável
-.Colaborador "1" <-- "1" .Pedido : é efetuado
-.Colaborador "1" <-- "*" .Pedido : responde
-.Colaborador "1" ..> "*" .Servico : solicita
-.Colaborador "1" ..> "*" .Tarefa : executa e delega
-.Colaborador "1" ..> "*" .TarefaAprovacao : aprova
-class Organizacao{}
+Agregado_NivelCriticidade.CorCriticidade --|> Cor : é
+
+class Cor<<Value Object>>{}
+
 @enduml
