@@ -19,12 +19,15 @@ entity Formulario{
  int idServico
  }
 
-class NomeFormulario <<Value Object>>{}
+class FormularioNome <<Value Object>>{}
 
 class FormularioId <<Value Object>>{}
 
-.Formulario "1" --> "1" NomeFormulario
+class FormularioTipo <<Value Object>>{}
+
+.Formulario "1" --> "1" FormularioNome
 .Formulario "1" --> "1" FormularioId
+.Formulario "1" --> "1" FormularioTipo
 .Servico "1" -- "1..*" .CatalogoServico : > Organizados em
 .Servico "1" -- "1" .Formulario
 }
@@ -80,12 +83,17 @@ class Estado <<Value Object>>{}
 class DataLimiteResolucao <<Value Object>>{}
 class FicheiroAnexado <<Value Object>>{}
 class PedidoId <<Value Object>>{}
+class Prioridade <<Value Object>>{}
+class Feedback <<Value Object>>{}
 
 .Pedido "1" -> "1" Urgencia
 .Pedido "1" -> "1" Estado
 .Pedido "1" -> "1" DataLimiteResolucao
-.Pedido "1" -> "1" FicheiroAnexado
+.Pedido "1" -> "0..*" FicheiroAnexado
 .Pedido "1" -> "1" PedidoId
+.Pedido "1" -> "1" Prioridade
+.Pedido "1" -> "1" Feedback
+
 }
 
 namespace Agregado_Colaborador #DEEFFA {
