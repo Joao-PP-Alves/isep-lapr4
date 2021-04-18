@@ -1,62 +1,44 @@
 
 /* Este modelo de domínio deve respeitar DDD */
 @startuml
-left to right direction
-'skinparam linetype ortho
 
+skinparam linetype ortho
 
-namespace Agregado_Equipa #DDDDDD {
+namespace Agregado_Equipa #DAAAAA{
+
 entity Equipa {
- -Codigo id
- -Acronimo acronimo
- -NomeEquipa nomeEquipa
- -String descricao
- -NumeroMecanografico numMecanograficoResponsaveis
+ -int id
+ -String acronimo
+ -String nomeEquipa
 }
 
+class EquipaId <<Value Object>>{}
+class Cor <<Value Object>>{}
+class Descricao <<Value Object>>{}
+
+.Equipa "1" --> "1"  Cor
+.Equipa "1" --> "1" EquipaId
+.Equipa "1" --> "1" Descricao
+}
+
+
+namespace Agregado_TipoEquipa #BAADDC{
 entity TipoEquipa{
- -Codigo id
+ -int id
  -String descricao
- -Cor cor
+ -String cor
 }
+class TipoEquipaId <<Value Object>>{}
+class Cor <<Value Object>>{}
 
-    .TipoEquipa "1" -- "1..*" .Equipa :  "< Pertence a"
+.TipoEquipa --> TipoEquipaId
+.TipoEquipa --> Cor
+.TipoEquipa --> Agregado_Equipa.Descricao
 }
 
 
 namespace Agregado_Colaborador #DEEFFA {
 entity Colaborador{
- -NumeroMecanografico numMecanografico
- -NomeCompleto nomeCompleto
- -NomeAbreviado nomeAbrev
- -Data dataNascimento
- -Morada morada
- -Contacto contacto
- -Email email
- -Funcao funcao
- -Codigo codigoEquipa
-}
-    .Equipa "1" -- "1..*" .Colaborador : "Composta por >"
-    .Colaborador "1" -- "1" .NomeCompleto : "Tem >"
-    .Colaborador "1" -- "1" .NomeAbreviado : "Tem >"
-    .Colaborador "1" -- "1" .Morada : "Tem >"
-    .Colaborador "1" -- "1" .Data : "Tem >"
-}
-
-namespace Agregado_Utilizador #DEEFFA {
-class Utilizador {
- -NomeUtilizador nomeUtilizador
- -Password password
- -Email email
- -Papel papel
- }
-
-    .Colaborador "1" -|> "1" Utilizador : "É um >"
-
-}
-entity Organizacao{
- -Nome nome
- -String descricao
 }
 
 class NomeCompleto <<Value Object>>{
@@ -82,15 +64,55 @@ class Data <<Value Object>>{
  -int ano
 }
 
+class NumeroMecanografico <<Value Object>>{}
+class Contacto <<Value Object>>{}
+Class Funcao <<Value Object>>{}
+Class CodigoEquipa <<Value Object>>{}
+
+    .Equipa "1" -- "1..*" .Colaborador : "Composta por >"
+    .Colaborador "1" --> "1" NomeCompleto
+    .Colaborador "1" --> "1" NomeAbreviado
+    .Colaborador "1" --> "1" Morada
+    .Colaborador "1" --> "1" Data
+    .Colaborador "1" --> "1" NumeroMecanografico
+    .Colaborador "1" --> "1" Contacto
+    .Colaborador "1" --> "1" Funcao
+    .Colaborador "1" --> "1" CodigoEquipa
+}
+
+namespace Agregado_Utilizador #BBEFFA {
+entity Utilizador {
+
+ }
+
+class NomeUtilizador{}
+class Password{}
+class Email{}
+class Papel
+    .Utilizador "1" --> "1" NomeUtilizador
+    .Utilizador "1" --> "1" Password
+    .Utilizador "1" --> "1" Email
+    .Utilizador "1" --> "1" Papel
+    .Colaborador "1" -|> "1" .Utilizador : "É um >"
+
+}
+entity Organizacao{
+ -Nome nome
+ -String descricao
+}
+
+
 class Revisao{
  -int avaliacao
  -String observacao
- -Data dataSubmissao
 }
 
-Organizacao "1" - "1..*" TipoEquipa
+Organizacao "1" ..> "1..*" .Equipa : define >
+Organizacao "1" ..> "1..*" .TipoEquipa : define >
+Organizacao "1" ..> "1..*" .Colaborador
+Organizacao "1" ..> "1..*" .Utilizador
+
 Revisao "*" -- "1" Colaborador
-Revisao "1..*" -- "1" Data
-
-
+Revisao "1" --> "1" Agregado_Colaborador.Data
+.Equipa "1" --> "1" .TipoEquipa : pertence >
 @enduml
