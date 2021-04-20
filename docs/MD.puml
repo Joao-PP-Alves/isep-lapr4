@@ -3,13 +3,14 @@
 @startuml
 skinparam linetype polyline
 'left to right direction
-
+hide fields
 
 namespace Agregado_Servico #DDDDDD{
 entity Servico{
 }
 class ServicoId <<Value Object>>{}
 class PalavraChave <<Value Object>>{}
+class ScriptValidacao{}
 
 .Servico "1" --> "1" ServicoId
 .Servico "1" --> "1..*" PalavraChave
@@ -23,11 +24,12 @@ class FormularioNome <<Value Object>>{}
 
 class FormularioId <<Value Object>>{}
 
-class FormularioTipo <<Value Object>>{}
+class Campo<<Value Object>> {}
 
 .Formulario "1" --> "1" FormularioNome
 .Formulario "1" --> "1" FormularioId
-.Formulario "1" --> "1" FormularioTipo
+.Formulario "1" -> "1..*" Campo
+ScriptValidacao "0..1" <--- "1" Campo : tem
 .Servico "1" -- "1..*" .CatalogoServico : > Organizados em
 .Servico "1" -- "1" .Formulario
 }
@@ -39,23 +41,19 @@ entity TarefaManual{}
 
 entity TarefaAutomatica{}
 
-entity Script{}
-
-entity AtividadeAprovacao{}
 
 entity TarefaAprovacao{}
 
 entity TarefaRealizacao{}
 
-.AtividadeAprovacao "1" -- "1" .Tarefa
-.TarefaAutomatica "1" --> "1" .Script : contém >
+class TarefaId<<Value Object>>{}
 
-.TarefaAutomatica -|> .Tarefa : é
-.TarefaManual --|> .Tarefa : é
+
+.TarefaAutomatica --|> .TarefaRealizacao : é
+.TarefaManual -|> .TarefaRealizacao : é
 
 .Pedido "1" --- "1" .Tarefa
 
-.Tarefa "1" --> "1" TipoTarefa
 .Tarefa "1" -> "1" TarefaId
 .Tarefa "1" <|-- "1" .TarefaAprovacao : é
 .Tarefa "1" <|-- "1" .TarefaRealizacao : é
@@ -67,10 +65,8 @@ entity Equipa {
 }
 
 class EquipaId <<Value Object>>{}
-class CorEquipa <<Value Object>>{}
 class Descricao <<Value Object>>{}
 
-.Equipa "1" --> "1"  CorEquipa
 .Equipa "1" --> "1" EquipaId
 .Equipa "1" --> "1" Descricao
 }
@@ -163,10 +159,8 @@ namespace Agregado_TipoEquipa #BAADDC{
 entity TipoEquipa{
 }
 class TipoEquipaId <<Value Object>>{}
-class Cor <<Value Object>>{}
 
 .TipoEquipa --> TipoEquipaId
-.TipoEquipa --> Cor
 .TipoEquipa --> Agregado_Equipa.Descricao
 }
 
@@ -178,14 +172,12 @@ class Objetivo <<Value Object>>{}
 class Etiqueta <<Value Object>>{}
 class Valor <<Value Object>>{}
 class Designacao <<Value Object>>{}
-class CorCriticidade <<Value Object>>{}
 
 .NivelCriticidade "1" --> "1" NivelCriticidadeId
 .NivelCriticidade "1" --> "1..*" Objetivo
 .NivelCriticidade "1" --> "1" Etiqueta
 .NivelCriticidade "1" --> "1" Valor
 .NivelCriticidade "1" --> "1" Designacao
-.NivelCriticidade "1" --> "1" CorCriticidade
 }
 
 entity CriterioAcesso{}
@@ -196,7 +188,7 @@ entity CriterioAcesso{}
 .Equipa "*" -- "0..1" .CriterioAcesso
 .CriterioAcesso "*" -- "1" .CatalogoServico
 
-.Pedido "1" -- "1" .AtividadeAprovacao
+.Pedido "1" -- "1" .TarefaAprovacao
 
 
 .TarefaManual "1" -- "1" .Formulario
@@ -217,10 +209,15 @@ Organizacao "1" ..> "1..*" .TipoEquipa : define >
 .Colaborador "1" ..> "*" .Tarefa : executa e delega
 .Colaborador "1" ..> "*" .TarefaAprovacao : aprova
 
-Agregado_Equipa.CorEquipa --|> Cor : é
-Agregado_NivelCriticidade.CorCriticidade --|> Cor : é
+.Equipa "1" --> "1"  Cor
+.TipoEquipa "1" --> "1"  Cor
+.NivelCriticidade "1" --> "1" Cor
+.TarefaAutomatica "1" ---> "1" Script : contém >
+Agregado_Servico.ScriptValidacao "1" ---> "1" Script : contém >
+
 
 class Organizacao{}
 class Cor<<Value Object>>{}
+class Script{}
 
 @enduml
