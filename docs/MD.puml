@@ -7,29 +7,25 @@ hide fields
 
 namespace Agregado_Servico #DDDDDD{
 entity Servico{
+    - ServicoId ServicoId
+    - PalavraChave PalavraChave
+    --
 }
-class ServicoId <<Value Object>>{}
-class PalavraChave <<Value Object>>{}
+
 class ScriptValidacao{}
 
-.Servico "1" --> "1" ServicoId
-.Servico "1" --> "1..*" PalavraChave
-
-
 entity Formulario{
- int idServico
+    - int idServico
+    - FormularioNome FormularioNome
+    - FormularioId FormularioId
+    --
  }
 
-class FormularioNome <<Value Object>>{}
+class Campo{}
+.Formulario "1" --> "1..*" Campo : tem
 
-class FormularioId <<Value Object>>{}
 
-class Campo<<Value Object>> {}
-
-.Formulario "1" --> "1" FormularioNome
-.Formulario "1" --> "1" FormularioId
-.Formulario "1" -> "1..*" Campo
-ScriptValidacao "0..1" <--- "1" Campo : tem
+Campo "1" --> "0..1" ScriptValidacao : tem
 .Servico "1" -- "1..*" .CatalogoServico : > Organizados em
 .Servico "1" -- "1" .Formulario
 }
@@ -48,9 +44,11 @@ entity TarefaRealizacao{}
 
 class TarefaId<<Value Object>>{}
 
+class ScriptTarefa{}
 
 .TarefaAutomatica --|> .TarefaRealizacao : é
 .TarefaManual -|> .TarefaRealizacao : é
+.TarefaAutomatica "1" --> "1" ScriptTarefa : contém >
 
 .Pedido "1" --- "1" .Tarefa
 
@@ -62,108 +60,67 @@ class TarefaId<<Value Object>>{}
 namespace Agregado_Equipa #DAAAAA{
 
 entity Equipa {
+    -EquipaId EquipaId
+    -Descricao Descricao
+    --
 }
 
-class EquipaId <<Value Object>>{}
-class Descricao <<Value Object>>{}
-
-.Equipa "1" --> "1" EquipaId
-.Equipa "1" --> "1" Descricao
 }
 
 namespace Agregado_Pedido #BADDDD{
-entity Pedido{}
+entity Pedido{
+    - Urgencia Urgencia
+    - Estado Estado
+    - DataLimiteResolucao DataLimiteResolucao
+    - FicheiroAnexado FicheiroAnexado
+    - PedidoId PedidoId
+    - Prioridade Prioridade
+    - Feedback Feedback
+    --
+}
 
-class Urgencia <<Value Object>>{}
-class Estado <<Value Object>>{}
-class DataLimiteResolucao <<Value Object>>{}
-class FicheiroAnexado <<Value Object>>{}
-class PedidoId <<Value Object>>{}
-class Prioridade <<Value Object>>{}
-class Feedback <<Value Object>>{}
+entity FormularioPreenchido{}
 
-.Pedido "1" -> "1" Urgencia
-.Pedido "1" -> "1" Estado
-.Pedido "1" -> "1" DataLimiteResolucao
-.Pedido "1" -> "0..*" FicheiroAnexado
-.Pedido "1" -> "1" PedidoId
-.Pedido "1" -> "1" Prioridade
-.Pedido "1" -> "1" Feedback
 
 }
 
 namespace Agregado_Colaborador #DEEFFA {
 entity Colaborador{
+    - NomeCompleto NomeCompleto
+    - NomeAbreviado NomeAbreviado
+    - Morada Morada
+    - Data Data
+    - NumeroMecanografico NumeroMecanografico
+    - Contacto Contacto
+    - Funcao Funcao
+    - CodigoEquipa CodigoEquipa
+    --
 }
 
-class NomeCompleto <<Value Object>>{
- -String PrimeiroNome
- -String[] NomesMeio
- -String UltimoNome
- }
-
-class NomeAbreviado <<Value Object>>{
- -String PrimeiroNome
- -String UltimoNome
-}
-
-class Morada <<Value Object>>{
- -Cidade cidade
- -String rua
- -CodigoPostal codigoPostal
-}
-
-class Data <<Value Object>>{
- -int dia
- -int mes
- -int ano
-}
-
-class NumeroMecanografico <<Value Object>>{}
-class Contacto <<Value Object>>{}
-Class Funcao <<Value Object>>{}
-Class CodigoEquipa <<Value Object>>{}
-
-    .Equipa "1" -- "1..*" .Colaborador : "Composta por >"
-    .Colaborador "1" --> "1" NomeCompleto
-    .Colaborador "1" --> "1" NomeAbreviado
-    .Colaborador "1" --> "1" Morada
-    .Colaborador "1" --> "1" Data
-    .Colaborador "1" --> "1" NumeroMecanografico
-    .Colaborador "1" --> "1" Contacto
-    .Colaborador "1" --> "1" Funcao
-    .Colaborador "1" --> "1" CodigoEquipa
 }
 
 namespace Agregado_CatalogoServico #AABBDD{
 
 entity CatalogoServico{
+    - CatalogoServicoId CatalogoServicoId
+    - Titulo Titulo
+    - DescricaoBreve DescricaoBreve
+    - DescricaoCompleta DescricaoCompleta
+    - Icone Icone
+    --
 }
-
-class CatalogoServicoId <<Value Object>>{}
-class Titulo <<Value Object>>{}
-class DescricaoBreve <<Value Object>>{}
-class DescricaoCompleta <<Value Object>>{}
-class Icone <<Value Object>>{}
-
-.CatalogoServico "1" --> "1" CatalogoServicoId
-.CatalogoServico "1" --> "1" Titulo
-.CatalogoServico "1" --> "1" DescricaoBreve
-.CatalogoServico "1" --> "1" DescricaoCompleta
-.CatalogoServico "1" --> "1" Icone
+entity CriterioAcesso{}
 
 }
-
 
 namespace Agregado_TipoEquipa #BAADDC{
 entity TipoEquipa{
+    -TipoEquipaId TipoEquipaId
+    -Cor cor
+    -Descricao Descricao
+    --
 }
-class TipoEquipaId <<Value Object>>{}
-
-.TipoEquipa --> TipoEquipaId
-.TipoEquipa --> Agregado_Equipa.Descricao
 }
-
 
 namespace Agregado_NivelCriticidade #CCCAAA{
 entity NivelCriticidade{}
@@ -172,15 +129,15 @@ class Objetivo <<Value Object>>{}
 class Etiqueta <<Value Object>>{}
 class Valor <<Value Object>>{}
 class Designacao <<Value Object>>{}
+class Cor<<Value Object>>{}
 
 .NivelCriticidade "1" --> "1" NivelCriticidadeId
 .NivelCriticidade "1" --> "1..*" Objetivo
 .NivelCriticidade "1" --> "1" Etiqueta
 .NivelCriticidade "1" --> "1" Valor
 .NivelCriticidade "1" --> "1" Designacao
+.NivelCriticidade "1" --> "1" Cor
 }
-
-entity CriterioAcesso{}
 
 
 
@@ -199,25 +156,19 @@ Organizacao "1" ..> "1..*" .TipoEquipa : define >
 .CatalogoServico "*" <-- "1" .CatalogoServico : contém
 .Servico "*" <-- "1" .CatalogoServico : contém
 .Servico "*" --> "1" .NivelCriticidade : pode ter >
-.Pedido "1" -- "1" .Formulario
+.Pedido "1" -- "1" .FormularioPreenchido
 .Pedido "*" --> "1" .Servico : Refere >
 
 .Colaborador "1" --> "1" .Colaborador : é responsável
-.Colaborador "1" <-- "1" .Pedido : é efetuado
 .Colaborador "1" <-- "*" .Pedido : responde
 .Colaborador "1" ..> "*" .Servico : solicita
 .Colaborador "1" ..> "*" .Tarefa : executa e delega
 .Colaborador "1" ..> "*" .TarefaAprovacao : aprova
 
-.Equipa "1" --> "1"  Cor
-.TipoEquipa "1" --> "1"  Cor
-.NivelCriticidade "1" --> "1" Cor
-.TarefaAutomatica "1" ---> "1" Script : contém >
-Agregado_Servico.ScriptValidacao "1" ---> "1" Script : contém >
+.FormularioPreenchido "1" --|> "1" Formulario : é
 
 
 class Organizacao{}
-class Cor<<Value Object>>{}
-class Script{}
+
 
 @enduml
