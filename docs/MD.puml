@@ -123,20 +123,15 @@ entity TipoEquipa{
 }
 
 namespace Agregado_NivelCriticidade #CCCAAA{
-entity NivelCriticidade{}
-class NivelCriticidadeId <<Value Object>>{}
-class Objetivo <<Value Object>>{}
-class Etiqueta <<Value Object>>{}
-class Valor <<Value Object>>{}
-class Designacao <<Value Object>>{}
-class Cor<<Value Object>>{}
-
-.NivelCriticidade "1" --> "1" NivelCriticidadeId
-.NivelCriticidade "1" --> "1..*" Objetivo
-.NivelCriticidade "1" --> "1" Etiqueta
-.NivelCriticidade "1" --> "1" Valor
-.NivelCriticidade "1" --> "1" Designacao
-.NivelCriticidade "1" --> "1" Cor
+entity NivelCriticidade{
+    -NivelCriticidadeId id
+    -int valor
+    -string objetivo
+    -int tempoResolucaoMedio
+    -int tempoAprovacaoMedio
+    -Cor cor
+    --
+}
 }
 
 
@@ -153,9 +148,10 @@ Organizacao "1" ..> "*" .Servico : disponibiliza >
 Organizacao "1" ..> "1..*" .Equipa : define >
 Organizacao "1" ..> "1..*" .TipoEquipa : define >
 
+.CatalogoServico "1..*" --> "1" NivelCriticidade : Especifica >
 .CatalogoServico "*" <-- "1" .CatalogoServico : contém
 .Servico "*" <-- "1" .CatalogoServico : contém
-.Servico "*" --> "1" .NivelCriticidade : pode ter >
+.Servico "*" --> "1" .NivelCriticidade : < qualifica
 .Pedido "1" -- "1" .FormularioPreenchido
 .Pedido "*" --> "1" .Servico : Refere >
 
