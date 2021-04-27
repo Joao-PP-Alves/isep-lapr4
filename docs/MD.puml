@@ -5,56 +5,52 @@ skinparam linetype polyline
 'left to right direction
 hide fields
 
-namespace Agregado_Servico #DDDDDD{
-entity Servico{
-    - ServicoId ServicoId
-    - PalavraChave PalavraChave
-    --
-}
 
-class ScriptValidacao{}
-
+namespace Agregado_Formulario #BAAAAA {
 entity Formulario{
-    - int idServico
     - FormularioNome FormularioNome
     - FormularioId FormularioId
     --
  }
 
 class Campo{}
+
+class ScriptValidacao{}
+
 .Formulario "1" --> "1..*" Campo : tem
-
-
 Campo "1" --> "0..1" ScriptValidacao : tem
+
+}
+namespace Agregado_Servico #DDDDDD{
+entity Servico{
+    - ServicoId ServicoId
+    - PalavraChave PalavraChave
+    --
+}
+'.Servico "1" --> "0..1" Aprovacao
 .Servico "1" -- "1..*" .CatalogoServico : > Organizados em
-.Servico "1" -- "1" .Formulario
 }
 
-namespace Agregado_Tarefa #DEEEEE{
-entity Tarefa{}
+namespace Agregado_TarefaSpec #DEEEEE{
+entity TarefaSpec{}
 
-entity TarefaManual{}
+entity TarefaSpecManual{}
 
-entity TarefaAutomatica{}
+entity TarefaSpecAutomatica{}
 
+class TarefaSpecId<<Value Object>>{}
 
-entity TarefaAprovacao{}
+class ScriptTarefaSpec{}
 
-entity TarefaRealizacao{}
+class TipoTarefaSpec<<Value Object>> {}
 
-class TarefaId<<Value Object>>{}
+.TarefaSpecAutomatica "1" --> "1" ScriptTarefaSpec : contém >
 
-class ScriptTarefa{}
-
-.TarefaAutomatica --|> .TarefaRealizacao : é
-.TarefaManual -|> .TarefaRealizacao : é
-.TarefaAutomatica "1" --> "1" ScriptTarefa : contém >
-
-.Pedido "1" --- "1" .Tarefa
-
-.Tarefa "1" -> "1" TarefaId
-.Tarefa "1" <|-- "1" .TarefaAprovacao : é
-.Tarefa "1" <|-- "1" .TarefaRealizacao : é
+.Pedido "1" --- "1" .TarefaSpec
+.TarefaSpec "1" --> "1" TipoTarefaSpec
+.TarefaSpec "1" -> "1" TarefaSpecId
+.TarefaSpec "1" <|-- "1" .TarefaSpecAutomatica : é
+.TarefaSpec "1" <|-- "1" .TarefaSpecManual : é
 }
 
 namespace Agregado_Equipa #DAAAAA{
@@ -109,7 +105,10 @@ entity CatalogoServico{
     - Icone Icone
     --
 }
-entity CriterioAcesso{}
+class CriterioAcesso<<Value Object>>{}
+
+.CatalogoServico "1" --> "1..*" "CriterioAcesso"
+CriterioAcesso "1..*" --> .Equipa
 
 }
 
@@ -126,44 +125,77 @@ namespace Agregado_NivelCriticidade #CCCAAA{
 entity NivelCriticidade{
     -NivelCriticidadeId id
     -int valor
-    -string objetivo
-    -int tempoResolucaoMedio
-    -int tempoAprovacaoMedio
     -Cor cor
     --
 }
+
+class Objetivo <<Value Object>> {
+    -int tempoResolucaoMedio
+    -int tempoAprovacaoMedio
+    -int tempoResolucaoMax
+    -int tempoAprovacaoMax
+    --
+}
+
+.NivelCriticidade "1" --> "1..*" Objetivo
+
+}
+
+namespace Agregado_Tarefa #ABCDAA{
+entity Tarefa{
+    -TarefaId id
+    -Data data
+    -Descricao descricao
+    -Colaborador assignatario
+    --
+}
+class Aprovacao <<Value Object>> {}
+
+
+entity TarefaManual{}
+
+entity TarefaAutomatico{}
+
+
+.Pedido "1" --- "1" .Tarefa
+.Tarefa "1" --> "0..1" Aprovacao
+.TarefaManual "1" --> "1" .Formulario : contém >
+.Tarefa "1" <|-- "1" .TarefaAutomatico : é
+.Tarefa "1" <|-- "1" .TarefaManual : é
 }
 
 
 
 .Equipa "1" --> "1" .TipoEquipa : pertence >
-.Equipa "*" -- "0..1" .CriterioAcesso
-.CriterioAcesso "*" -- "1" .CatalogoServico
-
-.Pedido "1" -- "1" .TarefaAprovacao
-
-
-.TarefaManual "1" -- "1" .Formulario
+.Servico "1" --> "1" TarefaSpec : realiza
+.Servico "1" --> "1" TarefaSpec : aprova
+.Equipa "1" --> "1..*" Colaborador : É constituida por >
+.TarefaSpecManual "1" --> "1" .Formulario : contém >
 Organizacao "1" ..> "*" .Servico : disponibiliza >
 Organizacao "1" ..> "1..*" .Equipa : define >
 Organizacao "1" ..> "1..*" .TipoEquipa : define >
 
 .CatalogoServico "1..*" --> "1" NivelCriticidade : Especifica >
 .CatalogoServico "*" <-- "1" .CatalogoServico : contém
+.Servico "1" -- "1" Formulario : especifica >
 .Servico "*" <-- "1" .CatalogoServico : contém
 .Servico "*" --> "1" .NivelCriticidade : < qualifica
-.Pedido "1" -- "1" .FormularioPreenchido
+.Pedido "1" --> "1" .FormularioPreenchido
 .Pedido "*" --> "1" .Servico : Refere >
+'.Pedido "1" --> "1" .Formulario : utiliza >
 
 .Colaborador "1" --> "1" .Colaborador : é responsável
-.Colaborador "1" <-- "*" .Pedido : responde
-.Colaborador "1" ..> "*" .Servico : solicita
-.Colaborador "1" ..> "*" .Tarefa : executa e delega
-.Colaborador "1" ..> "*" .TarefaAprovacao : aprova
+.Colaborador "1" <-- "*" .Pedido : responde >
+.Colaborador "1" ..> "*" .Servico : executa
+.Colaborador "1" ..> "*" .TarefaSpec : executa
+.Colaborador "1" ..> "*" .TarefaSpec : aprova
 
-.FormularioPreenchido "1" --|> "1" Formulario : é
+.Servico "*" --> "1" .NivelCriticidade : > Pode alterar
+.Servico "*" --> "1..*" Agregado_NivelCriticidade.Objetivo : > Pode alterar
 
+'.FormularioPreenchido "1" --|> "1" Formulario : é
 
+.Tarefa  "1" ---- "1" .TarefaSpec : é >
 class Organizacao{}
 
 
