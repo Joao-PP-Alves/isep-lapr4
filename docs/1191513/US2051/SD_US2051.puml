@@ -1,0 +1,32 @@
+@startuml
+autonumber
+
+actor "Responsável \nRecursos Humanos" as RRH
+participant ":RespRHUI" as RRHUI
+participant ":RespRHController" as RRHCTRL
+participant ":ColaboradorFactory" as COLABFACTORY
+
+activate RRH
+RRH -> RRHUI : Add new employee
+activate RRHUI
+RRHUI --> RRH : Requests info input \n(nomeCompleto, nomeAbreviado, \nmorada, data, numeroMecanografico, \ncontacto, funcao, codigoEquipa)
+deactivate RRHUI
+
+RRH -> RRHUI : Inputs requested info
+activate RRHUI
+RRHUI -> RRHCTRL : addNewEmployee(nomeCompleto, \nnomeAbreviado, morada, data, \nnumeroMecanografico, contacto, \nfuncao, codigoEquipa)
+activate RRHCTRL
+RRHCTRL -> COLABFACTORY
+activate COLABFACTORY
+
+deactivate COLABFACTORY
+
+deactivate RRHCTRL
+
+
+deactivate RRHUI
+deactivate RRH
+
+
+
+@enduml
