@@ -1,32 +1,58 @@
 @startuml
 autonumber
 
-actor "Responsável \nRecursos Humanos" as RRH
-participant ":RespRHUI" as RRHUI
-participant ":RespRHController" as RRHCTRL
-participant ":ColaboradorFactory" as COLABFACTORY
-
-activate RRH
-RRH -> RRHUI : Add new employee
-activate RRHUI
-RRHUI --> RRH : Requests info input \n(nomeCompleto, nomeAbreviado, \nmorada, data, numeroMecanografico, \ncontacto, funcao, codigoEquipa)
-deactivate RRHUI
-
-RRH -> RRHUI : Inputs requested info
-activate RRHUI
-RRHUI -> RRHCTRL : addNewEmployee(nomeCompleto, \nnomeAbreviado, morada, data, \nnumeroMecanografico, contacto, \nfuncao, codigoEquipa)
-activate RRHCTRL
-RRHCTRL -> COLABFACTORY
-activate COLABFACTORY
-
-deactivate COLABFACTORY
-
-deactivate RRHCTRL
+actor "Human Resources \nResponsible" as HRR
+participant ":AddCollaboratorUI" as ADDCOLLABUI <<presentation>>
+participant ":AddCollabController" as ADDCOLLABCTRL <<application>>
+participant ":CollaboratorBuilder" as COLLABBUILDER <<builder>>
+participant "collab\n:Collaborator" as COLLAB <<domain>>
+participant PersistenceContext as Persistence <<persistence>>
+participant RepositoryFactory as Factory <<factory>>
+database UserRepository as Repository <<repository>>
 
 
-deactivate RRHUI
-deactivate RRH
+HRR --> ADDCOLLABUI : Add new collaborator
+activate ADDCOLLABUI
+ADDCOLLABUI --> HRR : Requests info input \n(fullName, shortName, address, \ndate, mecanographicNumber, \nphoneNumber, role, teamCode)
 
+HRR --> ADDCOLLABUI : Inputs requested info
 
+ADDCOLLABUI -> ADDCOLLABCTRL : addNewEmployee\n(fullName, shortName, address, \ndate, mecanographicNumber, \nphoneNumber, role, teamCode)
+note right of COLLABBUILDER:CollaboratorBuilder is used to create an entity of Collaborator type in a valid state
+activate ADDCOLLABCTRL
+ADDCOLLABCTRL -> COLLABBUILDER : create()
+ADDCOLLABCTRL -> COLLABBUILDER : collab = createCollaborator\n(fullName, shortName, address, \ndate, mecanographicNumber, \nphoneNumber, role, teamCode)
+
+activate COLLABBUILDER
+COLLABBUILDER -> COLLAB : collab = createCollaborator\n(shortName, address, date, \nmecanographicNumber, \nphoneNumber, role, teamCode)
+deactivate COLLABBUILDER
+
+ADDCOLLABCTRL -> Persistence : factory = repositories()
+activate Persistence
+Persistence -> Factory : create()
+deactivate Persistence
+
+ADDCOLLABCTRL -> Factory : collabRepository = listCollabs()
+activate Factory
+Factory -> Repository : create()
+deactivate Factory
+
+opt if (!collabRepository.contains(collab))
+ref over ADDCOLLABCTRL
+US2053 - Add collaborator to 1 or more teams
+end ref
+ADDCOLLABCTRL -> Repository : save(collab)
+
+ref over ADDCOLLABCTRL
+addCollabAsUser()
+end ref
+
+ADDCOLLABCTRL --> ADDCOLLABUI : collab
+deactivate COLLABBUILDER
+
+ADDCOLLABUI --> HRR : displayCollaboratorInfo
+deactivate ADDCOLLABCTRL
+deactivate ADDCOLLABUI
+end opt
 
 @enduml
