@@ -58,12 +58,12 @@ public class AddCollaboratorUI extends AbstractUI {
         } while (!show);
 */
 
-        try {
+       /* try {
             Date creationDate = new Date(System.currentTimeMillis());
             this.theController.addNewCollaborator(fullName, shortName, address, creationDate, phoneNumber, role);
         } catch (final IntegrityViolationException | ConcurrencyException e) {
             System.out.println("That Full Name is already in use.");
-        }
+        }*/
         return false;
     }
 

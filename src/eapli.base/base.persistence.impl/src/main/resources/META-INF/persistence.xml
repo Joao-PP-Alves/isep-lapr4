@@ -12,6 +12,12 @@
     <class>eapli.framework.infrastructure.authz.domain.model.RoleAssignment</class>
     <class>eapli.base.clientusermanagement.domain.ClientUser</class>
     <class>eapli.base.clientusermanagement.domain.SignupRequest</class>
+    <class>eapli.base.collaboratormanagement.domain.Collaborator</class>
+    <class>eapli.base.team.domain.TeamId</class>
+    <class>eapli.base.team.domain.TeamId</class>
+    <class>eapli.base.teamtype.domain.TeamTypeId</class>
+    <class>eapli.base.teamtype.domain.TeamType</class>
+    <class>eapli.base.teamtype.domain.Color</class>
 
     <properties>
       <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/base"/>-->

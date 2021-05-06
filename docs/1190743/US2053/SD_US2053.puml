@@ -43,7 +43,6 @@ deactivate CTRL
 UI --> RRH : Show, asks to choose one and\nto select management option\n(delete/add to team)
 deactivate UI
 RRH -> UI: chooses colaborator and option
-opt over UI : COLABREP
 activate UI
 UI -> CTRL : listTeams()
 activate CTRL

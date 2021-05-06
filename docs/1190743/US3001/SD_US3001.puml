@@ -1,0 +1,95 @@
+@startuml
+autonumber
+
+actor "User" as USER
+participant ":listServicesCatalogUI" as UI
+participant ":listServicesCatalogController" as CTRL
+participant ":PersistenceContext" as PerC
+participant ":AppSettings" as APP
+participant ":RepositoryFactory" as REPFAC
+participant ":ServiceCatalogRepository" as COLABREP
+participant "sc\n:ServiceCatalog" as COLAB
+participant ":ServiceRepository" as TEAMREP
+
+
+
+activate USER
+USER -> UI : Check Services
+UI -> UI : doShow()
+activate UI
+UI -> CTRL : listServicesCatalog()
+activate CTRL
+CTRL -> PerC : repositories()
+activate PerC
+PerC -> APP : instance()
+activate APP
+PerC -> APP : getRepositoryFactory()
+APP --> REPFAC : create()
+activate REPFAC
+REPFAC --> APP
+deactivate REPFAC
+APP --> CTRL
+deactivate APP
+deactivate PerC
+CTRL -> REPFAC : servicesCatalog()
+activate REPFAC
+REPFAC --> COLABREP : create()
+CTRL -> COLABREP : list = all()
+activate COLABREP
+COLABREP --> CTRL
+deactivate COLABREP
+CTRL --> UI : list
+deactivate REPFAC
+deactivate CTRL
+UI --> USER : Show and asks to choose one
+deactivate UI
+loop while catalog has sub catalogs
+USER -> UI: chooses one
+activate UI
+UI -> CTRL : getSubCatalogs()
+activate CTRL
+CTRL -> COLAB : id = getId()
+activate COLAB
+deactivate COLAB
+CTRL -> REPFAC : listSubCatalogs()
+activate REPFAC
+CTRL -> COLABREP : listSubCatalogs = allWithParentId(id)
+activate COLABREP
+COLABREP --> CTRL
+deactivate COLABREP
+CTRL --> UI : listSubCatalogs
+deactivate REPFAC
+deactivate CTRL
+UI --> USER : Show list
+end loop
+
+deactivate UI
+USER -> UI : chooses last subCatalog
+activate UI
+UI -> CTRL : listServices()
+activate CTRL
+CTRL -> REPFAC : services()
+activate REPFAC
+REPFAC -> TEAMREP : create()
+CTRL -> TEAMREP : listServices = allFromCatalog(id)
+activate TEAMREP
+TEAMREP --> CTRL
+deactivate TEAMREP
+CTRL --> UI : listServices
+deactivate REPFAC
+deactivate CTRL
+UI --> USER : Show list
+deactivate UI
+deactivate USER
+
+
+
+
+
+
+
+
+
+
+
+@enduml
