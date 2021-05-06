@@ -3,7 +3,7 @@ autonumber
 
 actor "Human Resources \nResponsible" as HRR
 participant ":AddCollaboratorUI" as ADDCOLLABUI <<presentation>>
-participant ":AddCollabController" as ADDCOLLABCTRL <<application>>
+participant ":AddCollaboratorController" as ADDCOLLABCTRL <<application>>
 participant ":CollaboratorBuilder" as COLLABBUILDER <<builder>>
 participant "collab\n:Collaborator" as COLLAB <<domain>>
 participant PersistenceContext as Persistence <<persistence>>
@@ -13,18 +13,18 @@ database UserRepository as Repository <<repository>>
 
 HRR --> ADDCOLLABUI : Add new collaborator
 activate ADDCOLLABUI
-ADDCOLLABUI --> HRR : Requests info input \n(fullName, shortName, address, \ndate, mecanographicNumber, \nphoneNumber, role, teamCode)
+ADDCOLLABUI --> HRR : Requests info input \n(fullName, shortName, address, \ndate, phoneNumber, role)
 
 HRR --> ADDCOLLABUI : Inputs requested info
 
-ADDCOLLABUI -> ADDCOLLABCTRL : addNewEmployee\n(fullName, shortName, address, \ndate, mecanographicNumber, \nphoneNumber, role, teamCode)
+ADDCOLLABUI -> ADDCOLLABCTRL : addNewCollaborator\n(fullName, shortName, address, \ndate, phoneNumber, role)
 note right of COLLABBUILDER:CollaboratorBuilder is used to create an entity of Collaborator type in a valid state
 activate ADDCOLLABCTRL
 ADDCOLLABCTRL -> COLLABBUILDER : create()
-ADDCOLLABCTRL -> COLLABBUILDER : collab = createCollaborator\n(fullName, shortName, address, \ndate, mecanographicNumber, \nphoneNumber, role, teamCode)
+ADDCOLLABCTRL -> COLLABBUILDER : collab = createCollaborator\n(fullName, shortName, address, \ndate, phoneNumber, role)
 
 activate COLLABBUILDER
-COLLABBUILDER -> COLLAB : collab = createCollaborator\n(shortName, address, date, \nmecanographicNumber, \nphoneNumber, role, teamCode)
+COLLABBUILDER -> COLLAB : collab = createCollaborator\n(fullName, shortName, address, \ndate, phoneNumber, role)
 deactivate COLLABBUILDER
 
 ADDCOLLABCTRL -> Persistence : factory = repositories()
