@@ -6,6 +6,8 @@ import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.general.domain.model.Description;
 import eapli.framework.general.domain.model.Designation;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.xml.bind.annotation.XmlElement;
@@ -22,7 +24,8 @@ public class Team implements AggregateRoot<Designation> {
 
     @JsonProperty
     @XmlElement
-    private Description description;
+    @AttributeOverride(name = "value", column = @Column(name = "teamDescription"))
+    private Description teamDescription;
 
     @JsonProperty
     @XmlElement
@@ -43,7 +46,7 @@ public class Team implements AggregateRoot<Designation> {
     }
 
     public void setDescription(Description description) {
-        this.description = description;
+        this.teamDescription = description;
     }
 
     public void setTeamType(TeamType teamType) {

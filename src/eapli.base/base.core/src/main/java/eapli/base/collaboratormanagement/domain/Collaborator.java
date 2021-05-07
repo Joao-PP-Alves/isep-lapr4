@@ -32,6 +32,7 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * A Collaborator.
@@ -47,12 +48,15 @@ import javax.xml.bind.annotation.XmlElement;
  * @author Jorge Santos ajs@isep.ipp.pt
  *
  */
+@XmlRootElement
 @Entity
 public class Collaborator implements AggregateRoot<MecanographicNumber> {
 
     @Version
     private Long version;
 
+    @XmlElement
+    @JsonProperty
     @EmbeddedId
     private MecanographicNumber mecanographicNumber;
 

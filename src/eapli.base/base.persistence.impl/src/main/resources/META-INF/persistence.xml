@@ -10,11 +10,12 @@
     <class>eapli.framework.infrastructure.authz.domain.model.Role</class>
     <class>eapli.framework.infrastructure.authz.domain.model.RoleSet</class>
     <class>eapli.framework.infrastructure.authz.domain.model.RoleAssignment</class>
+    <class>eapli.framework.general.domain.model.Designation</class>
+    <class>eapli.framework.general.domain.model.Description</class>
     <class>eapli.base.clientusermanagement.domain.ClientUser</class>
     <class>eapli.base.clientusermanagement.domain.SignupRequest</class>
     <class>eapli.base.collaboratormanagement.domain.Collaborator</class>
-    <class>eapli.base.team.domain.TeamId</class>
-    <class>eapli.base.team.domain.TeamId</class>
+    <class>eapli.base.team.domain.Team</class>
     <class>eapli.base.teamtype.domain.TeamTypeId</class>
     <class>eapli.base.teamtype.domain.TeamType</class>
     <class>eapli.base.teamtype.domain.Color</class>

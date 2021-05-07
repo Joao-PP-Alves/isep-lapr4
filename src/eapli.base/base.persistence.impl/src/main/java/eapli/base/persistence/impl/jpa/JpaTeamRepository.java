@@ -2,7 +2,7 @@ package eapli.base.persistence.impl.jpa;
 
 import eapli.base.Application;
 import eapli.base.team.domain.Team;
-import eapli.base.teamtype.repository.TeamRepository;
+import eapli.base.team.repository.TeamRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.general.domain.model.Designation;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;

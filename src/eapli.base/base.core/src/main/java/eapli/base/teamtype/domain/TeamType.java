@@ -1,18 +1,31 @@
 package eapli.base.teamtype.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.general.domain.model.Description;
 
-import javax.persistence.Embeddable;
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.xml.bind.annotation.XmlElement;
 import java.lang.reflect.Field;
 
-@Embeddable
+@Entity
 public class TeamType implements AggregateRoot<TeamTypeId> {
 
-
+    @JsonProperty
+    @XmlElement
+    @EmbeddedId
     private TeamTypeId id;
 
-    private Description description;
+    @JsonProperty
+    @XmlElement
+    @AttributeOverride(name = "value", column = @Column(name = "teamTypeDescription"))
+    private Description teamTypeDescription;
+
+    @JsonProperty
+    @XmlElement
     private Color color;
 
 
@@ -42,7 +55,7 @@ public class TeamType implements AggregateRoot<TeamTypeId> {
     }
 
     public void setDescription(Description description) {
-        this.description = description;
+        this.teamTypeDescription = description;
     }
 
     @Override

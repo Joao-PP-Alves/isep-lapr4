@@ -5,7 +5,8 @@ import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
 import eapli.base.collaboratormanagement.repository.CollaboratorRepository;
 import eapli.base.infrastructure.bootstrapers.BaseBootstrapper;
 import eapli.base.infrastructure.persistence.RepositoryFactory;
-import eapli.base.teamtype.repository.TeamRepository;
+import eapli.base.team.repository.TeamRepository;
+import eapli.base.teamtype.repository.TeamTypeRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 import eapli.framework.infrastructure.authz.repositories.impl.InMemoryUserRepository;
@@ -66,6 +67,16 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 	@Override
 	public TeamRepository teams() {
 		return teams(null);
+	}
+
+	@Override
+	public TeamTypeRepository teamTypes(TransactionalContext autoTx) {
+		return new InMemoryTeamTypeRepository();
+	}
+
+	@Override
+	public TeamTypeRepository teamTypes() {
+		return teamTypes(null);
 	}
 
 	@Override

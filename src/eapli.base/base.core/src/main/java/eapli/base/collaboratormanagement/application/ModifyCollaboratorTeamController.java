@@ -5,7 +5,7 @@ import eapli.base.collaboratormanagement.repository.CollaboratorRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.infrastructure.persistence.RepositoryFactory;
 import eapli.base.team.domain.Team;
-import eapli.base.teamtype.repository.TeamRepository;
+import eapli.base.team.repository.TeamRepository;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 

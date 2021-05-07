@@ -1,8 +1,7 @@
 package eapli.base.persistence.impl.inmemory;
 
-import eapli.base.clientusermanagement.domain.MecanographicNumber;
 import eapli.base.team.domain.Team;
-import eapli.base.teamtype.repository.TeamRepository;
+import eapli.base.team.repository.TeamRepository;
 import eapli.framework.general.domain.model.Designation;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 
