@@ -13,5 +13,5 @@ public interface CollaboratorRepository extends DomainRepository<MecanographicNu
      * Find all collaborators.
      * @return
      */
-    List<Collaborator> all();
+    Iterable<Collaborator> findAll();
 }

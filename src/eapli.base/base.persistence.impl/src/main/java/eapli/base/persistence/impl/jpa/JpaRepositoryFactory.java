@@ -2,7 +2,9 @@ package eapli.base.persistence.impl.jpa;
 
 import eapli.base.Application;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
+import eapli.base.collaboratormanagement.repository.CollaboratorRepository;
 import eapli.base.infrastructure.persistence.RepositoryFactory;
+import eapli.base.teamtype.repository.TeamRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 import eapli.framework.infrastructure.authz.repositories.impl.JpaAutoTxUserRepository;
@@ -44,6 +46,26 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	@Override
 	public SignupRequestRepository signupRequests() {
 		return new JpaSignupRequestRepository(Application.settings().getPersistenceUnitName());
+	}
+
+	@Override
+	public CollaboratorRepository collaborators(TransactionalContext autoTx) {
+		return new JpaCollaboratorRepository(autoTx);
+	}
+
+	@Override
+	public CollaboratorRepository collaborators() {
+		return new JpaCollaboratorRepository(Application.settings().getPersistenceUnitName());
+	}
+
+	@Override
+	public TeamRepository teams(TransactionalContext autoTx) {
+		return new JpaTeamRepository(autoTx);
+	}
+
+	@Override
+	public TeamRepository teams() {
+		return new JpaTeamRepository(Application.settings().getPersistenceUnitName());
 	}
 
 

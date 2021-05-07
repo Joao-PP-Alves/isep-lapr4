@@ -4,12 +4,9 @@ import eapli.base.clientusermanagement.domain.MecanographicNumber;
 import eapli.base.collaboratormanagement.application.*;
 import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.team.domain.Team;
-import eapli.base.team.domain.TeamId;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class ModifyCollaboratorTeamUI extends AbstractUI {
 
@@ -25,7 +22,7 @@ public class ModifyCollaboratorTeamUI extends AbstractUI {
         }
         int option= Console.readInteger("Select option.\n");
         Collaborator collaborator = arrayList.get(option);
-        TeamId collaboratorTeam = collaborator.getTeamId();
+        Team collaboratorTeam = collaborator.getTeam();
         if (collaboratorTeam==null){
             System.out.println("This Collaborator doesn't belong to a team.");
             option = Console.readInteger("Add Collaborator to a team? (1-Yes | 2-No)\n");

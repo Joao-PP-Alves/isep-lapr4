@@ -8,6 +8,8 @@ import eapli.base.team.domain.Team;
 import eapli.base.teamtype.repository.TeamRepository;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class ModifyCollaboratorTeamController {
@@ -18,17 +20,21 @@ public class ModifyCollaboratorTeamController {
     private CollaboratorRepository cr;
 
     public List<Collaborator> listCollaborators(){
+        List<Collaborator> list = new ArrayList<>();
         cr = rf.collaborators();
-        return cr.all();
+        cr.findAll().forEach(list::add);
+        return list;
     }
 
     public List<Team> listTeams(){
+        List<Team> list = new ArrayList<>();
         TeamRepository tr = rf.teams();
-        return tr.all();
+        tr.findAll().forEach(list::add);
+        return list;
     }
 
     public Collaborator changeTeam(Team team, Collaborator col) {
-        col.setTeam(team.identity());
+        col.setTeam(team);
         return cr.save(col);
     }
 

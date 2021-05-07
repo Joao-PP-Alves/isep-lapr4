@@ -26,15 +26,11 @@ package eapli.base.collaboratormanagement.domain;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import eapli.base.clientusermanagement.domain.MecanographicNumber;
 import eapli.base.team.domain.Team;
-import eapli.base.team.domain.TeamId;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Version;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
 
 /**
@@ -62,7 +58,8 @@ public class Collaborator implements AggregateRoot<MecanographicNumber> {
 
     @XmlElement
     @JsonProperty
-    private TeamId teamId;
+    @ManyToOne
+    private Team team;
 
     /**
      * cascade = CascadeType.NONE as the systemUser is part of another aggregate
@@ -70,7 +67,7 @@ public class Collaborator implements AggregateRoot<MecanographicNumber> {
     @OneToOne()
     private SystemUser systemUser;
 
-    public Collaborator(final SystemUser user, final MecanographicNumber mecanographicNumber,TeamId team) {
+    public Collaborator(final SystemUser user, final MecanographicNumber mecanographicNumber,Team team) {
         if (mecanographicNumber == null || user == null) {
             throw new IllegalArgumentException();
         }
@@ -79,12 +76,12 @@ public class Collaborator implements AggregateRoot<MecanographicNumber> {
         this.mecanographicNumber = mecanographicNumber;
     }
 
-    public TeamId getTeamId() {
-        return teamId;
+    public Team getTeam() {
+        return team;
     }
 
-    public void setTeam(TeamId team) {
-        this.teamId = team;
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
     public Collaborator() {

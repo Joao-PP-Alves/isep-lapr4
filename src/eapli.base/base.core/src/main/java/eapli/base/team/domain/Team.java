@@ -4,22 +4,21 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import eapli.base.teamtype.domain.TeamType;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.general.domain.model.Description;
+import eapli.framework.general.domain.model.Designation;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @Entity
-public class Team implements AggregateRoot<TeamId> {
+public class Team implements AggregateRoot<Designation> {
 
     @JsonProperty
     @XmlElement
     @EmbeddedId
-    private TeamId id;
+    private Designation id;
 
     @JsonProperty
     @XmlElement
@@ -29,7 +28,7 @@ public class Team implements AggregateRoot<TeamId> {
     @XmlElement
     private TeamType teamType;
 
-    public Team(TeamId teamId, Description description, TeamType teamType){
+    public Team(Designation teamId, Description description, TeamType teamType){
         setId(teamId);
         setDescription(description);
         setTeamType(teamType);
@@ -39,7 +38,7 @@ public class Team implements AggregateRoot<TeamId> {
         //Needed
     }
 
-    public void setId(TeamId id) {
+    public void setId(Designation id) {
         this.id = id;
     }
 
@@ -57,17 +56,7 @@ public class Team implements AggregateRoot<TeamId> {
     }
 
     @Override
-    public int compareTo(TeamId other) {
-        return 0;
-    }
-
-    @Override
-    public TeamId identity() {
-        return this.id;
-    }
-
-    @Override
-    public boolean hasIdentity(TeamId otherId) {
-        return false;
+    public Designation identity() {
+        return null;
     }
 }

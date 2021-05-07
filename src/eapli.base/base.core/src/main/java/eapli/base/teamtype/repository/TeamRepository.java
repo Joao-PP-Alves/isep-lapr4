@@ -1,17 +1,15 @@
 package eapli.base.teamtype.repository;
-
-import eapli.base.clientusermanagement.domain.MecanographicNumber;
-import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.team.domain.*;
 import eapli.framework.domain.repositories.DomainRepository;
+import eapli.framework.general.domain.model.Designation;
 
 import java.util.List;
 
-public interface TeamRepository extends DomainRepository<TeamId, Team> {
+public interface TeamRepository extends DomainRepository<Designation, Team> {
 
     /**
      * Find all teams.
      * @return
      */
-    List<Team> all();
+    Iterable<Team> findAll();
 }
