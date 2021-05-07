@@ -2,7 +2,7 @@ package eapli.base.persistence.impl.inmemory;
 
 import eapli.base.clientusermanagement.domain.MecanographicNumber;
 import eapli.base.collaboratormanagement.domain.Collaborator;
-import eapli.base.collaboratormanagement.repository.CollaboratorRepository;
+import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 
 

@@ -71,6 +71,14 @@ public class Collaborator implements AggregateRoot<MecanographicNumber> {
     @OneToOne()
     private SystemUser systemUser;
 
+    public Collaborator(final SystemUser user, final MecanographicNumber mecanographicNumber) {
+        if (mecanographicNumber == null || user == null) {
+            throw new IllegalArgumentException();
+        }
+        this.systemUser = user;
+        this.mecanographicNumber = mecanographicNumber;
+    }
+
     public Collaborator(final SystemUser user, final MecanographicNumber mecanographicNumber,Team team) {
         if (mecanographicNumber == null || user == null) {
             throw new IllegalArgumentException();

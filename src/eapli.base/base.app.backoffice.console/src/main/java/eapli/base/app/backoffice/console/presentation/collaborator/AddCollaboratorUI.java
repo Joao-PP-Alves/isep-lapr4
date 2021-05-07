@@ -26,10 +26,18 @@ package eapli.base.app.backoffice.console.presentation.collaborator;
 import eapli.base.collaboratormanagement.application.AddCollaboratorController;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
+import eapli.framework.infrastructure.authz.domain.model.Role;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
+import eapli.framework.actions.Actions;
+import eapli.framework.actions.menu.Menu;
+import eapli.framework.actions.menu.MenuItem;
+import eapli.framework.presentation.console.menu.MenuItemRenderer;
+import eapli.framework.presentation.console.menu.MenuRenderer;
+import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
 
-import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Based on AddUserUI
@@ -45,29 +53,33 @@ public class AddCollaboratorUI extends AbstractUI {
         // UtenteApp
         // Also needs mecanographicNumber and teamCode
         final String fullName = Console.readLine("Full name");
-        final String shortName = Console.readLine("shortName");
+        final String shortName = Console.readLine("Short Name");
+        final String email = Console.readLine("E-Mail");
+        final String username = Console.readLine("Username");
+        final String password = Console.readLine("Password");
         final String address = Console.readLine("Address");
         final int phoneNumber = Console.readInteger("Phone Number");
-        final String role = Console.readLine("Role");
+        //final String role = Console.readLine("Role");
 
-/*
+
         final Set<Role> roleTypes = new HashSet<>();
         boolean show;
         do {
             show = showRoles(roleTypes);
         } while (!show);
-*/
 
-       /* try {
-            Date creationDate = new Date(System.currentTimeMillis());
-            this.theController.addNewCollaborator(fullName, shortName, address, creationDate, phoneNumber, role);
+
+
+        try {
+            this.theController.addNewCollaborator(username, password, email, roleTypes,
+                    fullName, shortName, address, phoneNumber);
         } catch (final IntegrityViolationException | ConcurrencyException e) {
             System.out.println("That Full Name is already in use.");
-        }*/
+        }
         return false;
     }
 
-/*
+
     private boolean showRoles(final Set<Role> roleTypes) {
         // TODO we could also use the "widget" classes from the framework...
         final Menu rolesMenu = buildRolesMenu(roleTypes);
@@ -84,7 +96,7 @@ public class AddCollaboratorUI extends AbstractUI {
         }
         return rolesMenu;
     }
-*/
+
 
     @Override
     public String headline() {

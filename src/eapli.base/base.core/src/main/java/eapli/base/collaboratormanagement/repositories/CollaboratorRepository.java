@@ -1,4 +1,4 @@
-package eapli.base.collaboratormanagement.repository;
+package eapli.base.collaboratormanagement.repositories;
 
 import eapli.base.clientusermanagement.domain.MecanographicNumber;
 import eapli.base.collaboratormanagement.domain.Collaborator;

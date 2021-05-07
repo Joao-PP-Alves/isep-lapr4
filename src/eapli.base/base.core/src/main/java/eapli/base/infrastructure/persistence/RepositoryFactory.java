@@ -6,7 +6,7 @@ package eapli.base.infrastructure.persistence;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
-import eapli.base.collaboratormanagement.repository.CollaboratorRepository;
+import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
 import eapli.base.team.repository.TeamRepository;
 import eapli.base.teamtype.domain.TeamType;
 import eapli.base.teamtype.repository.TeamTypeRepository;

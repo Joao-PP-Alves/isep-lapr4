@@ -2,7 +2,7 @@ package eapli.base.persistence.impl.jpa;
 
 import eapli.base.Application;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
-import eapli.base.collaboratormanagement.repository.CollaboratorRepository;
+import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
 import eapli.base.infrastructure.persistence.RepositoryFactory;
 import eapli.base.team.repository.TeamRepository;
 import eapli.base.teamtype.repository.TeamTypeRepository;

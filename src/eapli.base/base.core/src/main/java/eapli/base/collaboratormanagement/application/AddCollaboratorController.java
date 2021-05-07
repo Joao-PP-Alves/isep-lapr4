@@ -2,12 +2,18 @@ package eapli.base.collaboratormanagement.application;
 
 import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.collaboratormanagement.domain.CollaboratorBuilder;
+import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserManagementService;
+import eapli.framework.infrastructure.authz.domain.model.Role;
+import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import eapli.framework.time.util.Calendars;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Based on AddCollbaratorController
@@ -18,24 +24,40 @@ public class AddCollaboratorController {
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final UserManagementService userSvc = AuthzRegistry.userService();
-    private final  CollaboratorBuilder collabBuilder = new CollaboratorBuilder();
+    private final CollaboratorBuilder collabBuilder = new CollaboratorBuilder();
+
     /**
      * Get existing RoleTypes available to the user.
      *
      * @return a list of RoleTypes
      */
-/*    public Role[] getRoleTypes() {
+
+    public Role[] getRoleTypes() {
         return BaseRoles.nonUserValues();
-    }*/
+    }
 
-/*    public Collaborator addNewCollaborator(String fullName, String shortName, String address, Date creationDate,
-                                           int phoneNumber, String role) {
 
-        return collabBuilder.registerNewCollaborator(fullName, shortName, address, creationDate, phoneNumber, role);
-    }*/
+    public SystemUser addNewCollaborator(final String username, final String password, final String email,
+                                         final Set<Role> roleTypes, final String fullName, final String shortName,
+                                         final String address, final int phoneNumber, final Calendar createdOn) {
+        String lastName = "";
+        String firstName = "";
+        if (fullName.split("\\w+").length > 1) {
+            lastName = fullName.substring(fullName.lastIndexOf(" ") + 1);
+            firstName = fullName.substring(0, fullName.lastIndexOf(' '));
+        } else {
+            firstName = fullName;
+        }
 
-/*    public SystemUser addUser(String username, String password, String firstName, String lastName,
-            String email, Set<Role> roles) {
-        return addUser(username, password, firstName, lastName, email, roles, Calendars.now());
-    }*/
+        return userSvc.registerNewUser(username, password, firstName, lastName, email, roleTypes,
+                createdOn);
+
+    }
+
+    public SystemUser addNewCollaborator(final String username, final String password, final String email,
+                                         final Set<Role> roleTypes, final String fullName, final String shortName,
+                                         final String address, final int phoneNumber) {
+        return addNewCollaborator(username, password, email, roleTypes, fullName, shortName, address,
+                phoneNumber, Calendars.now());
+    }
 }

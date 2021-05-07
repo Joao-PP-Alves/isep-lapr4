@@ -13,7 +13,7 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
  *
  * @author Jorge Santos ajs@isep.ipp.pt 02/04/2016
  */
-public class CollaboratorBuilder implements DomainFactory<ClientUser> {
+public class CollaboratorBuilder implements DomainFactory<Collaborator> {
 
     private SystemUser systemUser;
     private MecanographicNumber mecanographicNumber;
@@ -34,9 +34,9 @@ public class CollaboratorBuilder implements DomainFactory<ClientUser> {
     }
 
     @Override
-    public ClientUser build() {
+    public Collaborator build() {
         // since the factory knows that all the parts are needed it could throw
         // an exception. however, we will leave that to the constructor
-        return new ClientUser(this.systemUser, this.mecanographicNumber);
+        return new Collaborator(this.systemUser, this.mecanographicNumber);
     }
 }

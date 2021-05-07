@@ -1,7 +1,7 @@
 package eapli.base.collaboratormanagement.application;
 
 import eapli.base.collaboratormanagement.domain.*;
-import eapli.base.collaboratormanagement.repository.CollaboratorRepository;
+import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.infrastructure.persistence.RepositoryFactory;
 import eapli.base.team.domain.Team;
