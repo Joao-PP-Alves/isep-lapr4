@@ -1,5 +1,6 @@
 package eapli.base.app.backoffice.console.presentation.collaborator;
 
+import eapli.base.clientusermanagement.domain.MecanographicNumber;
 import eapli.base.collaboratormanagement.application.*;
 import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.team.domain.Team;
@@ -19,7 +20,7 @@ public class ModifyCollaboratorTeamUI extends AbstractUI {
         ArrayList<Collaborator> arrayList = (ArrayList<Collaborator>) theController.listCollaborators();
         int contador=0;
         for (Collaborator coll:arrayList){
-            //System.out.println("%d - %s - %d",contador,coll.getName(),coll.mechNumber());
+            System.out.printf("%d - %s - %s\n",contador,coll.user().name().toString(),coll.identity());
             contador++;
         }
         int option= Console.readInteger("Select option.\n");
@@ -32,13 +33,13 @@ public class ModifyCollaboratorTeamUI extends AbstractUI {
                 ArrayList<Team> listTeams = (ArrayList<Team>) theController.listTeams();
                 contador=0;
                 for (Team team:listTeams){
-                    //System.out.println("%d - %s - %d",contador,team.getAcronym(),team.getId());
+                    System.out.printf("%d - %s\n",contador,team.identity());
                     contador++;
                 }
                 option= Console.readInteger("Select option.\n");
                 Team team = listTeams.get(option);
                 if (!team.equals(new Team())){
-                    if (theController.changeTeam(team,collaborator)){
+                    if (!theController.changeTeam(team,collaborator).mecanographicNumber().toString().equals(new MecanographicNumber().toString())){
                         System.out.println("Collaborator was removed successfully from the team. Successful operation.");
                     } else {
                         System.out.println("Something went wrong. Aborting operation.");
@@ -53,7 +54,7 @@ public class ModifyCollaboratorTeamUI extends AbstractUI {
             System.out.println("This Collaborator belongs to a team.");
             option = Console.readInteger("Remove him from the team? (1-Yes | 2-No)\n");
             if (option==1){
-                if (theController.changeTeam(null,collaborator)) {
+                if (!theController.changeTeam(collaborator).mecanographicNumber().toString().equals(new MecanographicNumber().toString())) {
                     System.out.println("Collaborator was removed successfully from the team. Successful operation.");
                 } else {
                     System.out.println("Something went wrong. Aborting operation.");

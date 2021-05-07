@@ -6,6 +6,8 @@ package eapli.base.infrastructure.persistence;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
+import eapli.base.collaboratormanagement.repository.CollaboratorRepository;
+import eapli.base.teamtype.repository.TeamRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 
@@ -63,5 +65,36 @@ public interface RepositoryFactory {
 	 * @return
 	 */
 	SignupRequestRepository signupRequests();
+
+	/**
+	 *
+	 * @param autoTx the transactional context to enroll
+	 * @return
+	 */
+	CollaboratorRepository collaborators(TransactionalContext autoTx);
+
+	/**
+	 * repository will be created in auto transaction mode
+	 *
+	 * @return
+	 */
+	CollaboratorRepository collaborators();
+
+	/**
+	 *
+	 * @param autoTx the transactional context to enroll
+	 * @return
+	 */
+	TeamRepository teams(TransactionalContext autoTx);
+
+	/**
+	 * repository will be created in auto transaction mode
+	 *
+	 * @return
+	 */
+	TeamRepository teams();
+
+
+
 
 }

@@ -31,7 +31,7 @@ public class MecanographicNumber implements ValueObject, Comparable<Mecanographi
         this.number = mecanographicNumber;
     }
 
-    protected MecanographicNumber() {
+    public MecanographicNumber() {
         // for ORM
     }
 

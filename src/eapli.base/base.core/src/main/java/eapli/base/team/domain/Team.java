@@ -63,7 +63,7 @@ public class Team implements AggregateRoot<TeamId> {
 
     @Override
     public TeamId identity() {
-        return null;
+        return this.id;
     }
 
     @Override
