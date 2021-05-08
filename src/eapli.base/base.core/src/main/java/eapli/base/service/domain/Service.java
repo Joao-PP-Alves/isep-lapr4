@@ -43,6 +43,11 @@ public class Service implements AggregateRoot<MecanographicNumber> {
         return -1;
     }
 
+    public Designation getName() {
+        return name;
+    }
+
+
     @Override
     public MecanographicNumber identity() {
         return this.id;

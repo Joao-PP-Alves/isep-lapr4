@@ -6,4 +6,5 @@ import eapli.framework.domain.repositories.DomainRepository;
 
 public interface ServiceCatalogRepository extends DomainRepository<MecanographicNumber, ServiceCatalog> {
 
+    Iterable<ServiceCatalog> findTopCatalogs();
 }

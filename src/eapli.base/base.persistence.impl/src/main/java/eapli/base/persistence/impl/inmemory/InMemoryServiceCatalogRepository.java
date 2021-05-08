@@ -11,4 +11,9 @@ public class InMemoryServiceCatalogRepository extends InMemoryDomainRepository<S
     static {
         InMemoryInitializer.init();
     }
+
+    @Override
+    public Iterable<ServiceCatalog> findTopCatalogs() {
+        return match(ServiceCatalog::isTopCatalog);
+    }
 }

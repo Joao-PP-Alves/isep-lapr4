@@ -52,6 +52,10 @@ public class ServiceCatalog implements AggregateRoot<MecanographicNumber> {
     @Nullable
     private Set<Service> listServices;
 
+    @JsonProperty
+    @XmlElement
+    private boolean topCatalog;
+
     public ServiceCatalog(MecanographicNumber id, Designation title, Description shortDescription,
                   Icon icon ,Description longDescription, Set<ServiceCatalog> serviceCatalogs, Set<Service> services){
         this.id=id;
@@ -81,6 +85,23 @@ public class ServiceCatalog implements AggregateRoot<MecanographicNumber> {
         return -1;
     }
 
+    public Designation getTitle() {
+        return title;
+    }
+
+    @Nullable
+    public Set<ServiceCatalog> getListSubCatalogs() {
+        return listSubCatalogs;
+    }
+
+    public boolean isTopCatalog() {
+        return topCatalog;
+    }
+
+    @Nullable
+    public Set<Service> getListServices() {
+        return listServices;
+    }
 
     @Override
     public MecanographicNumber identity() {
