@@ -69,11 +69,11 @@ public class AddCollaboratorUI extends AbstractUI {
             show = showRoles(roleTypes);
         } while (!show);
 
-        final Set<Team> teams = new HashSet<>();
+        /*final Set<Team> teams = new HashSet<>();
         show = false;
         do {
             show = showTeams(teams);
-        } while (!show);
+        } while (!show);*/
 
 
 

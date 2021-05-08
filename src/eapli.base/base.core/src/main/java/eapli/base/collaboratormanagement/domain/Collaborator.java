@@ -65,37 +65,30 @@ public class Collaborator implements AggregateRoot<MecanographicNumber> {
 
     @XmlElement
     @JsonProperty
-    @EmbeddedId
     private FullName fullName;
 
     @XmlElement
     @JsonProperty
-    @EmbeddedId
     private ShortName shortName;
 
     @XmlElement
     @JsonProperty
-    @EmbeddedId
     private PhoneNumber phoneNumber;
 
     @XmlElement
     @JsonProperty
-    @EmbeddedId
     private Address address;
 
     @XmlElement
     @JsonProperty
-    @EmbeddedId
     private Role role;
 
     @XmlElement
     @JsonProperty
-    @EmbeddedId
     private Designation teamDesignation;
 
     @XmlElement
     @JsonProperty
-    @EmbeddedId
     private Date date;
 
     @XmlElement

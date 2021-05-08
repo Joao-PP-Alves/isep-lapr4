@@ -6,11 +6,8 @@
 package eapli.base.collaboratormanagement.domain;
 
 import eapli.framework.domain.model.ValueObject;
-import eapli.framework.strings.util.StringPredicates;
-import org.assertj.core.api.IntPredicateAssert;
 
 import javax.persistence.Embeddable;
-import java.util.function.IntPredicate;
 
 /**
  *
