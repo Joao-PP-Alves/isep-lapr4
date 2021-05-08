@@ -28,11 +28,14 @@ import eapli.base.clientusermanagement.domain.MecanographicNumber;
 import eapli.base.team.domain.Team;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
+import eapli.framework.general.domain.model.Designation;
+import eapli.framework.infrastructure.authz.domain.model.Role;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Date;
 
 /**
  * A Collaborator.
@@ -59,6 +62,41 @@ public class Collaborator implements AggregateRoot<MecanographicNumber> {
     @JsonProperty
     @EmbeddedId
     private MecanographicNumber mecanographicNumber;
+
+    @XmlElement
+    @JsonProperty
+    @EmbeddedId
+    private FullName fullName;
+
+    @XmlElement
+    @JsonProperty
+    @EmbeddedId
+    private ShortName shortName;
+
+    @XmlElement
+    @JsonProperty
+    @EmbeddedId
+    private PhoneNumber phoneNumber;
+
+    @XmlElement
+    @JsonProperty
+    @EmbeddedId
+    private Address address;
+
+    @XmlElement
+    @JsonProperty
+    @EmbeddedId
+    private Role role;
+
+    @XmlElement
+    @JsonProperty
+    @EmbeddedId
+    private Designation teamDesignation;
+
+    @XmlElement
+    @JsonProperty
+    @EmbeddedId
+    private Date date;
 
     @XmlElement
     @JsonProperty

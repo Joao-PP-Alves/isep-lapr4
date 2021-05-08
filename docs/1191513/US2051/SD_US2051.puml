@@ -38,20 +38,16 @@ Factory -> Repository : create()
 deactivate Factory
 
 opt if (!collabRepository.contains(collab))
-ref over ADDCOLLABCTRL
-US2053 - Add collaborator to 1 or more teams
-end ref
 ADDCOLLABCTRL -> Repository : save(collab)
-
-ref over ADDCOLLABCTRL
-addCollabAsUser()
-end ref
 
 ADDCOLLABCTRL --> ADDCOLLABUI : collab
 deactivate COLLABBUILDER
 
-ADDCOLLABUI --> HRR : displayCollaboratorInfo
+ADDCOLLABUI --> HRR : displaySuccess
 deactivate ADDCOLLABCTRL
+ref over HRR
+US2053 - Add collaborator to 1 or more teams
+end ref
 deactivate ADDCOLLABUI
 end opt
 
