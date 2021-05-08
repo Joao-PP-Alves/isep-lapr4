@@ -11,13 +11,14 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class ModifyCollaboratorTeamController {
 
-    private final Collaborator collaborator = new Collaborator();
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final RepositoryFactory rf = PersistenceContext.repositories();
     private CollaboratorRepository cr;
+    private TeamRepository tr;
 
     public List<Collaborator> listCollaborators(){
         List<Collaborator> list = new ArrayList<>();
@@ -28,20 +29,20 @@ public class ModifyCollaboratorTeamController {
 
     public List<Team> listTeams(){
         List<Team> list = new ArrayList<>();
-        TeamRepository tr = rf.teams();
+        tr = rf.teams();
         tr.findAll().forEach(list::add);
         return list;
     }
 
-    public Collaborator changeTeam(Team team, Collaborator col) {
-        col.setTeam(team);
-        return cr.save(col);
+    public Team changeTeam(Team team, Collaborator col, int option) {
+        Set<Collaborator> collaboratorSet = team.getMembers();
+        if (option ==1){
+            collaboratorSet.add(col);
+        } else if(option==2){
+            collaboratorSet.remove(col);
+        }
+        team.setMembers(collaboratorSet);
+        return tr.save(team);
     }
-
-    public Collaborator changeTeam(Collaborator col) {
-        col.setTeam(null);
-        return cr.save(col);
-    }
-
 
 }

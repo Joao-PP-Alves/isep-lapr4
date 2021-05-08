@@ -19,6 +19,11 @@
     <class>eapli.base.teamtype.domain.TeamTypeId</class>
     <class>eapli.base.teamtype.domain.TeamType</class>
     <class>eapli.base.teamtype.domain.Color</class>
+    <class>eapli.base.service.domain.Service</class>
+    <class>eapli.base.servicecatalog.domain.AccessCriteria</class>
+    <class>eapli.base.servicecatalog.domain.Icon</class>
+    <class>eapli.base.servicecatalog.domain.ServiceCatalog</class>
+
 
     <properties>
       <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/base"/>-->

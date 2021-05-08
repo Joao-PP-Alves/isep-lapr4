@@ -1,6 +1,7 @@
 package eapli.base.team.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.teamtype.domain.TeamType;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.general.domain.model.Description;
@@ -9,6 +10,7 @@ import eapli.framework.general.domain.model.Designation;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Set;
 
 @XmlRootElement
 @Entity
@@ -29,14 +31,28 @@ public class Team implements AggregateRoot<Designation> {
     @ManyToOne
     private TeamType teamType;
 
-    public Team(Designation teamId, Description description, TeamType teamType){
+    @JsonProperty
+    @XmlElement
+    @OneToMany
+    private Set<Collaborator> members;
+
+    public Team(Designation teamId, Description description, TeamType teamType, Set<Collaborator> collaboratorSet){
         setId(teamId);
         setDescription(description);
         setTeamType(teamType);
+        setMembers(collaboratorSet);
+    }
+
+    public Set<Collaborator> getMembers() {
+        return members;
     }
 
     public Team() {
         //Needed
+    }
+
+    public void setMembers(Set<Collaborator> members) {
+        this.members = members;
     }
 
     public void setId(Designation id) {
