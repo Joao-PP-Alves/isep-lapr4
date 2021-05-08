@@ -1,32 +1,54 @@
 @startuml
 autonumber
 
-actor "Responsável \nRecursos Humanos" as RRH
-participant ":RespRHUI" as RRHUI
-participant ":RespRHController" as RRHCTRL
-participant ":ColaboradorBuilder" as COLABBUILDER
-
-activate RRH
-RRH -> RRHUI : Add new employee
-activate RRHUI
-RRHUI --> RRH : Requests info input \n(nomeCompleto, nomeAbreviado, \nmorada, data, numeroMecanografico, \ncontacto, funcao, codigoEquipa)
-deactivate RRHUI
-
-RRH -> RRHUI : Inputs requested info
-activate RRHUI
-RRHUI -> RRHCTRL : addNewEmployee(nomeCompleto, \nnomeAbreviado, morada, data, \nnumeroMecanografico, contacto, \nfuncao, codigoEquipa)
-activate RRHCTRL
-RRHCTRL -> COLABBUILDER
-activate COLABBUILDER
-
-deactivate COLABBUILDER
-
-deactivate RRHCTRL
+actor "Human Resources \nResponsible" as HRR
+participant ":AddTeamUI" as ADDTEAMUI <<presentation>>
+participant ":AddTeamController" as ADDTEAMCTRL <<application>>
+participant ":TeamBuilder" as TEAMBUILDER <<builder>>
+participant "team\n:Team" as TEAM <<domain>>
+participant PersistenceContext as Persistence <<persistence>>
+participant RepositoryFactory as Factory <<factory>>
+database TeamRepository as Repository <<repository>>
 
 
-deactivate RRHUI
-deactivate RRH
+HRR --> ADDTEAMUI : Add new team
+activate ADDTEAMUI
+ADDTEAMUI --> HRR : Requests info input \n(EquipaId, Descricao)
 
+HRR --> ADDTEAMUI : Inputs requested info
 
+ADDTEAMUI -> ADDTEAMCTRL : addNewTeam\n(EquipaId, Descricao)
+note right of TEAMBUILDER:TeamBuilder is used to create an entity of Team type in a valid state
+activate ADDTEAMCTRL
+ADDTEAMCTRL -> TEAMBUILDER : create()
+ADDTEAMCTRL -> TEAMBUILDER : team = createTeam\n(EquipaId, Descricao)
+
+activate TEAMBUILDER
+TEAMBUILDER -> TEAM : team = createTeam\n(EquipaId, Descricao)
+deactivate TEAMBUILDER
+
+ADDTEAMCTRL -> Persistence : factory = repositories()
+activate Persistence
+Persistence -> Factory : create()
+deactivate Persistence
+
+ADDTEAMCTRL -> Factory : teamRepository = listTeams()
+activate Factory
+Factory -> Repository : create()
+deactivate Factory
+
+opt if (!teamRepository.contains(team))
+ADDTEAMCTRL -> Repository : save(team)
+
+ADDTEAMCTRL --> ADDTEAMUI : team
+deactivate TEAMBUILDER
+deactivate ADDTEAMCTRL
+
+ref over HRR
+Associate Team to 1 TeamType
+end ref
+ADDTEAMUI --> HRR : displaySuccess
+deactivate ADDTEAMUI
+end opt
 
 @enduml

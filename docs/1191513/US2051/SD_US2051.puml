@@ -43,11 +43,13 @@ ADDCOLLABCTRL -> Repository : save(collab)
 ADDCOLLABCTRL --> ADDCOLLABUI : collab
 deactivate COLLABBUILDER
 
-ADDCOLLABUI --> HRR : displaySuccess
-deactivate ADDCOLLABCTRL
 ref over HRR
 US2053 - Add collaborator to 1 or more teams
 end ref
+
+ADDCOLLABUI --> HRR : displaySuccess
+deactivate ADDCOLLABCTRL
+
 deactivate ADDCOLLABUI
 end opt
 
