@@ -53,6 +53,10 @@ public class Team implements AggregateRoot<Designation> {
         this.teamType = teamType;
     }
 
+    public Designation getId() {
+        return id;
+    }
+
     @Override
     public boolean sameAs(Object other) {
         return false;

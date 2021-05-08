@@ -24,6 +24,7 @@
 package eapli.base.app.backoffice.console.presentation.collaborator;
 
 import eapli.base.collaboratormanagement.application.AddCollaboratorController;
+import eapli.base.team.domain.Team;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.infrastructure.authz.domain.model.Role;
@@ -68,6 +69,12 @@ public class AddCollaboratorUI extends AbstractUI {
             show = showRoles(roleTypes);
         } while (!show);
 
+        final Set<Team> teams = new HashSet<>();
+        show = false;
+        do {
+            show = showTeams(teams);
+        } while (!show);
+
 
 
         try {
@@ -95,6 +102,22 @@ public class AddCollaboratorUI extends AbstractUI {
             rolesMenu.addItem(MenuItem.of(counter++, roleType.toString(), () -> roleTypes.add(roleType)));
         }
         return rolesMenu;
+    }
+
+    private boolean showTeams(final Set<Team> teams) {
+        final Menu teamsMenu = buildTeamsMenu(teams);
+        final MenuRenderer renderer = new VerticalMenuRenderer(teamsMenu, MenuItemRenderer.DEFAULT);
+        return renderer.render();
+    }
+
+    private Menu buildTeamsMenu(final Set<Team> teams) {
+        final Menu teamsMenu = new Menu();
+        int counter = 0;
+        teamsMenu.addItem(MenuItem.of(counter++, "No Role", Actions.SUCCESS));
+        for (final Team teamName : theController.getTeams()) {
+            teamsMenu.addItem(MenuItem.of(counter++, teamName.toString(), () -> teams.add(teamName)));
+        }
+        return teamsMenu;
     }
 
 

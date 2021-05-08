@@ -6,7 +6,10 @@ import eapli.base.clientusermanagement.domain.MecanographicNumber;
 import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
+import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
+
+import java.util.Optional;
 
 class JpaCollaboratorRepository extends JpaAutoTxRepository<Collaborator, MecanographicNumber, MecanographicNumber>
 implements CollaboratorRepository {
@@ -24,4 +27,8 @@ implements CollaboratorRepository {
         return match("e.mecanographicNumber!= ");
     }
 
+    @Override
+    public Optional<Collaborator> findByUsername(Username user) {
+        throw new UnsupportedOperationException("Collaborator - findByUsername not implemented yet");
+    }
 }

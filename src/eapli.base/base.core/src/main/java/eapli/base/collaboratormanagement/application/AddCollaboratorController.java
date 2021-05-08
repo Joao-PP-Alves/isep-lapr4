@@ -1,7 +1,7 @@
 package eapli.base.collaboratormanagement.application;
 
-import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.collaboratormanagement.domain.CollaboratorBuilder;
+import eapli.base.team.domain.Team;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -12,7 +12,6 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import eapli.framework.time.util.Calendars;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Set;
 
 /**
@@ -34,6 +33,11 @@ public class AddCollaboratorController {
 
     public Role[] getRoleTypes() {
         return BaseRoles.nonUserValues();
+    }
+
+    public Team[] getTeams() {
+        //TODO get teams from repo.
+        throw new UnsupportedOperationException("Not implemented yet. Should get teams from repository!");
     }
 
 
