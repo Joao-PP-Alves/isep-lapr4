@@ -9,8 +9,8 @@ participant ":AppSettings" as APP
 participant ":RepositoryFactory" as REPFAC
 participant ":ColaboratorRepository" as COLABREP
 participant ":TeamRepository" as TEAMREP
+participant "team:Team" as TEAM
 participant "colaborator\n:Colaborator" as COLAB
-
 
 activate RRH
 RRH -> UI : Modify colaborator's team
@@ -60,14 +60,18 @@ UI --> RRH : Show list, asks to choose a team
 deactivate UI
 RRH -> UI : chooses
 activate UI
-UI -> CTRL : changeTeam(colaborator,team)
+UI -> CTRL : changeTeam(colaborator,team,option)
 activate CTRL
-CTRL -> COLAB : changeTeam(team)
-activate COLAB
-deactivate COLAB
-CTRL -> COLABREP : save(colaborator)
-activate COLABREP
-deactivate COLABREP
+CTRL -> TEAM : set = getMembers()
+activate TEAM
+deactivate TEAM
+CTRL -> CTRL : add/remove(colaborator)
+CTRL -> TEAM : setMembers(set)
+activate TEAM
+deactivate TEAM
+CTRL -> TEAMREP : save(team)
+activate TEAMREP
+deactivate TEAMREP
 CTRL --> UI : changeStatus
 deactivate CTRL
 UI --> RRH : changed. back to menu

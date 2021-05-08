@@ -91,10 +91,6 @@ public class Collaborator implements AggregateRoot<MecanographicNumber> {
     @JsonProperty
     private Date date;
 
-    @XmlElement
-    @JsonProperty
-    @ManyToOne
-    private Team team;
 
     /**
      * cascade = CascadeType.NONE as the systemUser is part of another aggregate
@@ -108,23 +104,6 @@ public class Collaborator implements AggregateRoot<MecanographicNumber> {
         }
         this.systemUser = user;
         this.mecanographicNumber = mecanographicNumber;
-    }
-
-    public Collaborator(final SystemUser user, final MecanographicNumber mecanographicNumber,Team team) {
-        if (mecanographicNumber == null || user == null) {
-            throw new IllegalArgumentException();
-        }
-        setTeam(team);
-        this.systemUser = user;
-        this.mecanographicNumber = mecanographicNumber;
-    }
-
-    public Team getTeam() {
-        return team;
-    }
-
-    public void setTeam(Team team) {
-        this.team = team;
     }
 
     public Collaborator() {

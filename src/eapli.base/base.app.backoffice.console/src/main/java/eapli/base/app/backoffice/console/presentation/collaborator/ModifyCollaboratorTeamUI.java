@@ -7,6 +7,8 @@ import eapli.base.team.domain.Team;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class ModifyCollaboratorTeamUI extends AbstractUI {
 
@@ -17,49 +19,92 @@ public class ModifyCollaboratorTeamUI extends AbstractUI {
         ArrayList<Collaborator> arrayList = (ArrayList<Collaborator>) theController.listCollaborators();
         int contador=0;
         for (Collaborator coll:arrayList){
-            System.out.printf("%d - %s - %s\n",contador,coll.user().name().toString(),coll.identity());
+            System.out.printf("%d -> %s - %s\n",contador,coll.user().name().toString(),coll.identity());
             contador++;
         }
-        int option= Console.readInteger("Select option.\n");
+        System.out.printf("%d -> Cancel Operation.\n",contador);
+        int option= Console.readInteger("Select collaborator.\n");
+        while (option < 0 || option > arrayList.size()){
+            System.out.println("Invalid option. Try again.");
+            option= Console.readInteger("Select collaborator.\n");
+        }
+        if (option==contador){
+            System.out.println("Operation canceled");
+            return true;
+        }
         Collaborator collaborator = arrayList.get(option);
-        Team collaboratorTeam = collaborator.getTeam();
-        if (collaboratorTeam==null){
-            System.out.println("This Collaborator doesn't belong to a team.");
-            option = Console.readInteger("Add Collaborator to a team? (1-Yes | 2-No)\n");
-            if (option==1){
-                ArrayList<Team> listTeams = (ArrayList<Team>) theController.listTeams();
-                contador=0;
-                for (Team team:listTeams){
-                    System.out.printf("%d - %s\n",contador,team.identity());
-                    contador++;
+        int option2 = Console.readInteger("1 -> Add to a team.\n2 -> Remove from a team.\n3 -> Cancel Operation.\n");
+        contador=0;
+        while (option2 < 0 || option2 > 3){
+            System.out.println("Invalid option. Try again.");
+            option2 = Console.readInteger("1 -> Add to a team.\n2 -> Remove from a team.\n3 -> Cancel Operation.\n");
+        }
+        if(option2 == 1){
+            ArrayList<Team> arrayListTeams =(ArrayList<Team>) theController.listTeams();
+            List<Team> listToShow = new ArrayList<>();
+            for (Team t: arrayListTeams){
+                Set<Collaborator> listEach = t.getMembers();
+                if (!listEach.contains(collaborator)){
+                    listToShow.add(t);
                 }
-                option= Console.readInteger("Select option.\n");
-                Team team = listTeams.get(option);
-                if (!team.equals(new Team())){
-                    if (!theController.changeTeam(team,collaborator).mecanographicNumber().toString().equals(new MecanographicNumber().toString())){
-                        System.out.println("Collaborator was removed successfully from the team. Successful operation.");
-                    } else {
-                        System.out.println("Something went wrong. Aborting operation.");
-                    }
-                } else {
-                    System.out.println("Invalid option. Canceling operation.");
-                }
-            } else {
-                System.out.println("Collaborator wasn't added. Aborting operation.");
             }
-        } else {
-            System.out.println("This Collaborator belongs to a team.");
-            option = Console.readInteger("Remove him from the team? (1-Yes | 2-No)\n");
-            if (option==1){
-                if (!theController.changeTeam(collaborator).mecanographicNumber().toString().equals(new MecanographicNumber().toString())) {
-                    System.out.println("Collaborator was removed successfully from the team. Successful operation.");
-                } else {
-                    System.out.println("Something went wrong. Aborting operation.");
-                }
+            for (Team team:listToShow){
+                System.out.printf("%d -> %s\n",contador,team.identity());
+                contador++;
+            }
+            System.out.printf("%d -> Cancel Operation.\n",contador);
+            option= Console.readInteger("Select Team.\n");
+            while (option < 0 || option >= listToShow.size()){
+                System.out.println("Invalid option. Try again.");
+                option= Console.readInteger("Select Team.\n");
+            }
+            if (option==contador){
+                System.out.println("Operation canceled");
+                return true;
+            }
+            Team teamToAdd = listToShow.get(option);
+            if (!theController.changeTeam(teamToAdd,collaborator,1).getId().isEmpty()){
+                System.out.println("Collaborator was added successfully to the team. Successful operation.");
+                return true;
             } else {
-                System.out.println("Collaborator wasn't added. Aborting operation.");
+                System.out.println("Something went wrong. Aborting operation.");
+                return false;
+            }
+        } else if(option==2) {
+            ArrayList<Team> arrayListTeams =(ArrayList<Team>) theController.listTeams();
+            List<Team> listToShow = new ArrayList<>();
+            for (Team t: arrayListTeams){
+                Set<Collaborator> listEach = t.getMembers();
+                if (listEach.contains(collaborator)){
+                    listToShow.add(t);
+                }
+            }
+            for (Team team:listToShow){
+                System.out.printf("%d -> %s\n",contador,team.identity());
+                contador++;
+            }
+            System.out.printf("%d -> Cancel Operation.\n",contador);
+            option= Console.readInteger("Select Team.\n");
+            while (option < 0 || option >= listToShow.size()){
+                System.out.println("Invalid option. Try again.");
+                option= Console.readInteger("Select Team.\n");
+            }
+            if (option==contador){
+                System.out.println("Operation canceled");
+                return true;
+            }
+            Team teamToAdd = listToShow.get(option);
+            if (!theController.changeTeam(teamToAdd,collaborator,2).getId().isEmpty()){
+                System.out.println("Collaborator was removed successfully from the team. Successful operation.");
+                return true;
+            } else {
+                System.out.println("Something went wrong. Aborting operation.");
+                return false;
             }
 
+        } else if(option==3){
+            System.out.println("Operation canceled");
+            return true;
         }
         return true;
     }

@@ -24,7 +24,7 @@ implements CollaboratorRepository {
 
     @Override
     public Iterable<Collaborator> findAll(){
-        return match("e.mecanographicNumber!= ");
+        return match("e.mecanographicNumber!= null");
     }
 
     @Override
