@@ -49,7 +49,6 @@ import java.util.Set;
  */
 public class CollaboratorManagementService {
 
-
     private final PasswordEncoder encoder;
     private final PasswordPolicy policy;
 

@@ -20,6 +20,7 @@ public class ServiceCatalog implements AggregateRoot<MecanographicNumber> {
     @JsonProperty
     @XmlElement
     @EmbeddedId
+    @GeneratedValue
     private MecanographicNumber id;
 
     @JsonProperty
@@ -56,9 +57,8 @@ public class ServiceCatalog implements AggregateRoot<MecanographicNumber> {
     @XmlElement
     private boolean topCatalog;
 
-    public ServiceCatalog(MecanographicNumber id, Designation title, Description shortDescription,
-                  Icon icon ,Description longDescription, Set<ServiceCatalog> serviceCatalogs, Set<Service> services, boolean topCatalog){
-        this.id=id;
+    public ServiceCatalog(Designation title, Description shortDescription, Icon icon, Description longDescription,
+                          Set<ServiceCatalog> serviceCatalogs, Set<Service> services, boolean topCatalog){
         this.title=title;
         this.shortDescription=shortDescription;
         this.longDescription=longDescription;

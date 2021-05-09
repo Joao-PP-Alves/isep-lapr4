@@ -15,22 +15,22 @@ public class ServiceBuilder implements DomainFactory<Service> {
 
     @Override
     public Service build() {
-       return new Service(name);
+        return new Service(name);
     }
 
-    public ServiceBuilder withName(final Designation name) {
-        this.name = name;
-        return this;
-    }
-
-    public ServiceBuilder withId(final MecanographicNumber id) {
-        this.id = id;
-        return this;
-    }
-
-    public ServiceBuilder with(Designation name, MecanographicNumber id){
+    public ServiceBuilder with(String id, String name){
         this.withId(id);
         this.withName(name);
+        return this;
+    }
+
+    public ServiceBuilder withName(final String name) {
+        this.name = Designation.valueOf(name);
+        return this;
+    }
+
+    public ServiceBuilder withId(final String id) {
+        this.id = MecanographicNumber.valueOf(id);
         return this;
     }
 }
