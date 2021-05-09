@@ -23,10 +23,7 @@
  */
 package eapli.base.team.application;
 
-import eapli.base.clientusermanagement.domain.MecanographicNumber;
 import eapli.base.collaboratormanagement.domain.Collaborator;
-import eapli.base.collaboratormanagement.domain.CollaboratorBuilder;
-import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.team.domain.Team;
 import eapli.base.team.domain.TeamBuilder;
@@ -39,14 +36,10 @@ import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.PasswordPolicy;
 import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
-import eapli.framework.infrastructure.authz.domain.model.Role;
-import eapli.framework.infrastructure.authz.domain.model.Username;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.Calendar;
 import java.util.Optional;
-import java.util.Set;
 
 /**
  * @author mcn

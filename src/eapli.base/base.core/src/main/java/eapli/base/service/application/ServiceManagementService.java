@@ -14,10 +14,10 @@ public class ServiceManagementService {
     public ServiceManagementService() {
     }
 
-    public Service registerNewService(String id, String name) {
+    public Service registerNewService(String name) {
 
         ServiceBuilder servBuilder = new ServiceBuilder();
-        servBuilder.with(id, name);
+        servBuilder.with(name);
         Service serv = servBuilder.build();
 
         return this.servRepo.save(serv);

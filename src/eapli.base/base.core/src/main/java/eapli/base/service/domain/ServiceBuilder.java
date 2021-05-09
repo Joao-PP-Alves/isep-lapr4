@@ -1,24 +1,27 @@
 package eapli.base.service.domain;
 
-import eapli.base.clientusermanagement.domain.MecanographicNumber;
-import eapli.base.collaboratormanagement.domain.CollaboratorBuilder;
-import eapli.base.collaboratormanagement.domain.FullName;
 import eapli.framework.domain.model.DomainFactory;
 import eapli.framework.general.domain.model.Designation;
 
 public class ServiceBuilder implements DomainFactory<Service> {
 
-    private MecanographicNumber id;
+    private Long id;
     private Designation name;
 
-    public ServiceBuilder(){}
+    public ServiceBuilder() {
+    }
 
     @Override
     public Service build() {
-        return new Service(name);
+        return new Service(this.name);
     }
 
-    public ServiceBuilder with(String id, String name){
+    public ServiceBuilder with(String name) {
+        this.withName(name);
+        return this;
+    }
+
+    public ServiceBuilder with(String id, String name) {
         this.withId(id);
         this.withName(name);
         return this;
@@ -30,7 +33,7 @@ public class ServiceBuilder implements DomainFactory<Service> {
     }
 
     public ServiceBuilder withId(final String id) {
-        this.id = MecanographicNumber.valueOf(id);
+        this.id = Long.valueOf(id);
         return this;
     }
 }

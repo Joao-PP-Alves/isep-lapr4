@@ -8,7 +8,7 @@ import eapli.base.service.repositories.ServiceRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
-public class JpaServiceRepository extends JpaAutoTxRepository<Service, MecanographicNumber, MecanographicNumber>
+public class JpaServiceRepository extends JpaAutoTxRepository<Service, Long, Long>
 implements ServiceRepository {
 
     public JpaServiceRepository(TransactionalContext autoTx) {

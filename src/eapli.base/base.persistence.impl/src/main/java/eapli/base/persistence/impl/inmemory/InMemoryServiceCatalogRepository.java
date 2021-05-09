@@ -5,7 +5,7 @@ import eapli.base.servicecatalog.domain.ServiceCatalog;
 import eapli.base.servicecatalog.repositories.ServiceCatalogRepository;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 
-public class InMemoryServiceCatalogRepository extends InMemoryDomainRepository<ServiceCatalog, MecanographicNumber>
+public class InMemoryServiceCatalogRepository extends InMemoryDomainRepository<ServiceCatalog, Long>
         implements ServiceCatalogRepository {
 
     static {

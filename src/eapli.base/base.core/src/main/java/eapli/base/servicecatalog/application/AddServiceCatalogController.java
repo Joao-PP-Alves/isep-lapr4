@@ -18,7 +18,7 @@ public class AddServiceCatalogController {
     public ServiceCatalog addServiceCatalog(String title, String shortDescription, String longDescription, String icon,
                                             Set<ServiceCatalog> subCatalogs, Set<Service> listServices, boolean topCatalog) {
 
-        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN);
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
 
         return servCatSvc.registerNewServiceCatalog(title, shortDescription, longDescription, icon,
                 subCatalogs, listServices, topCatalog);

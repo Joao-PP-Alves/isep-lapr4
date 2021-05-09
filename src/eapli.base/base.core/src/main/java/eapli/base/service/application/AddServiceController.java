@@ -12,10 +12,10 @@ public class AddServiceController {
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final ServiceManagementService servSvc = new ServiceManagementService();
 
-    public Service addService(String id, String name) {
+    public Service addService(String name) {
 
-        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.ADMIN);
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
 
-        return servSvc.registerNewService(id, name);
+        return servSvc.registerNewService(name);
     }
 }

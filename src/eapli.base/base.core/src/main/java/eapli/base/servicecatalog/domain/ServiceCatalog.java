@@ -1,7 +1,6 @@
 package eapli.base.servicecatalog.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import eapli.base.clientusermanagement.domain.MecanographicNumber;
 import eapli.base.service.domain.Service;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.general.domain.model.Description;
@@ -15,13 +14,13 @@ import java.util.Set;
 
 @XmlRootElement
 @Entity
-public class ServiceCatalog implements AggregateRoot<MecanographicNumber> {
+public class ServiceCatalog implements AggregateRoot<Long> {
 
     @JsonProperty
     @XmlElement
-    @EmbeddedId
+    @Id
     @GeneratedValue
-    private MecanographicNumber id;
+    private Long id;
 
     @JsonProperty
     @XmlElement
@@ -79,7 +78,7 @@ public class ServiceCatalog implements AggregateRoot<MecanographicNumber> {
     }
 
     @Override
-    public int compareTo(MecanographicNumber other) {
+    public int compareTo(Long other) {
         if (other.equals(this.identity())){
             return 1;
         }
@@ -105,12 +104,12 @@ public class ServiceCatalog implements AggregateRoot<MecanographicNumber> {
     }
 
     @Override
-    public MecanographicNumber identity() {
+    public Long identity() {
         return this.id;
     }
 
     @Override
-    public boolean hasIdentity(MecanographicNumber otherId) {
+    public boolean hasIdentity(Long otherId) {
         return otherId.equals(this.identity());
     }
 }

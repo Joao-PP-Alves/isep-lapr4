@@ -23,6 +23,7 @@
  */
 package eapli.base.infrastructure.bootstrapers;
 
+import eapli.base.service.domain.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,6 +58,8 @@ public class BaseBootstrapper implements Action {
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final AuthenticationService authenticationService = AuthzRegistry.authenticationService();
     private final UserRepository userRepository = PersistenceContext.repositories().users();
+    private final ServiceBootstrapper servBoot = new ServiceBootstrapper();
+    private final OrganizationBootstrapper orgBoot = new OrganizationBootstrapper();
 
     @Override
     public boolean execute() {
@@ -65,6 +68,8 @@ public class BaseBootstrapper implements Action {
 
         registerPowerUser();
         authenticateForBootstrapping();
+        servBoot.execute();
+        orgBoot.execute();
 
         // execute all bootstrapping
         boolean ret = true;
