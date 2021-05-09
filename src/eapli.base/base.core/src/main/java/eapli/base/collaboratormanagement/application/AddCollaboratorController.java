@@ -63,9 +63,16 @@ public class AddCollaboratorController {
         } else {
             firstName = fullName;
         }
+        Collaborator collab = null;
+        try {
+            collab = collabManSvc.registerNewCollaborator(username, password, firstName, lastName, email, roleTypes,
+                    createdOn, shortName, address, phoneNumber);
+            userSvc.registerNewUser(username, password, firstName, lastName, email, roleTypes, createdOn);
 
-        return collabManSvc.registerNewCollaborator(username, password, firstName, lastName, email, roleTypes,
-                createdOn, shortName, address, phoneNumber);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return collab;
 
     }
 

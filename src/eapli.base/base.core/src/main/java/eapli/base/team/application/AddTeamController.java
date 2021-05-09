@@ -70,7 +70,6 @@ public class AddTeamController {
 
         TeamType teamType = null;
         int counter = 0;
-
         for (TeamType i : teamTypes) {
             if (counter == 0) {
                 teamType = i;

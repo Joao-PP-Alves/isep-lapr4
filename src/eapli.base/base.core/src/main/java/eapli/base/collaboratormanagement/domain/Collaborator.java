@@ -162,4 +162,12 @@ public class Collaborator implements AggregateRoot<Long> {
     public Long identity() {
         return this.mecanographicNumber;
     }
+
+    @Override
+    public String toString() {
+        return "Collaborator{" +
+                ", mecanographicNumber=" + mecanographicNumber +
+                ", fullName=" + fullName +
+                '}';
+    }
 }

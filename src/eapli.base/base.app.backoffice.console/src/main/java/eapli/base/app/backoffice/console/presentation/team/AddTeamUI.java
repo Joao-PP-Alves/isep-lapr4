@@ -89,7 +89,7 @@ public class AddTeamUI extends AbstractUI {
     private Menu buidlTeamTypesMenu(final Set<TeamType> teamTypes) {
         final Menu teamTypesMenu = new Menu();
         int counter = 0;
-        teamTypesMenu.addItem(MenuItem.of(counter++, "No Role", Actions.SUCCESS));
+        teamTypesMenu.addItem(MenuItem.of(counter++, "No Team Type", Actions.SUCCESS));
         for (final TeamType teamType : theController.getTeamTypes()) {
             teamTypesMenu.addItem(MenuItem.of(counter++, teamType.getTeamId(), () -> teamTypes.add(teamType)));
         }
@@ -107,7 +107,7 @@ public class AddTeamUI extends AbstractUI {
         final Menu collanoratorsMenu = new Menu();
         final Set<Collaborator> collabsList = new HashSet<>();
         int counter = 0;
-        collanoratorsMenu.addItem(MenuItem.of(counter++, "No Role", Actions.SUCCESS));
+        collanoratorsMenu.addItem(MenuItem.of(counter++, "No Team Responsible", Actions.SUCCESS));
         for (final Collaborator collab : theController.getCollaboratorsList()) {
             collanoratorsMenu.addItem(MenuItem.of(counter++, collab.toString(), () -> collabsList.add(collab)));
         }
@@ -116,6 +116,9 @@ public class AddTeamUI extends AbstractUI {
 
     @Override
     public String headline() {
-        return "Add User";
+        return "Add Team";
     }
+
+
+
 }

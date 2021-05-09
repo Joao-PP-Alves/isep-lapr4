@@ -37,4 +37,9 @@ public class TeamTypeId implements ValueObject, Comparable<TeamTypeId> {
     public int compareTo(TeamTypeId o) {
         return 0;
     }
+
+    @Override
+    public String toString() {
+        return id;
+    }
 }
