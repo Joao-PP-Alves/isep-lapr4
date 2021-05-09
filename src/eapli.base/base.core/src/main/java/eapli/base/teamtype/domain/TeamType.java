@@ -29,7 +29,7 @@ public class TeamType implements AggregateRoot<TeamTypeId> {
     private Color color;
 
 
-    public TeamType(TeamTypeId id, Description description, String color){
+    public TeamType(TeamTypeId id, Description description, Color color){
         setId(id);
         setColor(color);
         setDescription(description);
@@ -43,12 +43,16 @@ public class TeamType implements AggregateRoot<TeamTypeId> {
         this.id = id;
     }
 
-    public void setColor(String color) {
-        Color colorAsObject;
+    public void setColor(Color color) {
+        //Color colorAsObject;
         try {
+            this.color = color;
+
+/*            java.awt.Color c = java.awt.Color.getColor(color);
+
             Field field = Class.forName("java.awt.Color").getField(color);
             colorAsObject = (Color)field.get(null);
-            this.color = colorAsObject;
+            this.color = colorAsObject;*/
         } catch (Exception e) {
             this.color = null; // Not defined
         }
@@ -86,5 +90,9 @@ public class TeamType implements AggregateRoot<TeamTypeId> {
     @Override
     public boolean hasIdentity(TeamTypeId otherId) {
         return false;
+    }
+
+    public String getTeamId() {
+        return id.toString();
     }
 }
