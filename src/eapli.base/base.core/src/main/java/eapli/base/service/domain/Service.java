@@ -7,6 +7,7 @@ import eapli.framework.general.domain.model.Designation;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.xml.bind.annotation.XmlElement;
 
 @Entity
@@ -15,14 +16,19 @@ public class Service implements AggregateRoot<MecanographicNumber> {
     @XmlElement
     @JsonProperty
     @EmbeddedId
+    @GeneratedValue
     private MecanographicNumber id;
 
     @XmlElement
     @JsonProperty
     private Designation name;
 
+    public Service(Designation name){
+        this.name=name;
+    }
+
     public Service(MecanographicNumber id, Designation name){
-        this.id=id;
+        this.id = id;
         this.name=name;
     }
 
