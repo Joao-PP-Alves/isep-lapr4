@@ -57,7 +57,7 @@ public class ServiceCatalog implements AggregateRoot<MecanographicNumber> {
     private boolean topCatalog;
 
     public ServiceCatalog(MecanographicNumber id, Designation title, Description shortDescription,
-                  Icon icon ,Description longDescription, Set<ServiceCatalog> serviceCatalogs, Set<Service> services){
+                  Icon icon ,Description longDescription, Set<ServiceCatalog> serviceCatalogs, Set<Service> services, boolean topCatalog){
         this.id=id;
         this.title=title;
         this.shortDescription=shortDescription;
@@ -65,6 +65,7 @@ public class ServiceCatalog implements AggregateRoot<MecanographicNumber> {
         this.listSubCatalogs=serviceCatalogs;
         this.listServices=services;
         this.icon=icon;
+        this.topCatalog = topCatalog;
     }
 
     public ServiceCatalog() {
