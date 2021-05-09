@@ -30,6 +30,7 @@ import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.general.domain.model.Designation;
 import eapli.framework.infrastructure.authz.domain.model.Role;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
@@ -75,6 +76,7 @@ public class Collaborator implements AggregateRoot<Long> {
 
     @XmlElement
     @JsonProperty
+    @Nullable
     private PhoneNumber phoneNumber;
 
     @XmlElement
