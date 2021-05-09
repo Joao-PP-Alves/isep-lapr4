@@ -53,7 +53,7 @@ public class AddCollaboratorController {
     public Collaborator addNewCollaborator(final String username, final String password, final String email,
                                            final Set<Role> roleTypes, final String fullName, final String shortName,
                                            final String address, final int phoneNumber, final Calendar createdOn) {
-        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.HRR, BaseRoles.ADMIN);
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.HRR, BaseRoles.ADMIN);
 
         String lastName = "";
         String firstName = "";
