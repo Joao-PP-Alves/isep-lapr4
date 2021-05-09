@@ -54,15 +54,16 @@ import java.util.Set;
  */
 @XmlRootElement
 @Entity
-public class Collaborator implements AggregateRoot<MecanographicNumber> {
+public class Collaborator implements AggregateRoot<Long> {
 
     @Version
     private Long version;
 
     @XmlElement
     @JsonProperty
-    @EmbeddedId
-    private MecanographicNumber mecanographicNumber;
+    @Id
+    @GeneratedValue
+    private Long mecanographicNumber;
 
     @XmlElement
     @JsonProperty
@@ -99,7 +100,7 @@ public class Collaborator implements AggregateRoot<MecanographicNumber> {
     @OneToOne()
     private SystemUser systemUser;
 
-    public Collaborator(final SystemUser user, final MecanographicNumber mecanographicNumber) {
+    public Collaborator(final SystemUser user, final Long mecanographicNumber) {
         if (mecanographicNumber == null || user == null) {
             throw new IllegalArgumentException();
         }
@@ -153,12 +154,12 @@ public class Collaborator implements AggregateRoot<MecanographicNumber> {
         return DomainEntities.areEqual(this, other);
     }
 
-    public MecanographicNumber mecanographicNumber() {
+    public Long mecanographicNumber() {
         return identity();
     }
 
     @Override
-    public MecanographicNumber identity() {
+    public Long identity() {
         return this.mecanographicNumber;
     }
 }

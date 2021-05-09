@@ -69,7 +69,7 @@ public class CollaboratorManagementService {
 
     public Optional<Collaborator> findCollaboratorByMecNumber(final String mecNumber) {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.CASHIER);
-        return repo.ofIdentity(MecanographicNumber.valueOf(mecNumber));
+        return repo.ofIdentity(Long.valueOf(mecNumber));
     }
 
     public Optional<Collaborator> findCollaboratorByUsername(final Username user) {

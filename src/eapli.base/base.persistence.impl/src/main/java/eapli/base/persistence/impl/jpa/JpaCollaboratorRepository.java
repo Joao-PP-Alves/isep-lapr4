@@ -11,7 +11,7 @@ import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
 import java.util.Optional;
 
-class JpaCollaboratorRepository extends JpaAutoTxRepository<Collaborator, MecanographicNumber, MecanographicNumber>
+class JpaCollaboratorRepository extends JpaAutoTxRepository<Collaborator, Long, Long>
 implements CollaboratorRepository {
 
     public JpaCollaboratorRepository(TransactionalContext autoTx) {

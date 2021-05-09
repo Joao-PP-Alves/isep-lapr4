@@ -9,7 +9,7 @@ import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainR
 import java.util.Optional;
 
 
-public class InMemoryCollaboratorRepository extends InMemoryDomainRepository<Collaborator, MecanographicNumber>
+public class InMemoryCollaboratorRepository extends InMemoryDomainRepository<Collaborator, Long>
 implements CollaboratorRepository {
 
     static {

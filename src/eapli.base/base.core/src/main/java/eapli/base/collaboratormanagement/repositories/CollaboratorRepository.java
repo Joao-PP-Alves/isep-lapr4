@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
-public interface CollaboratorRepository extends DomainRepository<MecanographicNumber,Collaborator> {
+public interface CollaboratorRepository extends DomainRepository<Long,Collaborator> {
 
     /**
      * Find all collaborators.
