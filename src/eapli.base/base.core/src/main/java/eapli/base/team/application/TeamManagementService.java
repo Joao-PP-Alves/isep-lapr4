@@ -21,22 +21,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eapli.base.collaboratormanagement.application;
+package eapli.base.team.application;
 
-import eapli.base.clientusermanagement.domain.ClientUser;
 import eapli.base.clientusermanagement.domain.MecanographicNumber;
-import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.collaboratormanagement.domain.CollaboratorBuilder;
 import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
+import eapli.base.team.domain.Team;
+import eapli.base.team.domain.TeamBuilder;
+import eapli.base.team.repository.TeamRepository;
+import eapli.base.teamtype.domain.TeamType;
 import eapli.base.usermanagement.domain.BasePasswordPolicy;
 import eapli.base.usermanagement.domain.BaseRoles;
+import eapli.framework.general.domain.model.Designation;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.PasswordPolicy;
-import eapli.framework.infrastructure.authz.domain.model.*;
-import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
+import eapli.framework.infrastructure.authz.domain.model.PlainTextEncoder;
+import eapli.framework.infrastructure.authz.domain.model.Role;
+import eapli.framework.infrastructure.authz.domain.model.Username;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -47,44 +51,38 @@ import java.util.Set;
 /**
  * @author mcn
  */
-public class CollaboratorManagementService {
+public class TeamManagementService {
 
 
     private final PasswordEncoder encoder;
     private final PasswordPolicy policy;
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
-    private final CollaboratorRepository repo = PersistenceContext.repositories().collaborators();
+    private final TeamRepository repo = PersistenceContext.repositories().teams();
 
     @Autowired
-    public CollaboratorManagementService() {
+    public TeamManagementService() {
         this.policy = new BasePasswordPolicy();
         this.encoder = new PlainTextEncoder();
     }
 
     @Autowired
-    public CollaboratorManagementService( final PasswordPolicy policy, final PasswordEncoder encoder) {
+    public TeamManagementService(final PasswordPolicy policy, final PasswordEncoder encoder) {
         this.policy = policy;
         this.encoder = encoder;
     }
 
-    public Optional<Collaborator> findCollaboratorByMecNumber(final String mecNumber) {
+    public Optional<Team> findCollaboratorById(final String teamId) {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.CASHIER);
-        return repo.ofIdentity(MecanographicNumber.valueOf(mecNumber));
-    }
-
-    public Optional<Collaborator> findCollaboratorByUsername(final Username user) {
-        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
-        return repo.findByUsername(user);
+        return repo.ofIdentity(Designation.valueOf(teamId));
     }
 
 
-    public Collaborator registerNewCollaborator(String username, String rawPassword, String firstName, String lastName,
-            String email, Set<Role> roleTypes, Calendar createdOn, String shortName, String address, int phoneNumber) {
-        CollaboratorBuilder colabBuilder = new CollaboratorBuilder(this.policy, this.encoder);
-        colabBuilder.with(username, rawPassword, firstName, lastName, email, shortName, address, phoneNumber).createdOn(createdOn).withRoles(roleTypes);
-        Collaborator newCollab = colabBuilder.build();
-        return this.repo.save(newCollab);
+    public Team registerNewTeam(final String designation, final String description, final TeamType teamType, Collaborator responsibleCollab) {
+        TeamBuilder teamBuilder = new TeamBuilder();
+        teamBuilder.with(designation, description, teamType, responsibleCollab);
+        Team newTeam = teamBuilder.build();
+        return this.repo.save(newTeam);
 
     }
 }

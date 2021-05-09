@@ -36,11 +36,24 @@ public class Team implements AggregateRoot<Designation> {
     @OneToMany
     private Set<Collaborator> members;
 
-    public Team(Designation teamId, Description description, TeamType teamType, Set<Collaborator> collaboratorSet){
+    @JsonProperty
+    @XmlElement
+    @OneToOne
+    private Collaborator responsibleCollab;
+
+    public Team(Designation teamId, Description description, TeamType teamType, Set<Collaborator> collaboratorSet, Collaborator responsibleCollab){
         setId(teamId);
         setDescription(description);
         setTeamType(teamType);
         setMembers(collaboratorSet);
+        setResponsibleCollaborator(responsibleCollab);
+    }
+
+    public Team(Designation designation, Description description, TeamType teamType, Collaborator responsibleCollab) {
+        setId(designation);
+        setDescription(description);
+        setTeamType(teamType);
+        setResponsibleCollaborator(responsibleCollab);
     }
 
     public Set<Collaborator> getMembers() {
@@ -65,6 +78,10 @@ public class Team implements AggregateRoot<Designation> {
 
     public void setTeamType(TeamType teamType) {
         this.teamType = teamType;
+    }
+
+    private void setResponsibleCollaborator(Collaborator responsibleCollab) {
+        this.responsibleCollab=responsibleCollab;
     }
 
     public Designation getId() {

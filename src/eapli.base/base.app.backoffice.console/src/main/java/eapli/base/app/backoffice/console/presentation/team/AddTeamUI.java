@@ -23,6 +23,7 @@
  */
 package eapli.base.app.backoffice.console.presentation.team;
 
+import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.team.application.AddTeamController;
 import eapli.base.teamtype.domain.TeamType;
 import eapli.base.usermanagement.application.AddUserController;
@@ -64,8 +65,14 @@ public class AddTeamUI extends AbstractUI {
             show = showTeamTypes(teamTypes);
         } while (!show);
 
+        final Collaborator responsibleCollab = new Collaborator();
+        show = false;
+        do {
+            show = showCollaborators(responsibleCollab);
+        } while (!show);
+
         try {
-            this.theController.addTeam(designation, description, teamTypes);
+            this.theController.addTeam(designation, description, teamTypes, responsibleCollab);
         } catch (final IntegrityViolationException | ConcurrencyException e) {
             System.out.println("A Team already exists with specified designation.");
         }
@@ -88,6 +95,24 @@ public class AddTeamUI extends AbstractUI {
             teamTypesMenu.addItem(MenuItem.of(counter++, teamType.toString(), () -> teamTypes.add(teamType)));
         }
         return teamTypesMenu;
+    }
+
+    private boolean showCollaborators(Collaborator responsibleCollab) {
+        // TODO we could also use the "widget" classes from the framework...
+        final Menu collanoratorsMenu = buildCollaboratorsMenu(responsibleCollab);
+        final MenuRenderer renderer = new VerticalMenuRenderer(collanoratorsMenu, MenuItemRenderer.DEFAULT);
+        return renderer.render();
+    }
+
+    private Menu buildCollaboratorsMenu(Collaborator responsibleCollab) {
+        final Menu collanoratorsMenu = new Menu();
+        final Set<Collaborator> collabsList = new HashSet<>();
+        int counter = 0;
+        collanoratorsMenu.addItem(MenuItem.of(counter++, "No Role", Actions.SUCCESS));
+        for (final Collaborator collab : theController.getCollaboratorsList()) {
+            collanoratorsMenu.addItem(MenuItem.of(counter++, collab.toString(), () -> collabsList.add(collab)));
+        }
+        return collanoratorsMenu;
     }
 
     @Override

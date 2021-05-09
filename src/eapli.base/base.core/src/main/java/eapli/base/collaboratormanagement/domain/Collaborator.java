@@ -35,6 +35,8 @@ import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Calendar;
+import java.util.List;
+import java.util.Set;
 
 /**
  * A Collaborator.
@@ -109,7 +111,7 @@ public class Collaborator implements AggregateRoot<MecanographicNumber> {
         // for ORM only
     }
 
-    public Collaborator(FullName fullName, ShortName shortName, Address address, PhoneNumber phoneNumber, Calendar createdOn) {
+    public Collaborator(FullName fullName, ShortName shortName, Address address, PhoneNumber phoneNumber, List<Role> roles, Calendar createdOn) {
         if (fullName == null || shortName == null || address == null || phoneNumber == null || createdOn == null) {
             throw new IllegalArgumentException();
         }
@@ -118,9 +120,10 @@ public class Collaborator implements AggregateRoot<MecanographicNumber> {
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.date = createdOn;
+        //this.role = roles;
     }
 
-    public Collaborator(FullName fullName, ShortName shortName, Address address, PhoneNumber phoneNumber) {
+    public Collaborator(FullName fullName, ShortName shortName, Address address, PhoneNumber phoneNumber, List<Role> roles) {
         if (fullName == null || shortName == null || address == null || phoneNumber == null) {
             throw new IllegalArgumentException();
         }

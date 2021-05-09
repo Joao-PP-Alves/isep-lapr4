@@ -177,7 +177,8 @@ entity TarefaAutomatico{}
 .Equipa "1" --> "1" .TipoEquipa : pertence >
 .Servico "1" --> "1" TarefaSpec : realiza
 .Servico "1" --> "1" TarefaSpec : aprova
-.Equipa "1" --> "1..*" Colaborador : É constituida por >
+.Equipa "1" ---> "1..*" Colaborador : É constituida por >
+.Equipa "1" ---> "1" Colaborador : Tem como responsável >
 .TarefaSpecManual "1" --> "1" .Formulario : contém >
 Organizacao "1" ...> "*" .Servico : disponibiliza >
 Organizacao "1" ...> "1..*" .Equipa : define >

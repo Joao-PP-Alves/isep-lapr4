@@ -23,7 +23,14 @@
  */
 package eapli.base.team.application;
 
+import eapli.base.collaboratormanagement.application.CollaboratorManagementService;
+import eapli.base.collaboratormanagement.domain.Collaborator;
+import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
+import eapli.base.infrastructure.persistence.PersistenceContext;
+import eapli.base.team.domain.Team;
+import eapli.base.team.repository.TeamRepository;
 import eapli.base.teamtype.domain.TeamType;
+import eapli.base.teamtype.repository.TeamTypeRepository;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -31,6 +38,7 @@ import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.infrastructure.authz.application.UserManagementService;
 import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -43,25 +51,35 @@ public class AddTeamController {
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final UserManagementService userSvc = AuthzRegistry.userService();
     //private final TeamManagementService teamManSvc = new TeamManagementService();
+    private final CollaboratorRepository collabsRepo = PersistenceContext.repositories().collaborators();
+    private final TeamTypeRepository repo = PersistenceContext.repositories().teamTypes();
+    private final TeamManagementService teamManSvc = new TeamManagementService();
 
     /**
      * Get existing TeamTypes available.
      *
      * @return a list of TeamTypes
      */
-    public TeamType[] getTeamTypes() {
-        //TODO implement this method!
-        throw new UnsupportedOperationException("Method to be implemented.");
+    public Iterable<TeamType>getTeamTypes() {
+        return repo.findAll();
     }
 
 
-    public SystemUser addTeam(final String designation, final String description, final Set<TeamType> teamTypes) {
-        throw new UnsupportedOperationException("Method not yet implemented. Needs TeamManagementService implementation");
-        //authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.HRR);
+    public Team addTeam(final String designation, final String description, final Set<TeamType> teamTypes, Collaborator responsibleCollab) {
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.HRR, BaseRoles.ADMIN);
 
-        //return teamManSvc.registerNewTeam(designation, description, teamTypes);
-        //return userSvc.registerNewUser(designation, description, teamTypes);
-        //return null;
+        TeamType teamType = null;
+        int counter = 0;
+        for (TeamType i : teamTypes) {
+            if (counter == 0) {
+                teamType = i;
+            }
+            counter++;
+        }
+        return teamManSvc.registerNewTeam(designation, description, teamType, responsibleCollab);
     }
 
+    public List<Collaborator> getCollaboratorsList() {
+        return (List<Collaborator>) collabsRepo.findAll();
+    }
 }

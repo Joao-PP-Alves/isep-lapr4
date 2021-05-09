@@ -25,6 +25,7 @@ package eapli.base.app.backoffice.console.presentation;
 
 import eapli.base.app.backoffice.console.presentation.collaborator.AddCollaboratorUI;
 import eapli.base.app.backoffice.console.presentation.collaborator.ModifyCollaboratorTeamUI;
+import eapli.base.app.backoffice.console.presentation.team.AddTeamUI;
 import eapli.base.app.common.console.presentation.authz.MyUserMenu;
 import eapli.base.Application;
 import eapli.base.app.backoffice.console.presentation.authz.AddUserUI;
@@ -63,7 +64,7 @@ public class MainMenu extends AbstractUI {
     private static final int ACCEPT_REFUSE_SIGNUP_REQUEST_OPTION = 4;
     private static final int ADD_COLLABORATOR_OPTION = 5;
     private static final int MODIFY_COLLABORATORS_TEAM_OPTION = 6;
-
+    private static final int ADD_NEW_TEAM = 7;
     // SETTINGS
     private static final int SET_KITCHEN_ALERT_LIMIT_OPTION = 1;
 
@@ -185,6 +186,7 @@ public class MainMenu extends AbstractUI {
                 new AcceptRefuseSignupRequestAction());
         menu.addItem(ADD_COLLABORATOR_OPTION, "Add Collaborator", new AddCollaboratorUI()::show);
         menu.addItem(MODIFY_COLLABORATORS_TEAM_OPTION, "Modify collaborator's team", new ModifyCollaboratorTeamUI()::show);
+        menu.addItem(ADD_NEW_TEAM, "Add new Team", new AddTeamUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;

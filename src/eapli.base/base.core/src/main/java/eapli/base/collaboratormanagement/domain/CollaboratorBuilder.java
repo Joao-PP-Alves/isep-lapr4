@@ -9,6 +9,7 @@ import eapli.framework.validations.Preconditions;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -30,7 +31,7 @@ public class CollaboratorBuilder implements DomainFactory<Collaborator> {
     private Address address;
     private PhoneNumber phoneNumber;
     private EmailAddress email;
-    private Set<Role> roles;
+    private List<Role> roles = new LinkedList<Role>();
 
     private SystemUser systemUser;
     private MecanographicNumber mecanographicNumber;
@@ -66,12 +67,12 @@ public class CollaboratorBuilder implements DomainFactory<Collaborator> {
 
         Collaborator collab;
         if (this.createdOn != null) {
-            collab = new Collaborator(this.fullName, this.shortName, this.address, this.phoneNumber, this.createdOn);
+            collab = new Collaborator(this.fullName, this.shortName, this.address, this.phoneNumber, this.roles, this.createdOn);
         } else {
-            collab = new Collaborator(this.fullName, this.shortName, this.address, this.phoneNumber);
+            collab = new Collaborator(this.fullName, this.shortName, this.address, this.phoneNumber, this.roles);
         }
 
-        return new Collaborator(this.systemUser, this.mecanographicNumber);
+        return collab;
     }
 
     public CollaboratorBuilder with(String username, String rawPassword, String firstName,
