@@ -21,18 +21,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package eapli.base.app.backoffice.console.presentation.team;
+package eapli.base.app.backoffice.console.presentation.teamtype;
 
 import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.team.application.AddTeamController;
+import eapli.base.teamtype.application.AddTeamTypeController;
+import eapli.base.teamtype.domain.Color;
 import eapli.base.teamtype.domain.TeamType;
-import eapli.base.usermanagement.application.AddUserController;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
-import eapli.framework.infrastructure.authz.domain.model.Role;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.menu.MenuItemRenderer;
@@ -40,79 +40,59 @@ import eapli.framework.presentation.console.menu.MenuRenderer;
 import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
 
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 /**
  * Based on AddUserUI
  * Created by João Correia
  */
-public class AddTeamUI extends AbstractUI {
+public class AddTeamTypeUI extends AbstractUI {
 
-    private final AddTeamController theController = new AddTeamController();
+    private final AddTeamTypeController theController = new AddTeamTypeController();
 
     @Override
     protected boolean doShow() {
         // FIXME avoid duplication with SignUpUI. reuse UserDataWidget from
         // UtenteApp
-        final String designation = Console.readLine("Designation");
+        final String teamTypeId = Console.readLine("Team Type ID");
+        //final String color = Console.readLine("Team Type Color");
         final String description = Console.readLine("Description");
 
-
-        final Set<TeamType> teamTypes = new HashSet<>();
+        final List<String> colors = new LinkedList<>();
         boolean show;
         do {
-            show = showTeamTypes(teamTypes);
-        } while (!show);
-
-        final Collaborator responsibleCollab = new Collaborator();
-        show = false;
-        do {
-            show = showCollaborators(responsibleCollab);
+            show = showTeamColors(colors);
         } while (!show);
 
         try {
-            this.theController.addTeam(designation, description, teamTypes, responsibleCollab);
+            this.theController.addTeamType(teamTypeId, colors, description);
         } catch (final IntegrityViolationException | ConcurrencyException e) {
-            System.out.println("A Team already exists with specified designation.");
+            System.out.println("A TeamType already exists with specified ID.");
         }
 
         return false;
     }
 
-    private boolean showTeamTypes(final Set<TeamType> teamTypes) {
+    private boolean showTeamColors(final List<String> colors) {
         // TODO we could also use the "widget" classes from the framework...
-        final Menu teamTypesMenu = buidlTeamTypesMenu(teamTypes);
-        final MenuRenderer renderer = new VerticalMenuRenderer(teamTypesMenu, MenuItemRenderer.DEFAULT);
+        final Menu colorsMenu = buildColorsMenu(colors);
+        final MenuRenderer renderer = new VerticalMenuRenderer(colorsMenu, MenuItemRenderer.DEFAULT);
         return renderer.render();
     }
 
-    private Menu buidlTeamTypesMenu(final Set<TeamType> teamTypes) {
-        final Menu teamTypesMenu = new Menu();
+    private Menu buildColorsMenu(final List<String> colors) {
+        final Menu colorsMenu = new Menu();
         int counter = 0;
-        teamTypesMenu.addItem(MenuItem.of(counter++, "No Role", Actions.SUCCESS));
-        for (final TeamType teamType : theController.getTeamTypes()) {
-            teamTypesMenu.addItem(MenuItem.of(counter++, teamType.getTeamId(), () -> teamTypes.add(teamType)));
+        colorsMenu.addItem(MenuItem.of(counter++, "No Color", Actions.SUCCESS));
+        List<String> colorsList = theController.getTeamColors();
+        for (String color : colorsList) {
+            colorsMenu.addItem(MenuItem.of(counter++, color, () -> colors.add(color)));
         }
-        return teamTypesMenu;
+        return colorsMenu;
     }
 
-    private boolean showCollaborators(Collaborator responsibleCollab) {
-        // TODO we could also use the "widget" classes from the framework...
-        final Menu collanoratorsMenu = buildCollaboratorsMenu(responsibleCollab);
-        final MenuRenderer renderer = new VerticalMenuRenderer(collanoratorsMenu, MenuItemRenderer.DEFAULT);
-        return renderer.render();
-    }
-
-    private Menu buildCollaboratorsMenu(Collaborator responsibleCollab) {
-        final Menu collanoratorsMenu = new Menu();
-        final Set<Collaborator> collabsList = new HashSet<>();
-        int counter = 0;
-        collanoratorsMenu.addItem(MenuItem.of(counter++, "No Role", Actions.SUCCESS));
-        for (final Collaborator collab : theController.getCollaboratorsList()) {
-            collanoratorsMenu.addItem(MenuItem.of(counter++, collab.toString(), () -> collabsList.add(collab)));
-        }
-        return collanoratorsMenu;
-    }
 
     @Override
     public String headline() {

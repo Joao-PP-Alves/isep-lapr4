@@ -6,6 +6,7 @@ import eapli.base.teamtype.domain.TeamType;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.general.domain.model.Description;
 import eapli.framework.general.domain.model.Designation;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
@@ -34,11 +35,13 @@ public class Team implements AggregateRoot<Designation> {
     @JsonProperty
     @XmlElement
     @OneToMany
+    @Nullable
     private Set<Collaborator> members;
 
     @JsonProperty
     @XmlElement
     @OneToOne
+    @Nullable
     private Collaborator responsibleCollab;
 
     public Team(Designation teamId, Description description, TeamType teamType, Set<Collaborator> collaboratorSet, Collaborator responsibleCollab){

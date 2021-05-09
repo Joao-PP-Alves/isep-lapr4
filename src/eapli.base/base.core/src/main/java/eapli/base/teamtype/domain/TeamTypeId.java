@@ -21,6 +21,10 @@ public class TeamTypeId implements ValueObject, Comparable<TeamTypeId> {
         //Needed
     }
 
+    public static TeamTypeId valueOf(String teamId) {
+        return new TeamTypeId(teamId);
+    }
+
     public String getId() {
         return id;
     }

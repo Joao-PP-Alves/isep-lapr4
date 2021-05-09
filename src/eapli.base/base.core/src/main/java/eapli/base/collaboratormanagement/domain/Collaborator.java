@@ -62,6 +62,7 @@ public class Collaborator implements AggregateRoot<MecanographicNumber> {
     @XmlElement
     @JsonProperty
     @EmbeddedId
+    @GeneratedValue
     private MecanographicNumber mecanographicNumber;
 
     @XmlElement
