@@ -1,32 +1,51 @@
 @startuml
 autonumber
 
-actor "Responsável \nRecursos Humanos" as RRH
-participant ":RespRHUI" as RRHUI
-participant ":RespRHController" as RRHCTRL
-participant ":ColaboradorFactory" as COLABFACTORY
-
-activate RRH
-RRH -> RRHUI : Add new employee
-activate RRHUI
-RRHUI --> RRH : Requests info input \n(nomeCompleto, nomeAbreviado, \nmorada, data, numeroMecanografico, \ncontacto, funcao, codigoEquipa)
-deactivate RRHUI
-
-RRH -> RRHUI : Inputs requested info
-activate RRHUI
-RRHUI -> RRHCTRL : addNewEmployee(nomeCompleto, \nnomeAbreviado, morada, data, \nnumeroMecanografico, contacto, \nfuncao, codigoEquipa)
-activate RRHCTRL
-RRHCTRL -> COLABFACTORY
-activate COLABFACTORY
-
-deactivate COLABFACTORY
-
-deactivate RRHCTRL
+actor "Human Resources \nResponsible" as HRR
+participant ":AddTeamTypeUI" as ADDTEAMTYPEUI <<presentation>>
+participant ":AddTeamTypeController" as ADDTEAMTYPECTRL <<application>>
+participant ":TeamTypeBuilder" as TEAMTYPEBUILDER <<builder>>
+participant "teamType\n:TeamType" as TEAMTYPE <<domain>>
+participant PersistenceContext as Persistence <<persistence>>
+participant RepositoryFactory as Factory <<factory>>
+database TeamRepository as Repository <<repository>>
 
 
-deactivate RRHUI
-deactivate RRH
+HRR --> ADDTEAMTYPEUI : Add new teamType
+activate ADDTEAMTYPEUI
+ADDTEAMTYPEUI --> HRR : Requests info input \n(TipoEquipaId, cor, Descricao)
 
+HRR --> ADDTEAMTYPEUI : Inputs requested info
 
+ADDTEAMTYPEUI -> ADDTEAMTYPECTRL : addNewTeam\n(TipoEquipaId, cor, Descricao)
+note right of TEAMTYPEBUILDER:TEAMTYPEBUILDER is used to create an entity of Team type in a valid state
+activate ADDTEAMTYPECTRL
+ADDTEAMTYPECTRL -> TEAMTYPEBUILDER : create()
+ADDTEAMTYPECTRL -> TEAMTYPEBUILDER : teamType = createTeam\n(TipoEquipaId, cor, Descricao)
+
+activate TEAMTYPEBUILDER
+TEAMTYPEBUILDER -> TEAMTYPE : team = createTeam\n(TipoEquipaId, cor, Descricao)
+deactivate TEAMTYPEBUILDER
+
+ADDTEAMTYPECTRL -> Persistence : factory = repositories()
+activate Persistence
+Persistence -> Factory : create()
+deactivate Persistence
+
+ADDTEAMTYPECTRL -> Factory : teamRepository = listTeams()
+activate Factory
+Factory -> Repository : create()
+deactivate Factory
+
+opt if (!teamTypeRepository.contains(teamType))
+ADDTEAMTYPECTRL -> Repository : save(team)
+
+ADDTEAMTYPECTRL --> ADDTEAMTYPEUI : team
+deactivate TEAMTYPEBUILDER
+deactivate ADDTEAMTYPECTRL
+
+ADDTEAMTYPEUI --> HRR : displaySuccess
+deactivate ADDTEAMTYPEUI
+end opt
 
 @enduml
