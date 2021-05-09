@@ -6,6 +6,7 @@ import eapli.base.teamtype.domain.TeamType;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.general.domain.model.Description;
 import eapli.framework.general.domain.model.Designation;
+import org.hibernate.annotations.Cascade;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
@@ -16,6 +17,9 @@ import java.util.Set;
 @XmlRootElement
 @Entity
 public class Team implements AggregateRoot<Designation> {
+
+    @Version
+    private Long version;
 
     @JsonProperty
     @XmlElement
@@ -42,6 +46,7 @@ public class Team implements AggregateRoot<Designation> {
     @XmlElement
     @OneToOne
     @Nullable
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private Collaborator responsibleCollab;
 
     public Team(Designation teamId, Description description, TeamType teamType, Set<Collaborator> collaboratorSet, Collaborator responsibleCollab){

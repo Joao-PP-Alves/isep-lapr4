@@ -4,15 +4,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.general.domain.model.Description;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
 import java.lang.reflect.Field;
 
 @Entity
 public class TeamType implements AggregateRoot<TeamTypeId> {
+
+    @Version
+    private Long version;
 
     @JsonProperty
     @XmlElement
