@@ -1,15 +1,11 @@
 package eapli.base.app.user.console.presentation.service;
-
-import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.service.domain.Service;
 import eapli.base.servicecatalog.application.ListServiceCatalogsController;
 import eapli.base.servicecatalog.domain.ServiceCatalog;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class ListServiceCatalogsUI extends AbstractUI {
 
@@ -53,7 +49,7 @@ public class ListServiceCatalogsUI extends AbstractUI {
             }
 
             for (Service s : listS) {
-
+                System.out.printf("(Service) %d -> %s - %s\n", contador, s.getName(), s.identity());
                 contador++;
             }
             System.out.printf("%d -> Back.\n", contador);
@@ -66,7 +62,7 @@ public class ListServiceCatalogsUI extends AbstractUI {
                 return true;
             } else if(option<listCS.size()){
                 ServiceCatalog sc = listCS.get(option);
-                subCatalogsMenu(serviceCatalog);
+                subCatalogsMenu(sc);
             } else {
                 Service s = listS.get(option);
                 System.out.printf("(Service) %d -> %s - %s\n", contador, s.getName(), s.identity());
