@@ -9,15 +9,13 @@ participant ":AppSettings" as APP
 participant ":RepositoryFactory" as REPFAC
 participant ":ServiceCatalogRepository" as COLABREP
 participant "sc\n:ServiceCatalog" as COLAB
-participant ":ServiceRepository" as TEAMREP
-
 
 
 activate USER
 USER -> UI : Check Services
 UI -> UI : doShow()
 activate UI
-UI -> CTRL : listServicesCatalog()
+UI -> CTRL : listTopServiceCatalogs()
 activate CTRL
 CTRL -> PerC : repositories()
 activate PerC
@@ -46,39 +44,25 @@ deactivate UI
 loop while catalog has sub catalogs
 USER -> UI: chooses one
 activate UI
-UI -> CTRL : getSubCatalogs()
+UI -> CTRL : getSubCatalogs(sc)
 activate CTRL
-CTRL -> COLAB : id = getId()
+CTRL -> COLAB : listSubCatalogs = getListSubCatalogs()
 activate COLAB
 deactivate COLAB
-CTRL -> REPFAC : listSubCatalogs()
-activate REPFAC
-CTRL -> COLABREP : listSubCatalogs = allWithParentId(id)
-activate COLABREP
-COLABREP --> CTRL
-deactivate COLABREP
 CTRL --> UI : listSubCatalogs
 deactivate REPFAC
 deactivate CTRL
 UI --> USER : Show list
-end loop
-
-deactivate UI
-USER -> UI : chooses last subCatalog
-activate UI
-UI -> CTRL : listServices()
+UI -> CTRL : listServices(sc)
 activate CTRL
-CTRL -> REPFAC : services()
-activate REPFAC
-REPFAC -> TEAMREP : create()
-CTRL -> TEAMREP : listServices = allFromCatalog(id)
-activate TEAMREP
-TEAMREP --> CTRL
-deactivate TEAMREP
+CTRL -> COLAB : listServices = getListServices()
+activate COLAB
+deactivate COLAB
 CTRL --> UI : listServices
 deactivate REPFAC
 deactivate CTRL
 UI --> USER : Show list
+end loop
 deactivate UI
 deactivate USER
 
