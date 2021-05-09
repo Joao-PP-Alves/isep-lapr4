@@ -1,0 +1,96 @@
+@startuml
+autonumber
+
+actor "System" as USER
+participant ":BaseBootstrap" as UI
+participant ":BaseBootstrapper" as CTRL
+participant ":ServiceBootstrapper" as SBOOT
+participant ":AddServiceController" as ASCTRL
+participant ":AddServiceCatalogController" as ASCCNTRL
+participant ":AuthorizationService" as AUTHZ
+participant ":ServiceManagementService" as SSVC
+participant ":ServiceCatalogManagementService" as SCSVC
+participant ":ServiceRepository" as SREPO
+participant ":ServiceCatalogRepository" as SCREPO
+participant ":ServiceBuilder" as SBULD
+participant ":ServiceCatalogBuilder" as SCBULD
+participant "serv\n:Service" as SERV
+participant "servCat\n:ServiceCatalog" as SCAT
+
+activate USER
+USER -> UI : Initiate Bootstrap
+
+activate UI
+UI -> CTRL : execute()
+
+activate CTRL
+CTRL -> CTRL : registerPowerUser()
+CTRL -> CTRL : authenticateForBootstrapping()
+CTRL -> SBOOT : execute()
+
+activate SBOOT
+SBOOT -> ASCTRL : addService()
+
+activate ASCTRL
+ASCTRL -> AUTHZ : ensureAuthenticatedUserHasAnyOf()
+
+activate AUTHZ
+AUTHZ --> ASCTRL : true
+deactivate AUTHZ
+
+ASCTRL -> SSVC : registerNewService()
+
+activate SSVC
+SSVC -> SBULD : build()
+
+activate SBULD
+SBULD --> SSVC : serv
+deactivate SBULD
+
+SSVC -> SREPO : save(serv)
+SSVC --> ASCTRL : serv
+deactivate SSVC
+
+ASCTRL --> SBOOT : serv
+deactivate ASCTRL
+
+SBOOT -> ASCCNTRL : addServiceCatalog()
+
+activate ASCCNTRL
+ASCCNTRL --> AUTHZ : ensureAuthenticatedUserHasAnyOf()
+
+activate AUTHZ
+AUTHZ --> ASCCNTRL : true
+deactivate AUTHZ
+
+ASCCNTRL -> SCSVC : registerNewServiceCatalog()
+
+activate SCSVC
+SCSVC -> SCBULD : build()
+
+activate SCBULD
+SCBULD --> SCSVC : servCat
+deactivate SCBULD
+
+SCSVC -> SCREPO : save(servCat)
+SCSVC --> ASCCNTRL : servCat
+deactivate SCSVC
+
+ASCCNTRL --> SBOOT : servCat
+deactivate ASCCNTRL
+
+SBOOT --> CTRL : true
+deactivate SBOOT
+
+CTRL --> UI : true
+deactivate CTRL
+
+UI --> USER : Bootstrap Successful
+deactivate UI
+
+@enduml
+
+
+
+
+
