@@ -25,7 +25,6 @@ package eapli.base.collaboratormanagement.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import eapli.base.clientusermanagement.domain.MecanographicNumber;
-import eapli.base.team.domain.Team;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.DomainEntities;
 import eapli.framework.general.domain.model.Designation;
@@ -35,7 +34,7 @@ import eapli.framework.infrastructure.authz.domain.model.SystemUser;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.Date;
+import java.util.Calendar;
 
 /**
  * A Collaborator.
@@ -89,7 +88,7 @@ public class Collaborator implements AggregateRoot<MecanographicNumber> {
 
     @XmlElement
     @JsonProperty
-    private Date date;
+    private Calendar date;
 
 
     /**
@@ -109,6 +108,28 @@ public class Collaborator implements AggregateRoot<MecanographicNumber> {
     public Collaborator() {
         // for ORM only
     }
+
+    public Collaborator(FullName fullName, ShortName shortName, Address address, PhoneNumber phoneNumber, Calendar createdOn) {
+        if (fullName == null || shortName == null || address == null || phoneNumber == null || createdOn == null) {
+            throw new IllegalArgumentException();
+        }
+        this.fullName = fullName;
+        this.shortName = shortName;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.date = createdOn;
+    }
+
+    public Collaborator(FullName fullName, ShortName shortName, Address address, PhoneNumber phoneNumber) {
+        if (fullName == null || shortName == null || address == null || phoneNumber == null) {
+            throw new IllegalArgumentException();
+        }
+        this.fullName = fullName;
+        this.shortName = shortName;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+    }
+
 
     public SystemUser user() {
         return this.systemUser;

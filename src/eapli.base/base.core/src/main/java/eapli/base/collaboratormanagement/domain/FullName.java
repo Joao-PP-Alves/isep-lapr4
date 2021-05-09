@@ -31,6 +31,16 @@ public class FullName implements ValueObject, Comparable<FullName> {
         this.fullName = fullName;
     }
 
+    public FullName(final String firstName, final String lastName) {
+        if (StringPredicates.isNullOrEmpty(firstName) || StringPredicates.isNullOrEmpty(lastName)) {
+            throw new IllegalArgumentException(
+                    "Full name should neither be null nor empty");
+        }
+        // TODO validate invariants, i.e., mecanographic number regular
+        // expression
+        this.fullName = firstName + lastName;
+    }
+
     public FullName() {
         // for ORM
     }

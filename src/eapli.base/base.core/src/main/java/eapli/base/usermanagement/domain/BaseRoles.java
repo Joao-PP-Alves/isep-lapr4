@@ -54,6 +54,10 @@ public final class BaseRoles {
      *
      */
     public static final Role CASHIER = Role.valueOf("CASHIER");
+    /**
+     *
+     */
+    public static final Role HRR = Role.valueOf("HUMAN_RESOURCES_RESPONSIBLE");
 
     /**
      * get available role types for adding new users

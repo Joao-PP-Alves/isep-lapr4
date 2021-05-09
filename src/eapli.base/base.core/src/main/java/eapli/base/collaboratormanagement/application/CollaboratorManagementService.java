@@ -27,22 +27,46 @@ import eapli.base.clientusermanagement.domain.ClientUser;
 import eapli.base.clientusermanagement.domain.MecanographicNumber;
 import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 import eapli.base.collaboratormanagement.domain.Collaborator;
+import eapli.base.collaboratormanagement.domain.CollaboratorBuilder;
 import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
+import eapli.base.usermanagement.domain.BasePasswordPolicy;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
-import eapli.framework.infrastructure.authz.domain.model.Username;
+import eapli.framework.infrastructure.authz.application.PasswordPolicy;
+import eapli.framework.infrastructure.authz.domain.model.*;
+import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Calendar;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * @author mcn
  */
-public class CollaboratorService {
+public class CollaboratorManagementService {
+
+
+    private final PasswordEncoder encoder;
+    private final PasswordPolicy policy;
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final CollaboratorRepository repo = PersistenceContext.repositories().collaborators();
+
+    @Autowired
+    public CollaboratorManagementService() {
+        this.policy = new BasePasswordPolicy();
+        this.encoder = new PlainTextEncoder();
+    }
+
+    @Autowired
+    public CollaboratorManagementService( final PasswordPolicy policy, final PasswordEncoder encoder) {
+        this.policy = policy;
+        this.encoder = encoder;
+    }
 
     public Optional<Collaborator> findCollaboratorByMecNumber(final String mecNumber) {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.CASHIER);
@@ -52,5 +76,15 @@ public class CollaboratorService {
     public Optional<Collaborator> findCollaboratorByUsername(final Username user) {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
         return repo.findByUsername(user);
+    }
+
+
+    public Collaborator registerNewCollaborator(String username, String rawPassword, String firstName, String lastName,
+            String email, Set<Role> roleTypes, Calendar createdOn, String shortName, String address, int phoneNumber) {
+        CollaboratorBuilder colabBuilder = new CollaboratorBuilder(this.policy, this.encoder);
+        colabBuilder.with(username, rawPassword, firstName, lastName, email, shortName, address, phoneNumber).createdOn(createdOn).withRoles(roleTypes);
+        Collaborator newCollab = colabBuilder.build();
+        return (Collaborator)this.repo.save(newCollab);
+
     }
 }
