@@ -5,9 +5,11 @@
  */
 package eapli.base.collaboratormanagement.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import eapli.framework.domain.model.ValueObject;
 
 import javax.persistence.Embeddable;
+import javax.xml.bind.annotation.XmlElement;
 
 /**
  *
@@ -18,6 +20,8 @@ public class PhoneNumber implements ValueObject, Comparable<PhoneNumber> {
 
     private static final long serialVersionUID = 1L;
 
+    @JsonProperty
+    @XmlElement
     private int phoneNumber;
 
     public PhoneNumber(final int phoneNumber) {

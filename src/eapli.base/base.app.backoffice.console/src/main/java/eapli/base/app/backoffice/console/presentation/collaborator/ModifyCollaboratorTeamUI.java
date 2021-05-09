@@ -18,8 +18,12 @@ public class ModifyCollaboratorTeamUI extends AbstractUI {
     protected boolean doShow() {
         ArrayList<Collaborator> arrayList = (ArrayList<Collaborator>) theController.listCollaborators();
         int contador=0;
+        if (arrayList.size()==0){
+            System.out.println("There are no collaborators yet. Try again later!");
+            return true;
+        }
         for (Collaborator coll:arrayList){
-            System.out.printf("%d -> %s - %s\n",contador,coll.user().name().toString(),coll.identity());
+            System.out.printf("%d -> %s - %s\n",contador,coll.getShortName(),coll.identity());
             contador++;
         }
         System.out.printf("%d -> Cancel Operation.\n",contador);
@@ -47,6 +51,10 @@ public class ModifyCollaboratorTeamUI extends AbstractUI {
                 if (!listEach.contains(collaborator)){
                     listToShow.add(t);
                 }
+            }
+            if (listToShow.size()==0){
+                System.out.println("There are no teams yet. Try again later!");
+                return true;
             }
             for (Team team:listToShow){
                 System.out.printf("%d -> %s\n",contador,team.identity());
@@ -78,6 +86,10 @@ public class ModifyCollaboratorTeamUI extends AbstractUI {
                 if (listEach.contains(collaborator)){
                     listToShow.add(t);
                 }
+            }
+            if (listToShow.size()==0){
+                System.out.println("There are no teams yet. Try again later!");
+                return true;
             }
             for (Team team:listToShow){
                 System.out.printf("%d -> %s\n",contador,team.identity());

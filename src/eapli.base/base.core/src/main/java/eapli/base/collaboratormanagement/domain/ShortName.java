@@ -5,10 +5,12 @@
  */
 package eapli.base.collaboratormanagement.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
 
 import javax.persistence.Embeddable;
+import javax.xml.bind.annotation.XmlElement;
 
 /**
  *
@@ -19,6 +21,8 @@ public class ShortName implements ValueObject, Comparable<ShortName> {
 
     private static final long serialVersionUID = 1L;
 
+    @JsonProperty
+    @XmlElement
     private String shortName;
 
     public ShortName(final String shortName) {

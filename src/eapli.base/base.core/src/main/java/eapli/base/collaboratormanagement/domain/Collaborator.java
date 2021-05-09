@@ -165,6 +165,10 @@ public class Collaborator implements AggregateRoot<Long> {
         return this.mecanographicNumber;
     }
 
+    public ShortName getShortName() {
+        return shortName;
+    }
+
     @Override
     public String toString() {
         return "Collaborator{" +

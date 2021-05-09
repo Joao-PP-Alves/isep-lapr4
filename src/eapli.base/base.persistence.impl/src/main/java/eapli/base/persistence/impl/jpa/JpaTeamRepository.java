@@ -20,7 +20,7 @@ implements TeamRepository {
 
     @Override
     public Iterable<Team> findAll(){
-        return match("e.id!= ");
+        return match("e.id!= null");
     }
 
 }

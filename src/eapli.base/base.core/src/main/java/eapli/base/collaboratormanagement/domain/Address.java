@@ -5,20 +5,25 @@
  */
 package eapli.base.collaboratormanagement.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.strings.util.StringPredicates;
 
 import javax.persistence.Embeddable;
+import javax.xml.bind.annotation.XmlElement;
 
 /**
  *
  * @author João Correia
  */
+
 @Embeddable
 public class Address implements ValueObject, Comparable<Address> {
 
     private static final long serialVersionUID = 1L;
 
+    @JsonProperty
+    @XmlElement
     private String address;
 
     public Address(final String address) {
