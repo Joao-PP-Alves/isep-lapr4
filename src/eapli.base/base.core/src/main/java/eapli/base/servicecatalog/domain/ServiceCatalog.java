@@ -48,21 +48,14 @@ public class ServiceCatalog implements AggregateRoot<Long> {
 
     @JsonProperty
     @XmlElement
-    @OneToMany
-    @Nullable
-    private Set<Service> listServices;
-
-    @JsonProperty
-    @XmlElement
     private boolean topCatalog;
 
     public ServiceCatalog(Designation title, Description shortDescription, Icon icon, Description longDescription,
-                          Set<ServiceCatalog> serviceCatalogs, Set<Service> services, boolean topCatalog){
+                          Set<ServiceCatalog> serviceCatalogs, boolean topCatalog){
         this.title=title;
         this.shortDescription=shortDescription;
         this.longDescription=longDescription;
         this.listSubCatalogs=serviceCatalogs;
-        this.listServices=services;
         this.icon=icon;
         this.topCatalog = topCatalog;
     }
@@ -96,11 +89,6 @@ public class ServiceCatalog implements AggregateRoot<Long> {
 
     public boolean isTopCatalog() {
         return topCatalog;
-    }
-
-    @Nullable
-    public Set<Service> getListServices() {
-        return listServices;
     }
 
     @Override

@@ -39,38 +39,28 @@ public class ServiceBootstrapper implements Action {
     @Override
     public boolean execute() {
 
-        Service serv1 = registerService(SERVICE_NAME1);
-        Service serv2 = registerService(SERVICE_NAME2);
+        ServiceCatalog servCat1 = registerServiceCatalog(SERVICE_CATALOG_TITLE1, SERVICE_CATALOG_SHORTDESC1,
+                SERVICE_CATALOG_LONGDESC1, SERVICE_CATALOG_ICON1, new HashSet<>(), true);
 
-        if (serv1 != null && serv2 != null) {
+        ServiceCatalog servCat2 = registerServiceCatalog(SERVICE_CATALOG_TITLE2, SERVICE_CATALOG_SHORTDESC2,
+                SERVICE_CATALOG_LONGDESC2, SERVICE_CATALOG_ICON2,  new HashSet<>(), true);
 
-            Set<Service> listServices1 = new HashSet<>();
-            listServices1.add(serv1);
+        if (servCat1!= null && servCat2!=null){
 
-            Set<Service> listServices2 = new HashSet<>();
-            listServices1.add(serv2);
+            Service serv1 = registerService(SERVICE_NAME1,servCat1);
+            Service serv2 = registerService(SERVICE_NAME2,servCat2);
 
-            ServiceCatalog servCat1 = registerServiceCatalog(SERVICE_CATALOG_TITLE1, SERVICE_CATALOG_SHORTDESC1,
-                    SERVICE_CATALOG_LONGDESC1, SERVICE_CATALOG_ICON1, new HashSet<>(), listServices1, false);
-
-            if (servCat1 != null) {
-
-                Set<ServiceCatalog> listServCatalogs = new HashSet<>();
-                listServCatalogs.add(servCat1);
-
-                ServiceCatalog servCat2 = registerServiceCatalog(SERVICE_CATALOG_TITLE2, SERVICE_CATALOG_SHORTDESC2,
-                        SERVICE_CATALOG_LONGDESC2, SERVICE_CATALOG_ICON2, listServCatalogs, listServices2, true);
-
-                return true;
-            }
+            return true;
         }
+
         return false;
+
     }
 
-    private Service registerService(String name) {
+    private Service registerService(String name,ServiceCatalog sc) {
 
         try {
-            Service serv = addServController.addService(name);
+            Service serv = addServController.addService(name,sc);
             LOGGER.info(name);
             return serv;
 
@@ -84,11 +74,11 @@ public class ServiceBootstrapper implements Action {
     }
 
     private ServiceCatalog registerServiceCatalog(String title, String shortDescription, String longDescription, String icon,
-                                                  Set<ServiceCatalog> subCatalogs, Set<Service> listServices, boolean topCatalog) {
+                                                  Set<ServiceCatalog> subCatalogs, boolean topCatalog) {
 
         try {
             ServiceCatalog servCat = addServCatController.addServiceCatalog(title, shortDescription, longDescription, icon,
-                    subCatalogs, listServices, topCatalog);
+                    subCatalogs, topCatalog);
             LOGGER.info(title);
 
             return servCat;

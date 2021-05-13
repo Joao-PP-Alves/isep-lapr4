@@ -1,12 +1,14 @@
 package eapli.base.service.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import eapli.base.servicecatalog.domain.ServiceCatalog;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.general.domain.model.Designation;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.xml.bind.annotation.XmlElement;
 
 @Entity
@@ -22,13 +24,17 @@ public class Service implements AggregateRoot<Long> {
     @JsonProperty
     private Designation name;
 
-    public Service(Designation name){
-        this.name=name;
-    }
+    @JsonProperty
+    @XmlElement
+    @ManyToOne
+    private ServiceCatalog serviceCatalog;
 
-    public Service(Long id, Designation name) {
-        this.id = id;
-        this.name=name;
+
+    public Service(Designation name, ServiceCatalog serviceCatalog){
+        if (name != null && serviceCatalog!= null){
+            this.name=name;
+            this.serviceCatalog = serviceCatalog;
+        }
     }
 
     public Service(){
@@ -38,6 +44,10 @@ public class Service implements AggregateRoot<Long> {
     public boolean sameAs(Object other) {
         Service se = (Service) other;
         return se.identity().equals(this.identity());
+    }
+
+    public ServiceCatalog getServiceCatalog() {
+        return serviceCatalog;
     }
 
     @Override

@@ -16,11 +16,11 @@ public class AddServiceCatalogController {
     private final ServiceCatalogManagementService servCatSvc = new ServiceCatalogManagementService();
 
     public ServiceCatalog addServiceCatalog(String title, String shortDescription, String longDescription, String icon,
-                                            Set<ServiceCatalog> subCatalogs, Set<Service> listServices, boolean topCatalog) {
+                                            Set<ServiceCatalog> subCatalogs, boolean topCatalog) {
 
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
 
         return servCatSvc.registerNewServiceCatalog(title, shortDescription, longDescription, icon,
-                subCatalogs, listServices, topCatalog);
+                subCatalogs, topCatalog);
     }
 }

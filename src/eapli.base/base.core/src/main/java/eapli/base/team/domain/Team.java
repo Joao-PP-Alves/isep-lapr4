@@ -100,6 +100,6 @@ public class Team implements AggregateRoot<Designation> {
 
     @Override
     public Designation identity() {
-        return null;
+        return this.id;
     }
 }

@@ -34,6 +34,7 @@ public class ModifyCollaboratorTeamController {
         return list;
     }
 
+
     public Team changeTeam(Team team, Collaborator col, int option) {
         Set<Collaborator> collaboratorSet = team.getMembers();
         if (option ==1){

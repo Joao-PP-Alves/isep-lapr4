@@ -4,9 +4,19 @@ import eapli.base.clientusermanagement.domain.MecanographicNumber;
 import eapli.base.collaboratormanagement.application.*;
 import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.team.domain.Team;
+import eapli.base.teamtype.domain.TeamType;
+import eapli.framework.actions.Actions;
+import eapli.framework.actions.menu.Menu;
+import eapli.framework.actions.menu.MenuItem;
+import eapli.framework.infrastructure.authz.domain.model.Role;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
+import eapli.framework.presentation.console.menu.MenuItemRenderer;
+import eapli.framework.presentation.console.menu.MenuRenderer;
+import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
+
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -16,6 +26,31 @@ public class ModifyCollaboratorTeamUI extends AbstractUI {
 
     @Override
     protected boolean doShow() {
+
+        Set<Collaborator> collaborators = new HashSet<>();
+        boolean show;
+        do {
+            show = showCollaborators(collaborators);
+        } while (!show);
+
+        List<Collaborator> list = new ArrayList<>(collaborators);
+        Set<Integer> options = new HashSet<>();
+
+        do {
+            show = showOptions(options);
+        } while(!show);
+
+        List<Integer> listOptions = new ArrayList<>(options);
+        Set<Team> teams = new HashSet<>();
+
+        do {
+            show = showTeams(teams,listOptions.get(0),list.get(0));
+        } while(!show);
+
+        List<Team> listTeams = new ArrayList<>(teams);
+        theController.changeTeam(listTeams.get(0),list.get(0),listOptions.get(0));
+/*
+
         ArrayList<Collaborator> arrayList = (ArrayList<Collaborator>) theController.listCollaborators();
         int contador=0;
         if (arrayList.size()==0){
@@ -117,9 +152,62 @@ public class ModifyCollaboratorTeamUI extends AbstractUI {
         } else if(option==3){
             System.out.println("Operation canceled");
             return true;
-        }
+        }*/
         return true;
     }
+
+    private boolean showCollaborators(Set<Collaborator> responsibleCollab) {
+        // TODO we could also use the "widget" classes from the framework...
+        final Menu collanoratorsMenu = buildCollaboratorsMenu(responsibleCollab);
+        final MenuRenderer renderer = new VerticalMenuRenderer(collanoratorsMenu, MenuItemRenderer.DEFAULT);
+        return renderer.render();
+    }
+
+    private Menu buildCollaboratorsMenu(Set<Collaborator> responsibleCollab) {
+        final Menu collanoratorsMenu = new Menu();
+        int counter = 0;
+        collanoratorsMenu.addItem(MenuItem.of(counter++, "Back", Actions.SUCCESS));
+        for (Collaborator collab : theController.listCollaborators()) {
+            collanoratorsMenu.addItem(MenuItem.of(counter++, collab.toString(), () -> responsibleCollab.add(collab)));
+        }
+        return collanoratorsMenu;
+    }
+
+    private boolean showOptions(Set<Integer> options) {
+        // TODO we could also use the "widget" classes from the framework...
+        final Menu optionsMenu = buildOptionsMenu(options);
+        final MenuRenderer renderer = new VerticalMenuRenderer(optionsMenu, MenuItemRenderer.DEFAULT);
+        return renderer.render();
+    }
+
+    private Menu buildOptionsMenu(Set<Integer> options) {
+        final Menu optionsMenu = new Menu();
+        optionsMenu.addItem(MenuItem.of(0, "Cancel", Actions.SUCCESS));
+        optionsMenu.addItem(MenuItem.of(1, "Add to a Team", () -> options.add(1)));
+        optionsMenu.addItem(MenuItem.of(2, "Delete from a Team", () -> options.add(2)));
+        return optionsMenu;
+    }
+
+    private boolean showTeams(final Set<Team> teams,int option, Collaborator collaborator) {
+        final Menu teamsMenu = buidlTeamsMenu(teams, option,collaborator);
+        final MenuRenderer renderer = new VerticalMenuRenderer(teamsMenu, MenuItemRenderer.DEFAULT);
+        return renderer.render();
+    }
+
+    private Menu buidlTeamsMenu(final Set<Team> teams,int option,Collaborator collaborator) {
+        final Menu teamsMenu = new Menu();
+        int counter = 0;
+        teamsMenu.addItem(MenuItem.of(counter++, "Cancel", Actions.SUCCESS));
+        for (Team team : theController.listTeams()) {
+            if (option==1 && !team.getMembers().contains(collaborator)) {
+                teamsMenu.addItem(MenuItem.of(counter++, team.identity().toString(), () -> teams.add(team)));
+            } else if (option==2 && team.getMembers().contains(collaborator)){
+                teamsMenu.addItem(MenuItem.of(counter++, team.identity().toString(), () -> teams.add(team)));
+            }
+        }
+        return teamsMenu;
+    }
+
 
     @Override
     public String headline() {

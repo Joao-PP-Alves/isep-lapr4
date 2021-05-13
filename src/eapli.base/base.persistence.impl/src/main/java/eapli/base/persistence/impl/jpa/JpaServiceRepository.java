@@ -5,6 +5,7 @@ import eapli.base.Application;
 import eapli.base.clientusermanagement.domain.MecanographicNumber;
 import eapli.base.service.domain.Service;
 import eapli.base.service.repositories.ServiceRepository;
+import eapli.base.servicecatalog.domain.ServiceCatalog;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
@@ -17,5 +18,14 @@ implements ServiceRepository {
 
     public JpaServiceRepository(String puname) {
         super(puname, Application.settings().getExtendedPersistenceProperties(), "id");
+    }
+
+    public Iterable<Service> findAll(){
+        return this.repo.findAll();
+    }
+
+    @Override
+    public Iterable<Service> findBelongingToCatalog(ServiceCatalog serviceCatalog) {
+        return match("e.serviceCatalog == serviceCatalog");
     }
 }

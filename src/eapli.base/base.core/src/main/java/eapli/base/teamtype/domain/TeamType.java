@@ -40,12 +40,14 @@ public class TeamType implements AggregateRoot<TeamTypeId> {
     }
 
     public void setId(TeamTypeId id) {
+        if (id != null)
         this.id = id;
     }
 
     public void setColor(Color color) {
         //Color colorAsObject;
         try {
+            if (color!= null)
             this.color = color;
 
 /*            java.awt.Color c = java.awt.Color.getColor(color);
@@ -59,6 +61,7 @@ public class TeamType implements AggregateRoot<TeamTypeId> {
     }
 
     public void setDescription(Description description) {
+        if (description!= null)
         this.teamTypeDescription = description;
     }
 

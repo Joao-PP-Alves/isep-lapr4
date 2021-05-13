@@ -94,6 +94,7 @@ public class AddTeamTypeUI extends AbstractUI {
     }
 
 
+
     @Override
     public String headline() {
         return "Add Team Type";
