@@ -25,6 +25,7 @@ package eapli.base.app.backoffice.console.presentation;
 
 import eapli.base.app.backoffice.console.presentation.collaborator.AddCollaboratorUI;
 import eapli.base.app.backoffice.console.presentation.collaborator.ModifyCollaboratorTeamUI;
+import eapli.base.app.backoffice.console.presentation.servicecatalog.AddServiceCatalogUI;
 import eapli.base.app.backoffice.console.presentation.team.AddTeamUI;
 import eapli.base.app.backoffice.console.presentation.teamtype.AddTeamTypeUI;
 import eapli.base.app.common.console.presentation.authz.MyUserMenu;
@@ -67,6 +68,7 @@ public class MainMenu extends AbstractUI {
     private static final int MODIFY_COLLABORATORS_TEAM_OPTION = 6;
     private static final int ADD_NEW_TEAM = 7;
     private static final int ADD_NEW_TEAM_TYPE = 8;
+    private static final int ADD_NEW_CATALOG = 9;
 
     // SETTINGS
     private static final int SET_KITCHEN_ALERT_LIMIT_OPTION = 1;
@@ -191,6 +193,7 @@ public class MainMenu extends AbstractUI {
         menu.addItem(MODIFY_COLLABORATORS_TEAM_OPTION, "Modify collaborator's team", new ModifyCollaboratorTeamUI()::show);
         menu.addItem(ADD_NEW_TEAM, "Add new Team", new AddTeamUI()::show);
         menu.addItem(ADD_NEW_TEAM_TYPE, "Add new Team Type", new AddTeamTypeUI()::show);
+        menu.addItem(ADD_NEW_CATALOG, "Add new Service Catalog", new AddServiceCatalogUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;
