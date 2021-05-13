@@ -58,20 +58,20 @@ public class AddTeamUI extends AbstractUI {
         final String description = Console.readLine("Description");
 
 
-        final Set<TeamType> teamTypes = new HashSet<>();
+        Set<TeamType> teamTypes = new HashSet<>();
         boolean show;
         do {
             show = showTeamTypes(teamTypes);
         } while (!show);
 
-        final Collaborator responsibleCollab = new Collaborator();
+        Set<Collaborator> collabsList = new HashSet<>();
         show = false;
         do {
-            show = showCollaborators(responsibleCollab);
+            show = showCollaborators(collabsList);
         } while (!show);
 
         try {
-            this.theController.addTeam(designation, description, teamTypes, responsibleCollab);
+            this.theController.addTeam(designation, description, teamTypes, collabsList);
         } catch (final IntegrityViolationException | ConcurrencyException e) {
             System.out.println("A Team already exists with specified designation.");
         }
@@ -96,14 +96,14 @@ public class AddTeamUI extends AbstractUI {
         return teamTypesMenu;
     }
 
-    private boolean showCollaborators(Collaborator responsibleCollab) {
+    private boolean showCollaborators(Set<Collaborator> responsibleCollab) {
         // TODO we could also use the "widget" classes from the framework...
         final Menu collanoratorsMenu = buildCollaboratorsMenu(responsibleCollab);
         final MenuRenderer renderer = new VerticalMenuRenderer(collanoratorsMenu, MenuItemRenderer.DEFAULT);
         return renderer.render();
     }
 
-    private Menu buildCollaboratorsMenu(Collaborator responsibleCollab) {
+    private Menu buildCollaboratorsMenu(Set<Collaborator> responsibleCollab) {
         final Menu collanoratorsMenu = new Menu();
         final Set<Collaborator> collabsList = new HashSet<>();
         int counter = 0;

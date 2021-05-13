@@ -76,7 +76,6 @@ public class Collaborator implements AggregateRoot<Long> {
 
     @XmlElement
     @JsonProperty
-    @Nullable
     private PhoneNumber phoneNumber;
 
     @XmlElement

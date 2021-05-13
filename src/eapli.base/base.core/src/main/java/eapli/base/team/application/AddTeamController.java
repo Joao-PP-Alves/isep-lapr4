@@ -65,7 +65,7 @@ public class AddTeamController {
     }
 
 
-    public Team addTeam(final String designation, final String description, final Set<TeamType> teamTypes, Collaborator responsibleCollab) {
+    public Team addTeam(final String designation, final String description, final Set<TeamType> teamTypes, Set<Collaborator> responsibleCollab) {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.HRR, BaseRoles.ADMIN);
 
         TeamType teamType = null;
@@ -77,7 +77,18 @@ public class AddTeamController {
             }
             counter++;
         }
-        return teamManSvc.registerNewTeam(designation, description, teamType, responsibleCollab);
+
+        Collaborator collab = null;
+        counter = 0;
+
+        for (Collaborator i : responsibleCollab) {
+            if (counter == 0) {
+                collab = i;
+            }
+            counter++;
+        }
+
+        return teamManSvc.registerNewTeam(designation, description, teamType, collab);
     }
 
     public List<Collaborator> getCollaboratorsList() {

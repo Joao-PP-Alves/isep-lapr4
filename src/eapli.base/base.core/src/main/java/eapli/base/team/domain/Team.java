@@ -39,14 +39,11 @@ public class Team implements AggregateRoot<Designation> {
     @JsonProperty
     @XmlElement
     @OneToMany
-    @Nullable
     private Set<Collaborator> members;
 
     @JsonProperty
     @XmlElement
     @OneToOne
-    @Nullable
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private Collaborator responsibleCollab;
 
     public Team(Designation teamId, Description description, TeamType teamType, Set<Collaborator> collaboratorSet, Collaborator responsibleCollab){

@@ -68,7 +68,7 @@ public class OrganizationBootstrapper implements Action {
     }
 
     private void registerTeam(final String designation, final String description, final Set<TeamType> teamTypes,
-                              Collaborator responsibleCollab) {
+                              Set<Collaborator> responsibleCollab) {
 
         try {
             addTeamController.addTeam(designation, description, teamTypes, responsibleCollab);
