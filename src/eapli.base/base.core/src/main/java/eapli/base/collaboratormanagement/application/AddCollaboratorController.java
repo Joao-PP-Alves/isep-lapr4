@@ -7,6 +7,7 @@ import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.team.domain.Team;
 import eapli.base.team.repository.TeamRepository;
+import eapli.base.teamtype.domain.TeamType;
 import eapli.base.usermanagement.domain.BasePasswordPolicy;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
@@ -52,8 +53,20 @@ public class AddCollaboratorController {
 
     public Collaborator addNewCollaborator(final String username, final String password, final String email,
                                            final Set<Role> roleTypes, final String fullName, final String shortName,
-                                           final String address, final int phoneNumber, final Calendar createdOn) {
+                                           final String address, final int phoneNumber, final Calendar createdOn,
+                                           final String companyRole) {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.HRR, BaseRoles.ADMIN);
+
+        Role role = null;
+        int counter = 0;
+
+        for (Role i : roleTypes) {
+            if (counter == 0) {
+                role = i;
+                counter++;
+            }
+        }
+
 
         String lastName = "";
         String firstName = "";
@@ -65,8 +78,8 @@ public class AddCollaboratorController {
         }
         Collaborator collab = null;
         try {
-            collab = collabManSvc.registerNewCollaborator(username, password, firstName, lastName, email, roleTypes,
-                    createdOn, shortName, address, phoneNumber);
+            collab = collabManSvc.registerNewCollaborator(username, password, firstName, lastName, email, role,
+                    createdOn, shortName, address, phoneNumber, companyRole);
             userSvc.registerNewUser(username, password, firstName, lastName, email, roleTypes, createdOn);
 
         } catch (Exception e) {
@@ -78,8 +91,8 @@ public class AddCollaboratorController {
 
     public Collaborator addNewCollaborator(final String username, final String password, final String email,
                                            final Set<Role> roleTypes, final String fullName, final String shortName,
-                                           final String address, final int phoneNumber) {
+                                           final String address, final int phoneNumber, final String companyRole) {
         return addNewCollaborator(username, password, email, roleTypes, fullName, shortName, address,
-                phoneNumber, Calendars.now());
+                phoneNumber, Calendars.now(), companyRole);
     }
 }

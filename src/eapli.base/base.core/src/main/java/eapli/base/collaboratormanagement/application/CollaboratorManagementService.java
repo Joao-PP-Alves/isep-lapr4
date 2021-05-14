@@ -68,7 +68,7 @@ public class CollaboratorManagementService {
     }
 
     public Optional<Collaborator> findCollaboratorByMecNumber(final String mecNumber) {
-        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.CASHIER);
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HRR);
         return repo.ofIdentity(Long.valueOf(mecNumber));
     }
 
@@ -79,9 +79,9 @@ public class CollaboratorManagementService {
 
 
     public Collaborator registerNewCollaborator(String username, String rawPassword, String firstName, String lastName,
-            String email, Set<Role> roleTypes, Calendar createdOn, String shortName, String address, int phoneNumber) {
+            String email, Role role, Calendar createdOn, String shortName, String address, int phoneNumber, String companyRole) {
         CollaboratorBuilder colabBuilder = new CollaboratorBuilder(this.policy, this.encoder);
-        colabBuilder.with(username, rawPassword, firstName, lastName, email, shortName, address, phoneNumber).createdOn(createdOn).withRoles(roleTypes);
+        colabBuilder.with(username, rawPassword, firstName, lastName, email, shortName, address, phoneNumber, companyRole).createdOn(createdOn).withRole(role);
         Collaborator newCollab = colabBuilder.build();
         return this.repo.save(newCollab);
 

@@ -21,6 +21,7 @@ public class OrganizationBootstrapper implements Action {
 
     private static final String COLLABORATOR_NAME = "Dummy";
     private static final String COLLABORATOR_PASSWORD = "PASSWORD1";
+    private static final String COLLABORATOR_COMPANY_ROLE = "Team Responsible";
     private static final String COLLABORATOR_EMAIL = ".@ok.com";
     private static final String COLLABORATOR_FULLNAME = "Mega Dummy";
     private static final String COLLABORATOR_SHORTNAME = "Dum";
@@ -40,18 +41,18 @@ public class OrganizationBootstrapper implements Action {
     public boolean execute() {
 
         registerCollaborator(COLLABORATOR_NAME, COLLABORATOR_PASSWORD, COLLABORATOR_EMAIL, new HashSet<>(),
-                COLLABORATOR_FULLNAME, COLLABORATOR_SHORTNAME, COLLABORATOR_ADDRESS, COLLABORATOR_PHONE);
+                COLLABORATOR_FULLNAME, COLLABORATOR_SHORTNAME, COLLABORATOR_ADDRESS, COLLABORATOR_PHONE, COLLABORATOR_COMPANY_ROLE);
 
         return true;
     }
 
     private void registerCollaborator(final String username, final String password, final String email,
                                       final Set<Role> roleTypes, final String fullName, final String shortName,
-                                      final String address, final int phoneNumber){
+                                      final String address, final int phoneNumber, final String companyRole){
 
         try {
             addCollabController.addNewCollaborator(username, password, email, roleTypes, fullName,
-                    shortName, address, phoneNumber);
+                    shortName, address, phoneNumber, companyRole);
             LOGGER.info(username);
 
         } catch (final IntegrityViolationException | ConcurrencyException ex) {

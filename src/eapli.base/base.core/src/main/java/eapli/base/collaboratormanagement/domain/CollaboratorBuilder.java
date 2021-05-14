@@ -31,6 +31,7 @@ public class CollaboratorBuilder implements DomainFactory<Collaborator> {
     private Address address;
     private PhoneNumber phoneNumber;
     private EmailAddress email;
+    private CompanyRole companyRole;
     private List<Role> roles = new LinkedList<Role>();
 
     private SystemUser systemUser;
@@ -77,7 +78,7 @@ public class CollaboratorBuilder implements DomainFactory<Collaborator> {
 
     public CollaboratorBuilder with(String username, String rawPassword, String firstName,
                                     String lastName, String email, String shortName, String address,
-                                    int phoneNumber) {
+                                    int phoneNumber, String companyRole) {
         this.withUsername(username);
         this.withPassword(rawPassword);
         this.withName(firstName, lastName);
@@ -85,7 +86,12 @@ public class CollaboratorBuilder implements DomainFactory<Collaborator> {
         this.withShortName(shortName);
         this.withAddress(address);
         this.withPhoneNumber(phoneNumber);
+        this.withCompanyRole(companyRole);
         return this;
+    }
+
+    private void withCompanyRole(String companyRole) {
+        this.companyRole = CompanyRole.valueOf(companyRole);
     }
 
 

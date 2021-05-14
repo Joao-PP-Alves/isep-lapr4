@@ -24,6 +24,7 @@
 package eapli.base.usermanagement.domain;
 
 import eapli.framework.infrastructure.authz.domain.model.Role;
+import org.hibernate.action.internal.CollectionAction;
 
 /**
  * @author Paulo Gandra Sousa
@@ -58,6 +59,15 @@ public final class BaseRoles {
      *
      */
     public static final Role HRR = Role.valueOf("HUMAN_RESOURCES_RESPONSIBLE");
+    /**
+     *
+     */
+    public static final Role COLLABORATOR = Role.valueOf("COLLABORATOR");
+    /**
+     *
+     */
+    public static final Role HELP_SERV_MANAGER = Role.valueOf("HELPDESK_SERVICE_MANAGER");
+
 
     /**
      * get available role types for adding new users
@@ -65,10 +75,10 @@ public final class BaseRoles {
      * @return
      */
     public static Role[] nonUserValues() {
-        return new Role[] { ADMIN, KITCHEN_MANAGER, MENU_MANAGER, CASHIER };
+        return new Role[] { ADMIN, KITCHEN_MANAGER, MENU_MANAGER, CASHIER, COLLABORATOR, CLIENT_USER, HELP_SERV_MANAGER };
     }
 
     public boolean isCollaborator(final Role role) {
-        return role != CLIENT_USER;
+        return role != COLLABORATOR;
     }
 }

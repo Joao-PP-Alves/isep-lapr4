@@ -66,7 +66,7 @@ public class TeamManagementService {
     }
 
     public Optional<Team> findCollaboratorById(final String teamId) {
-        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.CASHIER);
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN, BaseRoles.HRR);
         return repo.ofIdentity(Designation.valueOf(teamId));
     }
 

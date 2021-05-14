@@ -98,8 +98,8 @@ public class AddTeamUI extends AbstractUI {
 
     private boolean showCollaborators(Set<Collaborator> responsibleCollab) {
         // TODO we could also use the "widget" classes from the framework...
-        final Menu collanoratorsMenu = buildCollaboratorsMenu(responsibleCollab);
-        final MenuRenderer renderer = new VerticalMenuRenderer(collanoratorsMenu, MenuItemRenderer.DEFAULT);
+        final Menu collaboratorsMenu = buildCollaboratorsMenu(responsibleCollab);
+        final MenuRenderer renderer = new VerticalMenuRenderer(collaboratorsMenu, MenuItemRenderer.DEFAULT);
         return renderer.render();
     }
 

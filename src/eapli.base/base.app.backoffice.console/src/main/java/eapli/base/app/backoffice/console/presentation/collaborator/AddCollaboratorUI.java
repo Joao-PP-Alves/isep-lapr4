@@ -55,6 +55,7 @@ public class AddCollaboratorUI extends AbstractUI {
         // Also needs mecanographicNumber and teamCode
         final String fullName = Console.readLine("Full name");
         final String shortName = Console.readLine("Short Name");
+        final String companyRole = Console.readLine("Company Role");
         final String email = Console.readLine("E-Mail");
         final String username = Console.readLine("Username");
         final String password = Console.readLine("Password");
@@ -79,7 +80,7 @@ public class AddCollaboratorUI extends AbstractUI {
 
         try {
             this.theController.addNewCollaborator(username, password, email, roleTypes,
-                    fullName, shortName, address, phoneNumber);
+                    fullName, shortName, address, phoneNumber, companyRole);
         } catch (final IntegrityViolationException | ConcurrencyException e) {
             System.out.println("That Full Name is already in use.");
         }
