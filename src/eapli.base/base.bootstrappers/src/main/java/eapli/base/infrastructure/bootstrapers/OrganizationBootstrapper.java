@@ -27,6 +27,7 @@ public class OrganizationBootstrapper implements Action {
     private static final String COLLABORATOR_SHORTNAME = "Dum";
     private static final String COLLABORATOR_ADDRESS = "There";
     private static final int COLLABORATOR_PHONE = 939392922;
+    private static final String COLLABORATOR_ROLE = "COLLABORATOR";
 
     private static final String TEAMTYPE_DESIGNATION = "Dummy TeamType";
     private static final String TEAMTYPE_COLOR = "Colourless";

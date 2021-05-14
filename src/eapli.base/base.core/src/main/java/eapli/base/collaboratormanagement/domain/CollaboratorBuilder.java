@@ -68,9 +68,9 @@ public class CollaboratorBuilder implements DomainFactory<Collaborator> {
 
         Collaborator collab;
         if (this.createdOn != null) {
-            collab = new Collaborator(this.fullName, this.shortName, this.address, this.phoneNumber, this.roles, this.createdOn);
+            collab = new Collaborator(this.fullName, this.shortName, this.address, this.phoneNumber, this.roles, this.createdOn, this.companyRole);
         } else {
-            collab = new Collaborator(this.fullName, this.shortName, this.address, this.phoneNumber, this.roles);
+            collab = new Collaborator(this.fullName, this.shortName, this.address, this.phoneNumber, this.roles, this.companyRole);
         }
 
         return collab;

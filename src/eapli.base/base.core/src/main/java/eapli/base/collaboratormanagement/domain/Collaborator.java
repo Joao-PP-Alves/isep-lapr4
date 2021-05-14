@@ -76,15 +76,15 @@ public class Collaborator implements AggregateRoot<Long> {
 
     @XmlElement
     @JsonProperty
+    private CompanyRole companyRole;
+
+    @XmlElement
+    @JsonProperty
     private PhoneNumber phoneNumber;
 
     @XmlElement
     @JsonProperty
     private Address address;
-
-    @XmlElement
-    @JsonProperty
-    private Role role;
 
     @XmlElement
     @JsonProperty
@@ -113,7 +113,8 @@ public class Collaborator implements AggregateRoot<Long> {
         // for ORM only
     }
 
-    public Collaborator(FullName fullName, ShortName shortName, Address address, PhoneNumber phoneNumber, List<Role> roles, Calendar createdOn) {
+    public Collaborator(FullName fullName, ShortName shortName, Address address, PhoneNumber phoneNumber,
+                        List<Role> roles, Calendar createdOn, CompanyRole companyRole) {
         if (fullName == null || shortName == null || address == null || phoneNumber == null || createdOn == null) {
             throw new IllegalArgumentException();
         }
@@ -122,10 +123,12 @@ public class Collaborator implements AggregateRoot<Long> {
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.date = createdOn;
+        this.companyRole = companyRole;
         //this.role = roles;
     }
 
-    public Collaborator(FullName fullName, ShortName shortName, Address address, PhoneNumber phoneNumber, List<Role> roles) {
+    public Collaborator(FullName fullName, ShortName shortName, Address address, PhoneNumber phoneNumber,
+                        List<Role> roles, CompanyRole companyRole) {
         if (fullName == null || shortName == null || address == null || phoneNumber == null) {
             throw new IllegalArgumentException();
         }
@@ -133,6 +136,7 @@ public class Collaborator implements AggregateRoot<Long> {
         this.shortName = shortName;
         this.address = address;
         this.phoneNumber = phoneNumber;
+        this.companyRole = companyRole;
     }
 
 
