@@ -1,31 +1,35 @@
 package eapli.base.servicecatalog.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import eapli.base.team.domain.Team;
 import eapli.framework.domain.model.ValueObject;
 
 import javax.persistence.Embeddable;
+import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlElement;
+import java.util.Set;
 
 @Embeddable
 public class AccessCriteria implements ValueObject {
 
     @JsonProperty
     @XmlElement
-    private int access;
+    @OneToMany
+    private Set<Team> teamsWithAccess;
 
-    public AccessCriteria(){
-        access = 1;
+    protected AccessCriteria(){
+        //
     }
 
-    public AccessCriteria(int access){
-        this.access = access;
+    public AccessCriteria(Set<Team> teamsWithAccess){
+        this.teamsWithAccess = teamsWithAccess;
     }
 
-    public int getAccess() {
-        return access;
+    public Set<Team> getTeamsWithAccess() {
+        return this.teamsWithAccess;
     }
 
-    public void setAccess(int access) {
-        this.access = access;
+    public void setAccess(Set<Team> teamsWithAccess) {
+        this.teamsWithAccess = teamsWithAccess;
     }
 }

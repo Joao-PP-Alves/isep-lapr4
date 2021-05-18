@@ -18,10 +18,10 @@ public class ServiceCatalogManagementService {
     }
 
     public ServiceCatalog registerNewServiceCatalog(String title, String shortDescription, String longDescription, String icon,
-                                                    Set<ServiceCatalog> subCatalogs, boolean topCatalog) {
+                                                    ServiceCatalog topCatalog) {
 
         ServiceCatalogBuilder servCatBuilder = new ServiceCatalogBuilder();
-        servCatBuilder.with(title, shortDescription, longDescription, icon, subCatalogs, topCatalog);
+        servCatBuilder.with(title, shortDescription, longDescription, icon, topCatalog);
         ServiceCatalog servCat = servCatBuilder.build();
 
         return this.servCatRepo.save(servCat);

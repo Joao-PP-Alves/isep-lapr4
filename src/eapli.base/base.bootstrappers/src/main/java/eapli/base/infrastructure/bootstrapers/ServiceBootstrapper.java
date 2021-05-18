@@ -40,10 +40,10 @@ public class ServiceBootstrapper implements Action {
     public boolean execute() {
 
         ServiceCatalog servCat1 = registerServiceCatalog(SERVICE_CATALOG_TITLE1, SERVICE_CATALOG_SHORTDESC1,
-                SERVICE_CATALOG_LONGDESC1, SERVICE_CATALOG_ICON1, new HashSet<>(), true);
+                SERVICE_CATALOG_LONGDESC1, SERVICE_CATALOG_ICON1, null);
 
         ServiceCatalog servCat2 = registerServiceCatalog(SERVICE_CATALOG_TITLE2, SERVICE_CATALOG_SHORTDESC2,
-                SERVICE_CATALOG_LONGDESC2, SERVICE_CATALOG_ICON2,  new HashSet<>(), true);
+                SERVICE_CATALOG_LONGDESC2, SERVICE_CATALOG_ICON2,null);
 
         if (servCat1!= null && servCat2!=null){
 
@@ -74,11 +74,10 @@ public class ServiceBootstrapper implements Action {
     }
 
     private ServiceCatalog registerServiceCatalog(String title, String shortDescription, String longDescription, String icon,
-                                                  Set<ServiceCatalog> subCatalogs, boolean topCatalog) {
+                                                  ServiceCatalog topCatalog) {
 
         try {
-            ServiceCatalog servCat = addServCatController.addServiceCatalog(title, shortDescription, longDescription, icon,
-                    subCatalogs, topCatalog);
+            ServiceCatalog servCat = addServCatController.addServiceCatalog(title, shortDescription, longDescription, icon, topCatalog);
             LOGGER.info(title);
 
             return servCat;

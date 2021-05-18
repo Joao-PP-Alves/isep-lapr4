@@ -14,8 +14,7 @@ public class ServiceCatalogBuilder implements DomainFactory<ServiceCatalog> {
     private Description shortDescription;
     private Description longDescription;
     private Icon icon;
-    private Set<ServiceCatalog> listSubCatalogs = new HashSet<>();
-    private boolean topCatalog;
+    private ServiceCatalog topCatalog;
 
     public ServiceCatalogBuilder() {
     }
@@ -24,19 +23,18 @@ public class ServiceCatalogBuilder implements DomainFactory<ServiceCatalog> {
     public ServiceCatalog build() {
 
         ServiceCatalog servCat = new ServiceCatalog(this.title, this.shortDescription, this.icon,
-                this.longDescription, this.listSubCatalogs, this.topCatalog);
+                this.longDescription, this.topCatalog);
 
         return servCat;
     }
 
     public ServiceCatalogBuilder with(String title, String shortDescription, String longDescription, String icon,
-                                      Set<ServiceCatalog> listSubCatalogs, boolean topCatalog) {
+                                      ServiceCatalog topCatalog) {
 
         this.withTitle(title);
         this.withShortDescription(shortDescription);
         this.withLongDescription(longDescription);
         this.withIcon(icon);
-        this.withSubCatalogs(listSubCatalogs);
         this.isTopCatalog(topCatalog);
 
         return this;
@@ -62,12 +60,7 @@ public class ServiceCatalogBuilder implements DomainFactory<ServiceCatalog> {
         return this;
     }
 
-    public ServiceCatalogBuilder withSubCatalogs(final Set<ServiceCatalog> listSubCatalogs) {
-        this.listSubCatalogs = listSubCatalogs;
-        return this;
-    }
-
-    public ServiceCatalogBuilder isTopCatalog(final boolean topCatalog) {
+    public ServiceCatalogBuilder isTopCatalog(final ServiceCatalog topCatalog) {
         this.topCatalog = topCatalog;
         return this;
     }
