@@ -7,40 +7,34 @@ import eapli.base.taskspec.domain.TaskSpec;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.general.domain.model.Description;
 import eapli.framework.general.domain.model.Designation;
-import org.hibernate.annotations.CollectionType;
-import org.hibernate.sql.Insert;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-@XmlRootElement
 @Entity
-public class Service implements AggregateRoot<Long> {
+public class ServiceDraft implements AggregateRoot<Long> {
 
     @XmlElement
     @JsonProperty
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long serviceId;
+    @GeneratedValue
+    private Long draftId;
 
     @XmlElement
     @JsonProperty
-    @AttributeOverride(name = "name", column = @Column(name = "serviceName"))
+    @AttributeOverride(name = "name", column = @Column(name = "draftName"))
     private Designation name;
 
     @XmlElement
     @JsonProperty
-    @AttributeOverride(name = "value", column = @Column(name = "shortServiceDescription"))
+    @AttributeOverride(name = "value", column = @Column(name = "shortDraftDescription"))
     private Description shortServiceDescription;
 
     @XmlElement
     @JsonProperty
-    @AttributeOverride(name = "value", column = @Column(name = "longServiceDescription"))
+    @AttributeOverride(name = "value", column = @Column(name = "longDraftDescription"))
     private Description longServiceDescription;
 
     @JsonProperty
@@ -70,29 +64,27 @@ public class Service implements AggregateRoot<Long> {
     @XmlElement
     private Form form;
 
+    @JsonProperty
+    @XmlElement
+    private boolean complete;
 
-    public Service(Designation name, ServiceCatalog serviceCatalog){
-        if (name != null && serviceCatalog!= null){
-            this.name=name;
-            this.serviceCatalog = serviceCatalog;
-        }
-    }
 
-    public Service(Designation name, ServiceCatalog serviceCatalog, Set<KeyWord> keyWords, TaskSpec taskSpec,
+    public ServiceDraft(Designation name, ServiceCatalog serviceCatalog, Set<KeyWord> keyWords, TaskSpec taskSpec,
                    Description shortServiceDescription, Description longServiceDescription,Icon icon, ApprovalTask approvalTask,
-                   Form form){
-       this.name = Objects.requireNonNull(name);
-       this.serviceCatalog = Objects.requireNonNull(serviceCatalog);
-       this.keyWords = Objects.requireNonNull(keyWords);
-       this.taskSpec = Objects.requireNonNull(taskSpec);
-       this.longServiceDescription = Objects.requireNonNull(longServiceDescription);
-       this.shortServiceDescription = Objects.requireNonNull(shortServiceDescription);
-       this.form = Objects.requireNonNull(form);
-       this.approvalTask = approvalTask;
-       this.icon = icon;
+                   Form form, boolean complete){
+        this.name = name;
+        this.serviceCatalog = serviceCatalog;
+        this.keyWords = keyWords;
+        this.taskSpec = taskSpec;
+        this.longServiceDescription = longServiceDescription;
+        this.shortServiceDescription = shortServiceDescription;
+        this.form = form;
+        this.approvalTask = approvalTask;
+        this.icon = icon;
+        this.complete = complete;
     }
 
-    public Service(){
+    public ServiceDraft(){
         //
     }
     @Override
@@ -120,7 +112,7 @@ public class Service implements AggregateRoot<Long> {
 
     @Override
     public Long identity() {
-        return this.serviceId;
+        return this.draftId;
     }
 
     @Override

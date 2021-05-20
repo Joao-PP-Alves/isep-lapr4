@@ -1,9 +1,13 @@
 package eapli.base.infrastructure.bootstrapers;
 
 import eapli.base.service.application.AddServiceController;
+import eapli.base.service.domain.ApprovalTask;
+import eapli.base.service.domain.Form;
+import eapli.base.service.domain.KeyWord;
 import eapli.base.service.domain.Service;
 import eapli.base.servicecatalog.application.AddServiceCatalogController;
 import eapli.base.servicecatalog.domain.ServiceCatalog;
+import eapli.base.taskspec.domain.TaskSpec;
 import eapli.framework.actions.Action;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
@@ -45,22 +49,16 @@ public class ServiceBootstrapper implements Action {
         ServiceCatalog servCat2 = registerServiceCatalog(SERVICE_CATALOG_TITLE2, SERVICE_CATALOG_SHORTDESC2,
                 SERVICE_CATALOG_LONGDESC2, SERVICE_CATALOG_ICON2,null);
 
-        if (servCat1!= null && servCat2!=null){
-
-            Service serv1 = registerService(SERVICE_NAME1,servCat1);
-            Service serv2 = registerService(SERVICE_NAME2,servCat2);
-
-            return true;
-        }
-
+        // TODO Service bootstrapper
         return false;
 
     }
 
-    private Service registerService(String name,ServiceCatalog sc) {
+    private Service registerService(String name, ServiceCatalog serviceCatalog, String shortDesc, String longDesc,
+                                    ApprovalTask approvalTask, Form form, TaskSpec taskSpec, String icon, Set<KeyWord> keyWords) {
 
         try {
-            Service serv = addServController.addService(name,sc);
+            Service serv = addServController.addService(name,serviceCatalog,shortDesc,longDesc,approvalTask,form,taskSpec,icon,keyWords);
             LOGGER.info(name);
             return serv;
 

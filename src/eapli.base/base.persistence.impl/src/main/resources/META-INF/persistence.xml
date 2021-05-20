@@ -20,9 +20,21 @@
     <class>eapli.base.teamtype.domain.TeamType</class>
     <class>eapli.base.teamtype.domain.Color</class>
     <class>eapli.base.service.domain.Service</class>
+    <class>eapli.base.service.domain.ServiceDraft</class>
+    <class>eapli.base.service.domain.RegularExpression</class>
+    <class>eapli.base.service.domain.PresentationTicket</class>
+    <class>eapli.base.service.domain.KeyWord</class>
+    <class>eapli.base.service.domain.Form</class>
+    <class>eapli.base.service.domain.Field</class>
+    <class>eapli.base.service.domain.DataTypesAllowed</class>
+    <class>eapli.base.service.domain.ApprovalTask</class>
     <class>eapli.base.servicecatalog.domain.AccessCriteria</class>
     <class>eapli.base.servicecatalog.domain.Icon</class>
     <class>eapli.base.servicecatalog.domain.ServiceCatalog</class>
+    <class>eapli.base.taskspec.domain.TaskSpec</class>
+    <class>eapli.base.taskspec.domain.AutoTaskSpec</class>
+    <class>eapli.base.taskspec.domain.ManualTaskSpec</class>
+
 
 
     <properties>

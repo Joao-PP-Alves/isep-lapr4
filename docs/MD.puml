@@ -5,8 +5,7 @@ skinparam linetype polyline
 'left to right direction
 hide fields
 
-
-namespace Agregado_Formulario #BAAAAA {
+/'namespace Agregado_Formulario #BAAAAA {
 entity Formulario{
     - FormularioNome FormularioNome
     - FormularioId FormularioId
@@ -20,13 +19,25 @@ class ScriptValidacao{}
 .Formulario "1" --> "1..*" Campo : tem
 Campo "1" --> "0..1" ScriptValidacao : tem
 
-}
+}'/
 namespace Agregado_Servico #DDDDDD{
 entity Servico{
     - ServicoId ServicoId
     - PalavraChave PalavraChave
     --
 }
+
+class Formulario <<Value Object>>{
+    - FormularioNome FormularioNome
+    - FormularioId FormularioId
+    --
+ }
+
+class Campo <<Value Object>>{}
+
+class ScriptValidacao{}
+Formulario "1" --> "1..*" Campo : tem
+Campo "1" --> "0..1" ScriptValidacao : tem
 '.Servico "1" --> "0..1" Aprovacao
 .Servico "1" -- "1..*" .CatalogoServico : > Organizados em
 }
@@ -167,7 +178,7 @@ entity TarefaAutomatico{}
 
 .Pedido "1" --- "1" .Tarefa
 .Tarefa "1" --> "0..1" Aprovacao
-.TarefaManual "1" --> "1" .Formulario : contém >
+.TarefaManual "1" --> "1" Agregado_Servico.Formulario : contém >
 .Tarefa "1" <|-- "1" .TarefaAutomatico : é
 .Tarefa "1" <|-- "1" .TarefaManual : é
 }
@@ -179,14 +190,14 @@ entity TarefaAutomatico{}
 .Servico "1" --> "1" TarefaSpec : aprova
 .Equipa "1" ---> "1..*" Colaborador : É constituida por >
 .Equipa "1" ---> "1" Colaborador : Tem como responsável >
-.TarefaSpecManual "1" --> "1" .Formulario : contém >
+.TarefaSpecManual "1" --> "1" Agregado_Servico.Formulario : contém >
 Organizacao "1" ...> "*" .Servico : disponibiliza >
 Organizacao "1" ...> "1..*" .Equipa : define >
 Organizacao "1" ...> "1..*" .TipoEquipa : define >
 
-.CatalogoServico "*" <-- "1" .CatalogoServico : contém
-.Servico "1" -- "1" Formulario : especifica >
-.Servico "*" <-- "1" .CatalogoServico : contém
+.CatalogoServico "*" <-- "1" .CatalogoServico : pode pertencer a
+.Servico "1" -- "1" Agregado_Servico.Formulario : especifica >
+.Servico "*" --> "1" .CatalogoServico : pertence a
 .Pedido "1" --> "1" .FormularioPreenchido
 .Pedido "*" --> "1" .Servico : Refere >
 '.Pedido "1" --> "1" .Formulario : utiliza >
