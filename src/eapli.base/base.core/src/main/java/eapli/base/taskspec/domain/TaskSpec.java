@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import eapli.framework.domain.model.AggregateRoot;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -16,6 +18,7 @@ public class TaskSpec implements AggregateRoot<Long> {
     @Id
     @XmlElement
     @JsonProperty
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @XmlElement

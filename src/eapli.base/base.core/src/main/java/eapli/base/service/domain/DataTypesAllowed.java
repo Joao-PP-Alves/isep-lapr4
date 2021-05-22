@@ -6,7 +6,22 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public enum DataTypesAllowed implements ValueObject {
-    STRING,
-    INT,
-    DOUBLE
+    STRING{
+        @Override
+        public String toString() {
+            return "String";
+        }
+    },
+    INT{
+        @Override
+        public String toString() {
+            return "int";
+        }
+    },
+    DOUBLE{
+        @Override
+        public String toString() {
+            return "double";
+        }
+    }
 }
