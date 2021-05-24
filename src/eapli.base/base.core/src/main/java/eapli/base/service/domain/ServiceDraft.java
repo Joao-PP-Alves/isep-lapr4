@@ -84,6 +84,58 @@ public class ServiceDraft implements AggregateRoot<Long> {
         this.complete = complete;
     }
 
+    public boolean isComplete() {
+        return complete;
+    }
+
+    public Description getLongServiceDescription() {
+        return longServiceDescription;
+    }
+
+    public Description getShortServiceDescription() {
+        return shortServiceDescription;
+    }
+
+    public Icon getIcon() {
+        return icon;
+    }
+
+    public Set<KeyWord> getKeyWords() {
+        return keyWords;
+    }
+
+    public void setComplete(boolean complete) {
+        this.complete = complete;
+    }
+
+    public Form getForm() {
+        return form;
+    }
+
+    public ApprovalTask getApprovalTask() {
+        return approvalTask;
+    }
+
+    public TaskSpec getTaskSpec() {
+        return taskSpec;
+    }
+
+    public void setForm(Form form) {
+        this.form = form;
+    }
+
+    public void setApprovalTask(ApprovalTask approvalTask) {
+        this.approvalTask = approvalTask;
+    }
+
+    public void setServiceCatalog(ServiceCatalog serviceCatalog) {
+        this.serviceCatalog = serviceCatalog;
+    }
+
+    public void setTaskSpec(TaskSpec taskSpec) {
+        this.taskSpec = taskSpec;
+    }
+
     public ServiceDraft(){
         //
     }
