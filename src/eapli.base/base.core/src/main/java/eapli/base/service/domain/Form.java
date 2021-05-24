@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.general.domain.model.Designation;
 
-import javax.persistence.ElementCollection;
 import javax.persistence.Embeddable;
 import javax.persistence.GeneratedValue;
 import javax.persistence.OneToMany;
@@ -51,5 +50,9 @@ public class Form implements ValueObject {
 
     public Set<Field> getFields() {
         return fields;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

@@ -1,8 +1,8 @@
 package eapli.base.taskspec.domain;
 
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
 
-@Embeddable
+@Entity
 public class AutoTaskSpec extends TaskSpec{
 
     //ADD Script

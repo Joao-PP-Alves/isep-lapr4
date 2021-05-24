@@ -7,14 +7,11 @@ import eapli.base.clientusermanagement.repositories.ClientUserRepository;
 
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
 import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
-import eapli.base.service.domain.Service;
-import eapli.base.service.domain.ServiceDraft;
 import eapli.base.service.repositories.ServiceDraftRepository;
 import eapli.base.service.repositories.ServiceRepository;
-import eapli.base.servicecatalog.domain.ServiceCatalog;
 import eapli.base.servicecatalog.repositories.ServiceCatalogRepository;
+import eapli.base.taskspec.repositories.ManualTaskSpecRepository;
 import eapli.base.team.repository.TeamRepository;
-import eapli.base.teamtype.domain.TeamType;
 import eapli.base.teamtype.repository.TeamTypeRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
@@ -158,6 +155,19 @@ public interface RepositoryFactory {
 	 */
 	ServiceDraftRepository servicesDraft();
 
+	/**
+	 *
+	 * @param autoTx the transactional context to enroll
+	 * @return
+	 */
+	ManualTaskSpecRepository manualTasksSpec(TransactionalContext autoTx);
+
+	/**
+	 * repository will be created in auto transaction mode
+	 *
+	 * @return
+	 */
+	ManualTaskSpecRepository manualTasksSpec();
 
 
 }

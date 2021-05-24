@@ -1,0 +1,45 @@
+@startuml
+autonumber
+
+
+actor "User" as USER
+participant ":AddManualTaskSpecUI" as UI <<presentation>>
+participant ":AddManualTaskSpecController" as CTRL <<application>>
+participant "form\n:Form" as FORM
+participant PersistenceContext as PERSIS <<Persistence>>
+participant RepositoryFactory as FACT <<Factory>>
+database ManualTaskSpecRepository as REPO <<repository>>
+participant "ManualTaskSpec \n:manualTaskSpec" as MTS
+
+
+USER --> UI : Add new ManualTaskSpec
+activate UI
+UI --> USER : Requests info input for Form \ncreation and ManualTaskSpec
+deactivate UI
+
+USER --> UI : Chooses form and inputs requested info
+activate UI
+UI --> FORM : form = createForm(formName, fieldSet)
+UI -> CTRL : addNewManualTaskSpec\n(taskSpecID, form)
+activate CTRL
+CTRL -> MTS : manualTaskSpec = new ManualTaskSpecManual(taskSpecID, form)
+CTRL -> PERSIS : factory = repositories()
+
+activate PERSIS
+PERSIS -> FACT : create()
+deactivate PERSIS
+
+CTRL -> FACT : manualTasksSpecRepository = listManualTasksSpec()
+activate FACT
+FACT -> REPO : create()
+deactivate FACT
+
+CTRL -> REPO : save(manualTaskSpec)
+
+CTRL --> UI : manualTaskSpec
+UI --> USER : displaySuccess
+deactivate CTRL
+
+deactivate UI
+
+@enduml

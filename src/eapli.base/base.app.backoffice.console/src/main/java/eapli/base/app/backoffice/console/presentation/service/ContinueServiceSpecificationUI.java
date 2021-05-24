@@ -24,7 +24,6 @@ import java.util.Set;
 public class ContinueServiceSpecificationUI extends AbstractUI {
 
     private final AddServiceController theController = new AddServiceController();
-    private final AddServiceDraftController theDraftController = new AddServiceDraftController();
     private final ContinueServiceSpecificationController theListController = new ContinueServiceSpecificationController();
 
     @Override
