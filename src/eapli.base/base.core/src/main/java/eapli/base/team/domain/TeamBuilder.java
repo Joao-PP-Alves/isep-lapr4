@@ -26,6 +26,10 @@ public class TeamBuilder implements DomainFactory<Team> {
     public TeamBuilder() {
     }
 
+    public static TeamBuilder builder() {
+        return new TeamBuilder();
+    }
+
     public TeamBuilder withDesignation(Designation designation) {
         this.designation = designation;
         return this;

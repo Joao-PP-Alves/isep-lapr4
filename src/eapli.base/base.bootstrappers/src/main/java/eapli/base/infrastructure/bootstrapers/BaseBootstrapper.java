@@ -23,7 +23,14 @@
  */
 package eapli.base.infrastructure.bootstrapers;
 
+import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.service.domain.Service;
+import eapli.base.team.domain.Team;
+import eapli.base.team.domain.TeamBuilder;
+import eapli.base.team.repository.TeamRepository;
+import eapli.base.teamtype.domain.TeamType;
+import eapli.base.teamtype.domain.TeamTypeBuilder;
+import eapli.base.teamtype.repository.TeamTypeRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,13 +67,16 @@ public class BaseBootstrapper implements Action {
     private final UserRepository userRepository = PersistenceContext.repositories().users();
     private final ServiceBootstrapper servBoot = new ServiceBootstrapper();
     private final OrganizationBootstrapper orgBoot = new OrganizationBootstrapper();
+    private final TeamTypeRepository teamTypeRepository = PersistenceContext.repositories().teamTypes();
+    private final TeamRepository teamRepository = PersistenceContext.repositories().teams();
 
     @Override
     public boolean execute() {
         // declare bootstrap actions
-        final Action[] actions = { new MasterUsersBootstrapper(), };
+        final Action[] actions = {new MasterUsersBootstrapper(),};
 
         registerPowerUser();
+
         authenticateForBootstrapping();
         servBoot.execute();
         orgBoot.execute();
@@ -106,7 +116,6 @@ public class BaseBootstrapper implements Action {
 
     /**
      * authenticate a super user to be able to register new users
-     *
      */
     protected void authenticateForBootstrapping() {
         authenticationService.authenticate(POWERUSER, POWERUSER_A1);
@@ -117,4 +126,29 @@ public class BaseBootstrapper implements Action {
         final String name = boot.getClass().getSimpleName();
         return Strings.left(name, name.length() - "Bootstrapper".length());
     }
+
+
+    /**
+     * register a team type directly in the persistence layer as we need to
+     * circumvent authorisations in the Application Layer
+     */
+    private TeamType registerNewTeamType() {
+        final TeamTypeBuilder teamTypeBuilder = TeamTypeBuilder.builder();
+        teamTypeBuilder.with("Test Team Type", "Yellow", "Test Team Type Description");
+        final TeamType newTeamType = teamTypeBuilder.build();
+
+        TeamType teamType;
+        try {
+            teamType = teamTypeRepository.save(newTeamType);
+            assert teamType != null;
+            return teamType;
+        } catch (ConcurrencyException | IntegrityViolationException e) {
+            // ignoring exception. assuming it is just a primary key violation
+            // due to the tentative of inserting a duplicated user
+            LOGGER.warn("Assuming {} already exists (activate trace log for details)", newTeamType.getTeamId());
+            LOGGER.trace("Assuming existing record", e);
+            return null;
+        }
+    }
+
 }

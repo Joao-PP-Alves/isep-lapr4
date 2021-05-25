@@ -26,6 +26,10 @@ public class TeamTypeBuilder implements DomainFactory<TeamType> {
     public TeamTypeBuilder() {
     }
 
+    public static TeamTypeBuilder builder() {
+        return new TeamTypeBuilder();
+    }
+
     public TeamTypeBuilder withTeamTypeId(TeamTypeId teamTypeId) {
         this.teamTypeId = teamTypeId;
         return this;
