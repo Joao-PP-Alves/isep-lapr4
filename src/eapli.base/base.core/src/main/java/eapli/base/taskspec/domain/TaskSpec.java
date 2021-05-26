@@ -23,7 +23,7 @@ public class TaskSpec implements AggregateRoot<Long> {
 
     @XmlElement
     @JsonProperty
-    private String type;
+    private String type;    //THIS ATTIBUTE IS TO BE DELETED
 
     @Override
     public boolean sameAs(Object other) {
@@ -38,7 +38,7 @@ public class TaskSpec implements AggregateRoot<Long> {
 
     protected TaskSpec(){}
 
-    public TaskSpec(String type){
+    public TaskSpec(String type){   //CONSTRUCTOR TO DELETE, NEEDS CODE REFACTORING
         if (type != null) {
             this.type = type;
         }

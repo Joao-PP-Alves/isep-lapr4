@@ -53,12 +53,9 @@ class TarefaSpecId<<Value Object>>{}
 
 class ScriptTarefaSpec{}
 
-class TipoTarefaSpec<<Value Object>> {}
-
 .TarefaSpecAutomatica "1" --> "1" ScriptTarefaSpec : contém >
 
 .Pedido "1" --- "1" .TarefaSpec
-.TarefaSpec "1" --> "1" TipoTarefaSpec
 .TarefaSpec "1" -> "1" TarefaSpecId
 .TarefaSpec "1" <|-- "1" .TarefaSpecAutomatica : é
 .TarefaSpec "1" <|-- "1" .TarefaSpecManual : é

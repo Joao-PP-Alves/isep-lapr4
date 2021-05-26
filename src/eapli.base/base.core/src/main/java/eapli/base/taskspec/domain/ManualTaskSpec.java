@@ -20,6 +20,7 @@ public class ManualTaskSpec extends TaskSpec{
     }
 
     public ManualTaskSpec(String taskSpecId, Form form){
+        super();
         if (form != null && taskSpecId != null){
             this.form = form;
             this.designation = taskSpecId;
