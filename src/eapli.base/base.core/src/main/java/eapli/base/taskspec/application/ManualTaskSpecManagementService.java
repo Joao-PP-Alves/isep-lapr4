@@ -22,7 +22,7 @@ public class ManualTaskSpecManagementService {
 
     public ManualTaskSpec registerNewManualTaskSpec(String taskSpecId, Form form) {
 
-        ManualTaskSpec mtsss = new ManualTaskSpec(Designation.valueOf(taskSpecId), form);
+        ManualTaskSpec mtsss = new ManualTaskSpec(taskSpecId, form);
         ManualTaskSpecBuilder mtsBuilder = new ManualTaskSpecBuilder();
         mtsBuilder.withId(taskSpecId).withForm(form);
         ManualTaskSpec manualTaskSpec = mtsBuilder.build();

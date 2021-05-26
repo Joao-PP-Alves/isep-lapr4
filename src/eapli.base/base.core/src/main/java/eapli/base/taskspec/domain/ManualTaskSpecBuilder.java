@@ -6,7 +6,7 @@ import eapli.framework.general.domain.model.Designation;
 
 public class ManualTaskSpecBuilder implements DomainFactory<ManualTaskSpec> {
 
-    private Designation manualTaskSpecId;
+    private String manualTaskSpecId;
     private Form form;
 
 
@@ -27,7 +27,7 @@ public class ManualTaskSpecBuilder implements DomainFactory<ManualTaskSpec> {
 
     public ManualTaskSpecBuilder withId(final String id) {
         if (id!= null)
-            this.manualTaskSpecId = Designation.valueOf(id);
+            this.manualTaskSpecId = id;
         return this;
     }
 

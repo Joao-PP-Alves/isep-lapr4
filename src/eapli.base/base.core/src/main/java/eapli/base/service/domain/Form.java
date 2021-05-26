@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.general.domain.model.Designation;
 
-import javax.persistence.Embeddable;
-import javax.persistence.GeneratedValue;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
 import java.util.Set;
 
@@ -15,8 +13,8 @@ public class Form implements ValueObject {
 
     @JsonProperty
     @XmlElement
-    @GeneratedValue
-    private Long id;
+    //@AttributeOverride(name = "identification", column = @Column(name = "FormId"))
+    private Long identification;
 
     @JsonProperty
     @XmlElement
@@ -27,13 +25,18 @@ public class Form implements ValueObject {
     @OneToMany
     private Set<Field> fields;
 
-    protected Form(){}
+    protected Form(Long id){
+        this.identification = id;
+    }
 
     public Form (Designation name, Set<Field> fields){
         if (name!=null && !fields.isEmpty()){
-            this.name = name;
-            this.fields = fields;
+            setName(name);
+            setFields(fields);
         }
+    }
+
+    public Form() {
     }
 
     public void setFields(Set<Field> fields) {
@@ -52,7 +55,7 @@ public class Form implements ValueObject {
         return fields;
     }
 
-    public Long getId() {
-        return id;
+    public Long getIdentification() {
+        return identification;
     }
 }

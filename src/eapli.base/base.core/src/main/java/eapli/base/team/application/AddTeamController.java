@@ -66,7 +66,7 @@ public class AddTeamController {
 
 
     public Team addTeam(final String designation, final String description, final Set<TeamType> teamTypes, Set<Collaborator> responsibleCollab) {
-        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.HRR, BaseRoles.ADMIN);
+        authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.HRR, BaseRoles.ADMIN, BaseRoles.POWER_USER);
 
         TeamType teamType = null;
         int counter = 0;
