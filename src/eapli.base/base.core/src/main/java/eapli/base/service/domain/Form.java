@@ -3,17 +3,19 @@ package eapli.base.service.domain;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.general.domain.model.Designation;
+import org.hibernate.action.internal.OrphanRemovalAction;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
 import java.util.Set;
 
-@Embeddable
+@Entity
 public class Form implements ValueObject {
 
     @JsonProperty
     @XmlElement
-    //@AttributeOverride(name = "identification", column = @Column(name = "FormId"))
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long identification;
 
     @JsonProperty
@@ -22,7 +24,7 @@ public class Form implements ValueObject {
 
     @JsonProperty
     @XmlElement
-    @OneToMany
+    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<Field> fields;
 
     protected Form(Long id){

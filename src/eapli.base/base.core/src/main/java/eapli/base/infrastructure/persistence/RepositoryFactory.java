@@ -10,7 +10,7 @@ import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
 import eapli.base.service.repositories.ServiceDraftRepository;
 import eapli.base.service.repositories.ServiceRepository;
 import eapli.base.servicecatalog.repositories.ServiceCatalogRepository;
-import eapli.base.taskspec.repositories.ManualTaskSpecRepository;
+import eapli.base.taskspec.repositories.TaskSpecRepository;
 import eapli.base.team.repository.TeamRepository;
 import eapli.base.teamtype.repository.TeamTypeRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
@@ -160,14 +160,14 @@ public interface RepositoryFactory {
 	 * @param autoTx the transactional context to enroll
 	 * @return
 	 */
-	ManualTaskSpecRepository manualTasksSpec(TransactionalContext autoTx);
+	TaskSpecRepository tasksSpec(TransactionalContext autoTx);
 
 	/**
 	 * repository will be created in auto transaction mode
 	 *
 	 * @return
 	 */
-	ManualTaskSpecRepository manualTasksSpec();
+	TaskSpecRepository tasksSpec();
 
 
 }

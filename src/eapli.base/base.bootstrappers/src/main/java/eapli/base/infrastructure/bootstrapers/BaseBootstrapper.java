@@ -70,6 +70,7 @@ public class BaseBootstrapper implements Action {
     private final TeamTypeRepository teamTypeRepository = PersistenceContext.repositories().teamTypes();
     private final TeamRepository teamRepository = PersistenceContext.repositories().teams();
 
+
     @Override
     public boolean execute() {
         // declare bootstrap actions

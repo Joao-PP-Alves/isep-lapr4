@@ -68,6 +68,7 @@ public class Service implements AggregateRoot<Long> {
 
     @JsonProperty
     @XmlElement
+    @OneToOne(orphanRemoval = true, cascade = CascadeType.ALL)
     private Form form;
 
 
