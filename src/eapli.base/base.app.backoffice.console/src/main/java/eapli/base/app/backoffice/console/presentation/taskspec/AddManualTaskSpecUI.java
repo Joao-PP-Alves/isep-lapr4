@@ -4,6 +4,7 @@ import eapli.base.service.domain.*;
 import eapli.base.servicecatalog.domain.ServiceCatalog;
 import eapli.base.taskspec.application.AddManualTaskSpecController;
 import eapli.base.taskspec.domain.ManualTaskSpec;
+import eapli.base.taskspec.domain.TaskSpec;
 import eapli.base.team.domain.Team;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
@@ -58,8 +59,7 @@ public class AddManualTaskSpecUI extends AbstractUI {
         }
         Form form = theController.createForm(formName, fieldSet);
 
-
-        ManualTaskSpec manualTaskSpec = theController.addManualTaskSpec(taskSpecId, form);
+        TaskSpec manualTaskSpec = theController.addManualTaskSpec(taskSpecId, form);
 
 
         //theController.manageAccessCriteria(sc,teamsSet);

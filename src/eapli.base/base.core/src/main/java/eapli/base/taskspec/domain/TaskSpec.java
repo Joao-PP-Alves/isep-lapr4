@@ -2,15 +2,15 @@ package eapli.base.taskspec.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import eapli.framework.domain.model.AggregateRoot;
+import eapli.framework.representations.dto.DTOable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn
 @Entity
 public class TaskSpec implements AggregateRoot<Long> {
 

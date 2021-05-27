@@ -8,7 +8,7 @@ import eapli.base.infrastructure.persistence.RepositoryFactory;
 import eapli.base.service.repositories.ServiceDraftRepository;
 import eapli.base.service.repositories.ServiceRepository;
 import eapli.base.servicecatalog.repositories.ServiceCatalogRepository;
-import eapli.base.taskspec.repositories.ManualTaskSpecRepository;
+import eapli.base.taskspec.repositories.TaskSpecRepository;
 import eapli.base.team.repository.TeamRepository;
 import eapli.base.teamtype.repository.TeamTypeRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
@@ -39,7 +39,6 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 
 	@Override
 	public ClientUserRepository clientUsers(final TransactionalContext tx) {
-
 		return new InMemoryClientUserRepository();
 	}
 
@@ -114,13 +113,13 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 	}
 
 	@Override
-	public ManualTaskSpecRepository manualTasksSpec(TransactionalContext autoTx) {
-		return null;
+	public TaskSpecRepository tasksSpec(TransactionalContext autoTx) {
+		return new InMemoryTaskSpecRepository();
 	}
 
 	@Override
-	public ManualTaskSpecRepository manualTasksSpec() {
-		return null;
+	public TaskSpecRepository tasksSpec() {
+		return tasksSpec(null);
 	}
 
 	@Override

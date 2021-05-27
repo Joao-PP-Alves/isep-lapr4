@@ -14,6 +14,7 @@ import java.util.Set;
 public class Field implements ValueObject {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @JsonProperty
@@ -24,7 +25,7 @@ public class Field implements ValueObject {
 
     private Description helpDescription;
 
-    @OneToMany
+    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<Field> fields;
 
     private PresentationTicket presentationTicket;

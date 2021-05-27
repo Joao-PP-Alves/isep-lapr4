@@ -7,6 +7,7 @@ import eapli.base.service.domain.Form;
 import eapli.base.servicecatalog.domain.AccessCriteria;
 import eapli.base.servicecatalog.domain.ServiceCatalog;
 import eapli.base.taskspec.domain.ManualTaskSpec;
+import eapli.base.taskspec.domain.TaskSpec;
 import eapli.base.team.domain.Team;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
@@ -25,7 +26,7 @@ public class AddManualTaskSpecController {
 
 
 
-    public ManualTaskSpec addManualTaskSpec(String taskSpecId, Form form) {
+    public TaskSpec addManualTaskSpec(String taskSpecId, Form form) {
 
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
         //TODO add BaseRoles.HELP_SERV_MANAGER or other

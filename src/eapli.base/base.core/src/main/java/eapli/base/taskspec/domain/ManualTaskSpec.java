@@ -4,10 +4,13 @@ import eapli.base.service.domain.Form;
 
 import javax.persistence.*;
 
+@DiscriminatorValue("Manual")
 @Entity
 public class ManualTaskSpec extends TaskSpec{
 
     private String designation;
+
+    @OneToOne(orphanRemoval = true, cascade = CascadeType.ALL)
     private Form form;
 
 
