@@ -3,9 +3,11 @@ package eapli.base.infrastructure.bootstrapers;
 import eapli.base.service.application.AddServiceController;
 import eapli.base.service.domain.*;
 import eapli.base.servicecatalog.application.AddServiceCatalogController;
+import eapli.base.servicecatalog.domain.AccessCriteria;
 import eapli.base.servicecatalog.domain.ServiceCatalog;
 import eapli.base.taskspec.application.AddManualTaskSpecController;
 import eapli.base.taskspec.domain.TaskSpec;
+import eapli.base.team.domain.Team;
 import eapli.framework.actions.Action;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
@@ -15,6 +17,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 public class ServiceBootstrapper implements Action {
@@ -49,6 +53,12 @@ public class ServiceBootstrapper implements Action {
 
         ServiceCatalog servCat1 = registerServiceCatalog(SERVICE_CATALOG_TITLE1, SERVICE_CATALOG_SHORTDESC1,
                 SERVICE_CATALOG_LONGDESC1, SERVICE_CATALOG_ICON1, null);
+        Iterable<Team> iter = addServCatController.getTeams();
+        Set<Team> listTeams = new HashSet<>();
+        for (Team team : iter) {
+            listTeams.add(team);
+        }
+        servCat1.setAccessCriteria(new AccessCriteria(listTeams));
 
         ServiceCatalog servCat2 = registerServiceCatalog(SERVICE_CATALOG_TITLE2, SERVICE_CATALOG_SHORTDESC2,
                 SERVICE_CATALOG_LONGDESC2, SERVICE_CATALOG_ICON2,null);
