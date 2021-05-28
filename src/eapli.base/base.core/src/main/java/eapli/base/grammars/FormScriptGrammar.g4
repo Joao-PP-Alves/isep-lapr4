@@ -101,6 +101,7 @@ RBRACKET: '}' ;
 SIDE_BAR_RL: '/';
 UNDER	: '_' ;
 AT : '@' ;
+DOT : '.' ;
 
 //
 CURRENCY_HEADER : ('#euro' | '#dollar' | '#pound') ;
@@ -108,9 +109,8 @@ EURO : '#euro';
 CURRENCY : ('$' | '£' | '€') ;
 
 IF : 'if'|'If'|'IF';
-TEXT : [A-Za-z]+;
+TEXT : [A-Za-z][A-Za-z ]*;
 VAR_NAME : [A-Za-z][A-Za-z0-9]* ;
-FILE_NAME : [A-Za-z][A-Za-z0-9 _\-]* ;
 NUM : [0-9]+ ;
 
 

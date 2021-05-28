@@ -1,7 +1,9 @@
 package eapli.base.taskspec.domain;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
+@DiscriminatorValue("Automatic")
 @Entity
 public class AutoTaskSpec extends TaskSpec{
 
