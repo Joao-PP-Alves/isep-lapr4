@@ -62,6 +62,7 @@ public class ServiceDraft implements AggregateRoot<Long> {
 
     @JsonProperty
     @XmlElement
+    @OneToOne
     private Form form;
 
     @JsonProperty

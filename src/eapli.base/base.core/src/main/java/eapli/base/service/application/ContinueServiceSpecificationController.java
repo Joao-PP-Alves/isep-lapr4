@@ -38,5 +38,6 @@ public class ContinueServiceSpecificationController {
     public void finishServiceSpecification(ServiceDraft sc){
         AddServiceController addServiceController = new AddServiceController();
         addServiceController.addService(sc.getName().toString(),sc.getServiceCatalog(),sc.getShortServiceDescription().toString(),sc.getLongServiceDescription().toString(),sc.getApprovalTask(),sc.getForm(),sc.getTaskSpec(),sc.getIcon().toString(),sc.getKeyWords());
+        rf.servicesDraft().delete(sc);
     }
 }
