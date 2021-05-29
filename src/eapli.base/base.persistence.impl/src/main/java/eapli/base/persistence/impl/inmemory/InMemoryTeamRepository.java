@@ -12,9 +12,4 @@ implements TeamRepository {
         InMemoryInitializer.init();
     }
 
-    @Override
-    public Iterable<Team> findAll() {
-        return match(e -> !e.identity().toString().equals(""));
-    }
-
 }

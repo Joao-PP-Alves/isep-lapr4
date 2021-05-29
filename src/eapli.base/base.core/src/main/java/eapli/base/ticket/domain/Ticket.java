@@ -91,7 +91,7 @@ public class Ticket implements AggregateRoot<Long> {
 
     @Override
     public Long identity() {
-        return null;
+        return ticketId;
     }
 
     @Override

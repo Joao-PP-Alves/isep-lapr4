@@ -10,6 +10,7 @@ import eapli.base.servicecatalog.repositories.ServiceCatalogRepository;
 import eapli.base.taskspec.repositories.TaskSpecRepository;
 import eapli.base.team.repository.TeamRepository;
 import eapli.base.teamtype.repository.TeamTypeRepository;
+import eapli.base.ticket.repositories.TicketRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 import eapli.framework.infrastructure.authz.repositories.impl.JpaAutoTxUserRepository;
@@ -105,12 +106,12 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 
 	@Override
 	public ServiceDraftRepository servicesDraft(TransactionalContext autoTx) {
-		return null;
+		return new JpaServiceDraftRepository(autoTx);
 	}
 
 	@Override
 	public ServiceDraftRepository servicesDraft() {
-		return null;
+		return new JpaServiceDraftRepository(Application.settings().getPersistenceUnitName());
 	}
 
 	@Override
@@ -121,6 +122,16 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	@Override
 	public TaskSpecRepository tasksSpec() {
 		return new JpaTaskSpecRepository(Application.settings().getPersistenceUnitName());
+	}
+
+	@Override
+	public TicketRepository tickets() {
+		return new JpaTicketRepository(Application.settings().getPersistenceUnitName());
+	}
+
+	@Override
+	public TicketRepository tickets(TransactionalContext autoTx) {
+		return new JpaTicketRepository(autoTx);
 	}
 
 

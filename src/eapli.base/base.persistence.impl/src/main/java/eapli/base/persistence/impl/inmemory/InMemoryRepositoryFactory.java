@@ -11,6 +11,7 @@ import eapli.base.servicecatalog.repositories.ServiceCatalogRepository;
 import eapli.base.taskspec.repositories.TaskSpecRepository;
 import eapli.base.team.repository.TeamRepository;
 import eapli.base.teamtype.repository.TeamTypeRepository;
+import eapli.base.ticket.repositories.TicketRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
 import eapli.framework.infrastructure.authz.repositories.impl.InMemoryUserRepository;
@@ -104,12 +105,12 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 
 	@Override
 	public ServiceDraftRepository servicesDraft(TransactionalContext autoTx) {
-		return null;
+		return new InMemoryServiceDraftRepository();
 	}
 
 	@Override
 	public ServiceDraftRepository servicesDraft() {
-		return null;
+		return servicesDraft(null);
 	}
 
 	@Override
@@ -120,6 +121,16 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 	@Override
 	public TaskSpecRepository tasksSpec() {
 		return tasksSpec(null);
+	}
+
+	@Override
+	public TicketRepository tickets() {
+		return tickets(null);
+	}
+
+	@Override
+	public TicketRepository tickets(TransactionalContext autoTx) {
+		return new InMemoryTicketRepository();
 	}
 
 	@Override

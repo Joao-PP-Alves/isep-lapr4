@@ -18,6 +18,6 @@ public interface TicketRepository extends DomainRepository<Long, Ticket> {
      */
     Iterable<Ticket> findAll();
 
-    Optional<Collaborator> findById(TicketId id);
+    Optional<Ticket> findById(Long id);
 
 }
