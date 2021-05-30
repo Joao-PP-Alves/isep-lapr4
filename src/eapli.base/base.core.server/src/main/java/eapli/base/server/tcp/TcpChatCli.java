@@ -5,14 +5,15 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-/*class TcpChatCli {
+//Probably does not work
+class TcpChatCli {
 	static InetAddress serverIP;
 	static Socket sock;
 
 
 	public static void main(String args[]) throws Exception {
 		String nick, frase;
-		byte[] data = new byte[300];
+		byte[] data;
 
 		if(args.length!=1) {
 			System.out.println(
@@ -80,7 +81,6 @@ class TcpChatCliConn implements Runnable {
 		catch(IOException ex) { System.out.println("Client disconnected."); }
 		}
 	}
-*/
 
 
 
