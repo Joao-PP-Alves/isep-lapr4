@@ -4,6 +4,7 @@ import eapli.base.service.domain.*;
 import eapli.base.servicecatalog.domain.ServiceCatalog;
 import eapli.base.taskspec.application.AddManualTaskSpecController;
 import eapli.base.taskspec.domain.ManualTaskSpec;
+import eapli.base.taskspec.domain.Script;
 import eapli.base.taskspec.domain.TaskSpec;
 import eapli.base.team.domain.Team;
 import eapli.framework.actions.Actions;
@@ -57,7 +58,9 @@ public class AddManualTaskSpecUI extends AbstractUI {
                 go = true;
             }
         }
-        Form form = theController.createForm(formName, fieldSet);
+        String sc = Console.readLine("Introduce the script");
+        Script script = new Script(sc);
+        Form form = theController.createForm(formName, fieldSet,script);
 
         TaskSpec manualTaskSpec = theController.addManualTaskSpec(taskSpecId, form);
 

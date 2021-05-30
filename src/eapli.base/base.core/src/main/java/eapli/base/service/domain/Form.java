@@ -1,6 +1,7 @@
 package eapli.base.service.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import eapli.base.taskspec.domain.Script;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.general.domain.model.Designation;
 import org.hibernate.action.internal.OrphanRemovalAction;
@@ -27,18 +28,31 @@ public class Form implements ValueObject {
     @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<Field> fields;
 
+    @JsonProperty
+    @XmlElement
+    private Script script;
+
     protected Form(Long id){
         this.identification = id;
     }
 
-    public Form (Designation name, Set<Field> fields){
-        if (name!=null && !fields.isEmpty()){
+    public Form (Designation name, Set<Field> fields, Script script){
+        if (name!=null && !fields.isEmpty() && script!=null){
             setName(name);
             setFields(fields);
+            setScript(script);
         }
     }
 
     public Form() {
+    }
+
+    public void setScript(Script script) {
+        this.script = script;
+    }
+
+    public Script getScript() {
+        return script;
     }
 
     public void setFields(Set<Field> fields) {

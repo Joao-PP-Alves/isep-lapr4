@@ -7,6 +7,7 @@ import eapli.base.service.domain.Form;
 import eapli.base.servicecatalog.domain.AccessCriteria;
 import eapli.base.servicecatalog.domain.ServiceCatalog;
 import eapli.base.taskspec.domain.ManualTaskSpec;
+import eapli.base.taskspec.domain.Script;
 import eapli.base.taskspec.domain.TaskSpec;
 import eapli.base.team.domain.Team;
 import eapli.base.usermanagement.domain.BaseRoles;
@@ -38,7 +39,7 @@ public class AddManualTaskSpecController {
         sc.setAccessCriteria(new AccessCriteria(list));
     }
 
-    public Form createForm(String formName, Set<Field> fieldSet) {
-        return new Form(Designation.valueOf(formName), fieldSet);
+    public Form createForm(String formName, Set<Field> fieldSet, Script script) {
+        return new Form(Designation.valueOf(formName), fieldSet, script);
     }
 }

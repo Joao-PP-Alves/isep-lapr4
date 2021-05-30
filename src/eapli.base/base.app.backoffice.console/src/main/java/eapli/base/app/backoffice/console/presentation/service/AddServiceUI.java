@@ -6,6 +6,7 @@ import eapli.base.service.domain.*;
 import eapli.base.servicecatalog.application.AddServiceCatalogController;
 import eapli.base.servicecatalog.domain.ServiceCatalog;
 import eapli.base.taskspec.domain.AutoTaskSpec;
+import eapli.base.taskspec.domain.Script;
 import eapli.base.taskspec.domain.TaskSpec;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
@@ -81,7 +82,9 @@ public class AddServiceUI extends AbstractUI {
                 keepGoing = true;
             }
         }
-        Form form = new Form(Designation.valueOf(formName),fieldSet);
+        String sc = Console.readLine("Introduce the script");
+        Script script = new Script(sc);
+        Form form = new Form(Designation.valueOf(formName), fieldSet,script);
         if (submenu()) {
             theDraftController.addServiceDraft(name, listCatalogs.get(0), shortServiceDescription, longServiceDescription, null, form, null, null, keyWords, false);
             return true;

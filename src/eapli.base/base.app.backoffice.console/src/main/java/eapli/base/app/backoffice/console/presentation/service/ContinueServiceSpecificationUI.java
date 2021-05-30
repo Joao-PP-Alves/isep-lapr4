@@ -5,6 +5,7 @@ import eapli.base.service.application.AddServiceDraftController;
 import eapli.base.service.application.ContinueServiceSpecificationController;
 import eapli.base.service.domain.*;
 import eapli.base.servicecatalog.domain.ServiceCatalog;
+import eapli.base.taskspec.domain.Script;
 import eapli.base.taskspec.domain.TaskSpec;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
@@ -71,7 +72,9 @@ public class ContinueServiceSpecificationUI extends AbstractUI {
                     go = true;
                 }
             }
-            Form form = new Form(Designation.valueOf(formName),fieldSet);
+            String sc = Console.readLine("Introduce the script");
+            Script script = new Script(sc);
+            Form form = new Form(Designation.valueOf(formName), fieldSet,script);
             if (submenu()) {
                 theListController.updateServiceDraft(serviceDraftList.get(0),null,form,null,null);
                 return true;

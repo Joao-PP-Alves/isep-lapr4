@@ -6,6 +6,7 @@ import eapli.base.servicecatalog.application.AddServiceCatalogController;
 import eapli.base.servicecatalog.domain.AccessCriteria;
 import eapli.base.servicecatalog.domain.ServiceCatalog;
 import eapli.base.taskspec.application.AddManualTaskSpecController;
+import eapli.base.taskspec.domain.Script;
 import eapli.base.taskspec.domain.TaskSpec;
 import eapli.base.team.domain.Team;
 import eapli.framework.actions.Action;
@@ -65,11 +66,12 @@ public class ServiceBootstrapper implements Action {
 
         ApprovalTask approvalTask = new ApprovalTask(true);
         Set<Field> fields = new HashSet<>();
-        Field field1 = new Field(new RegularExpression("(Test)"), "bootstrapper field",
+        Field field1 = new Field(new RegularExpression("(Test)"), "bootstrapperField",
                 Description.valueOf("helpDescription"), new PresentationTicket("bootstrapper Pres. Ticket"),
                 DataTypesAllowed.STRING);
         fields.add(field1);
-        Form form = new Form(Designation.valueOf(DESIGNATION),  fields);
+        Script script = new Script("Bootstrapped Form;\nbootstrapperField, bootstrapper Pres. Ticket, helpDescription, String, (Test)");
+        Form form = new Form(Designation.valueOf(DESIGNATION),  fields, script);
         TaskSpec manualTaskSpec = registerManualTaskSpec(MANUAL_TASK_SPEC_ID, form);
 
         Set<KeyWord> keyWords = new HashSet<>();
