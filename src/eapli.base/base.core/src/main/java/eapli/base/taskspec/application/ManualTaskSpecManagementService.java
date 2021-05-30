@@ -17,7 +17,7 @@ public class ManualTaskSpecManagementService {
     public ManualTaskSpecManagementService() {
     }
 
-    public TaskSpec registerNewManualTaskSpec(String taskSpecId, Form form) {
+    public ManualTaskSpec registerNewManualTaskSpec(String taskSpecId, Form form) {
 
         //ManualTaskSpec mtsss = new ManualTaskSpec(taskSpecId, form);
         ManualTaskSpecBuilder mtsBuilder = new ManualTaskSpecBuilder();

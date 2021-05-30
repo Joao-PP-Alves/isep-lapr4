@@ -25,6 +25,7 @@ package eapli.base.app.user.console.presentation;
 
 import eapli.base.app.common.console.presentation.authz.MyUserMenu;
 import eapli.base.app.user.console.presentation.service.ListServiceCatalogsUI;
+import eapli.base.app.user.console.presentation.service.RequestServiceUI;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -50,8 +51,10 @@ class MainMenu extends ClientUserBaseUI {
     // MAIN MENU
     private static final int MY_USER_OPTION = 1;
     private static final int CHECK_SERVICES = 2;
-    private static final int ACCOUNT_OPTION = 3;
-    private static final int SETTINGS_OPTION = 4;
+    private static final int REQUEST_SERVICE = 3;
+    private static final int ACCOUNT_OPTION = 4;
+    private static final int SETTINGS_OPTION = 5;
+
 
     // BOOKINGS MENU
     private static final int BOOK_A_MEAL_OPTION = 2;
@@ -90,6 +93,7 @@ class MainMenu extends ClientUserBaseUI {
         mainMenu.addSubMenu(MY_USER_OPTION, myUserMenu);
         mainMenu.addItem(MenuItem.separator(SEPARATOR_LABEL));
         mainMenu.addItem(CHECK_SERVICES, "Check Available Services",new ListServiceCatalogsUI()::show);
+        mainMenu.addItem(REQUEST_SERVICE, "Request a Service", new RequestServiceUI()::show);
         mainMenu.addItem(EXIT_OPTION, "Exit", new ExitWithMessageAction("Bye, Bye"));
 
         return mainMenu;

@@ -31,9 +31,6 @@ public class AddManualTaskSpecUI extends AbstractUI {
     protected boolean doShow() {
 
         final String taskSpecId = Console.readLine("TaskSpec ID");
-        //final String shortDescription = Console.readLine("TaskSpec Type");
-
-
         String formName = Console.readLine("Form name");
         System.out.println("Fill the form");
         Set<Field> fieldSet = new HashSet<>();

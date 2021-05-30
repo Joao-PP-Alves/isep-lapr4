@@ -1,4 +1,4 @@
-package eapli.base.app.backoffice.console.presentation.service;
+package eapli.base.app.user.console.presentation.service;
 
 import eapli.base.service.application.AddServiceController;
 import eapli.base.service.application.AddServiceDraftController;

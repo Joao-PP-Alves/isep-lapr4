@@ -5,7 +5,10 @@ import eapli.base.service.application.AddServiceDraftController;
 import eapli.base.service.domain.*;
 import eapli.base.servicecatalog.application.AddServiceCatalogController;
 import eapli.base.servicecatalog.domain.ServiceCatalog;
+import eapli.base.taskspec.application.AddAutoTaskSpecController;
+import eapli.base.taskspec.application.AddManualTaskSpecController;
 import eapli.base.taskspec.domain.AutoTaskSpec;
+import eapli.base.taskspec.domain.ManualTaskSpec;
 import eapli.base.taskspec.domain.Script;
 import eapli.base.taskspec.domain.TaskSpec;
 import eapli.framework.actions.Actions;
@@ -28,6 +31,9 @@ public class AddServiceUI extends AbstractUI {
 
     private final AddServiceController theController = new AddServiceController();
     private final AddServiceDraftController theDraftController = new AddServiceDraftController();
+    private final AddManualTaskSpecController theManController = new AddManualTaskSpecController();
+    private final AddAutoTaskSpecController theAutoController = new AddAutoTaskSpecController();
+
 
     @Override
     protected boolean doShow() {
@@ -102,11 +108,53 @@ public class AddServiceUI extends AbstractUI {
             return true;
         }
 
-
-        String type = Console.readLine("Will the task be Manual or Automatic?");
+        ManualTaskSpec manualTaskSpec;
+        AutoTaskSpec autoTaskSpec;
+        String type = Console.readLine("Will the task be Manual(1) or Automatic(2)?");
         TaskSpec taskSpec = new TaskSpec(type);
         //TODO Let User choose from Manual or Automatic Task
+        if (type.equalsIgnoreCase("Manual") || type.equalsIgnoreCase("1")){
+            final String taskSpecId = Console.readLine("TaskSpec ID");
+            formName = Console.readLine("Form name");
+            System.out.println("Fill the form");
+            fieldSet = new HashSet<>();
+            boolean go=false;
+            while (!go){
+                String fname = Console.readLine("Variable name");
+                String expr = Console.readLine("Regular expression to validate answer");
+                String helpDescription = Console.readLine("Help to fill the field");
+                String pres = Console.readLine("Presentation ticket");
+                String dataType = Console.readLine("Type of data needed");
+                DataTypesAllowed data;
+                if (dataType.equalsIgnoreCase("double")){
+                    data = DataTypesAllowed.DOUBLE;
+                } else if (dataType.equalsIgnoreCase("int")){
+                    data = DataTypesAllowed.INT;
+                } else {
+                    data = DataTypesAllowed.STRING;
+                }
+                fieldSet.add(new Field(new RegularExpression(expr),fname, Description.valueOf(helpDescription),new PresentationTicket(pres),data));
+                String keepAdding = Console.readLine("Add more Fields?? (Y/N)");
+                if (keepAdding.equalsIgnoreCase("N") || keepAdding.equalsIgnoreCase("No")){
+                    go = true;
+                }
+            }
+            sc = Console.readLine("Introduce the script");
+            script = new Script(sc);
+            form = theManController.createForm(formName, fieldSet,script);
 
+            manualTaskSpec = theManController.addManualTaskSpec(taskSpecId, form);
+            taskSpec = manualTaskSpec;
+        } else if (type.equalsIgnoreCase("Automatic") || type.equalsIgnoreCase("2") || type.equalsIgnoreCase("Auto") ){
+            final String taskSpecId = Console.readLine("TaskSpec ID");
+            formName = Console.readLine("Put in the script");
+
+            script = theAutoController.addScript(formName);
+            autoTaskSpec = theAutoController.addAutoTaskSpec(taskSpecId,script);
+            taskSpec = autoTaskSpec;
+        } else {
+            return false;
+        }
         if (submenu()) {
             theDraftController.addServiceDraft(name, listCatalogs.get(0), shortServiceDescription, longServiceDescription, approvalTask, form, taskSpec, null, keyWords, false);
             return true;

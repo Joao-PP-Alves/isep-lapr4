@@ -27,7 +27,7 @@ public class AddManualTaskSpecController {
 
 
 
-    public TaskSpec addManualTaskSpec(String taskSpecId, Form form) {
+    public ManualTaskSpec addManualTaskSpec(String taskSpecId, Form form) {
 
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
         //TODO add BaseRoles.HELP_SERV_MANAGER or other

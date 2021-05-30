@@ -1,5 +1,7 @@
 package eapli.base.taskspec.domain;
 
+import eapli.framework.general.domain.model.Designation;
+
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -7,10 +9,10 @@ import javax.persistence.Entity;
 @Entity
 public class AutoTaskSpec extends TaskSpec{
 
-    private String designation;
+    private Designation designation;
     private Script script;
 
-    public AutoTaskSpec(String designation, Script script) {
+    public AutoTaskSpec(Designation designation, Script script) {
         super();
         this.designation = designation;
         this.script = script;
@@ -22,7 +24,7 @@ public class AutoTaskSpec extends TaskSpec{
         return script;
     }
 
-    public void setDesignation(String designation) {
+    public void setDesignation(Designation designation) {
         this.designation = designation;
     }
 
@@ -30,7 +32,7 @@ public class AutoTaskSpec extends TaskSpec{
         this.script = script;
     }
 
-    public String getDesignation() {
+    public Designation getDesignation() {
         return designation;
     }
 }
