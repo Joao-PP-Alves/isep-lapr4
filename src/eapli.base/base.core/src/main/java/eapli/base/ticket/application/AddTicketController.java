@@ -25,6 +25,8 @@ package eapli.base.ticket.application;
 
 
 import eapli.base.infrastructure.persistence.PersistenceContext;
+import eapli.base.service.domain.Service;
+import eapli.base.service.repositories.ServiceRepository;
 import eapli.base.ticket.domain.*;
 import eapli.base.ticket.repositories.TicketRepository;
 import eapli.base.usermanagement.domain.BaseRoles;
@@ -46,17 +48,28 @@ public class AddTicketController {
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
     private final TicketRepository ticketsRepo = PersistenceContext.repositories().tickets();
     private final TicketBuilder ticketBuilder = new TicketBuilder();
+    private final ServiceRepository servRepo = PersistenceContext.repositories().services();
 
 
-    public Ticket addTicket(Long ticketId, UrgencyTypes urgency, TicketState ticketState, Calendar deadline,
-                            Calendar creationDate, Priority priority, Feedback feedback, AnnexedFile fileName) {
+
+    public Ticket addTicket(UrgencyTypes urgency, Calendar deadline, Calendar creationDate, int priority, String fileName) {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.HRR, BaseRoles.ADMIN, BaseRoles.POWER_USER, BaseRoles.COLLABORATOR);
-        ticketBuilder.with(ticketId, urgency, ticketState, deadline, creationDate, priority, feedback, fileName);
-        return ticketBuilder.build();
 
+        ticketBuilder.with(urgency, deadline, creationDate, priority, fileName);
+        Ticket ticket = ticketBuilder.build();
+        return this.ticketsRepo.save(ticket);
     }
 
     public List<Ticket> getAllTicketsList() {
         return (List<Ticket>) ticketsRepo.findAll();
+    }
+   
+   
+    public UrgencyTypes[] getUrgenciesList() {
+        return UrgencyTypes.values();
+    }
+
+    public Iterable<? extends Service> getServices() {
+        return servRepo.findAll();
     }
 }

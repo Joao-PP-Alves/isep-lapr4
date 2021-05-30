@@ -37,9 +37,8 @@ public class TicketBuilder implements DomainFactory<Ticket> {
     }
 
 
-    public TicketBuilder with(Long ticketId, UrgencyTypes urgency, TicketState ticketState, Calendar deadline,
-                              Calendar creationDate, Priority priority, Feedback feedback, AnnexedFile fileName) {
-        this.withTicketId(ticketId);
+    public TicketBuilder with(UrgencyTypes urgency, TicketState ticketState, Calendar deadline,
+                              Calendar creationDate, int priority, Feedback feedback, String fileName) {
         this.withUrgency(urgency);
         this.withState(ticketState);
         this.withDeadLine(deadline);
@@ -50,9 +49,19 @@ public class TicketBuilder implements DomainFactory<Ticket> {
         return this;
     }
 
-    private TicketBuilder withFile(AnnexedFile fileName) {
+    public TicketBuilder with(UrgencyTypes urgency, Calendar deadline, Calendar creationDate, int priority, String fileName) {
+        this.withUrgency(urgency);
+        this.withState(TicketState.SUBMETIDO);
+        this.withDeadLine(deadline);
+        this.withCreationDate(creationDate);
+        this.withPriority(priority);
+        this.withFile(fileName);
+        return this;
+    }
+
+    private TicketBuilder withFile(String fileName) {
         if (fileName != null)
-            this.fileName = fileName;
+            this.fileName = AnnexedFile.valueOf(fileName);
         return this;
 
     }
@@ -63,9 +72,9 @@ public class TicketBuilder implements DomainFactory<Ticket> {
         return this;
     }
 
-    private TicketBuilder withPriority(Priority priority) {
-        if (priority != null)
-            this.priority = priority;
+    private TicketBuilder withPriority(int priority) {
+        if (priority != 0)
+            this.priority = Priority.valueOf(priority);
         return this;
     }
 

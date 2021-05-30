@@ -26,6 +26,15 @@
     <class>eapli.base.service.domain.KeyWord</class>
     <class>eapli.base.service.domain.Form</class>
     <class>eapli.base.service.domain.Field</class>
+    <class>eapli.base.service.domain.Form</class>
+    <class>eapli.base.ticket.domain.Ticket</class>
+    <class>eapli.base.ticket.domain.AnnexedFile</class>
+    <class>eapli.base.ticket.domain.Feedback</class>
+    <class>eapli.base.ticket.domain.Priority</class>
+    <class>eapli.base.ticket.domain.TicketBuilder</class>
+    <class>eapli.base.ticket.domain.TicketId</class>
+    <class>eapli.base.ticket.domain.TicketState</class>
+    <class>eapli.base.ticket.domain.UrgencyTypes</class>
     <class>eapli.base.service.domain.DataTypesAllowed</class>
     <class>eapli.base.service.domain.ApprovalTask</class>
     <class>eapli.base.servicecatalog.domain.AccessCriteria</class>

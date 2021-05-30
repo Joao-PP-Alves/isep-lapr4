@@ -19,5 +19,10 @@ public enum UrgencyTypes {
         public String toString() {
             return "urgente";
         }
+    };
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 }

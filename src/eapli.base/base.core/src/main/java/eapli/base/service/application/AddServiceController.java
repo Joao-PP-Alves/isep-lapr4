@@ -9,6 +9,8 @@ import eapli.base.service.domain.Service;
 import eapli.base.servicecatalog.domain.ServiceCatalog;
 import eapli.base.servicecatalog.repositories.ServiceCatalogRepository;
 import eapli.base.taskspec.domain.TaskSpec;
+import eapli.base.team.domain.Team;
+import eapli.base.ticket.domain.UrgencyTypes;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
@@ -39,4 +41,29 @@ public class AddServiceController {
         scr.findAll().forEach(list::add);
         return list;
     }
+
+    public List<ServiceCatalog> getCatalogsAccessedByTeam(){
+
+        ServiceCatalogRepository scr = rf.serviceCatalogs();
+        List<ServiceCatalog> list = new ArrayList<>();
+        for (ServiceCatalog servCat : list) {
+            Set<Team> teamsWithAccess = servCat.getAccessCriteria().getTeamsWithAccess();
+            for (Team team : teamsWithAccess) {
+                /*
+                 TODO needs to check if collaborator has access criteria to service catalog
+                if (team has access to service catalog) {
+                    if (!list.has(servCat)) {
+                        list.add(servCat)
+                    }
+                }
+
+                */
+            }
+
+        }
+        //scr.findAll().forEach(list::add);
+        return list;
+    }
+
+
 }

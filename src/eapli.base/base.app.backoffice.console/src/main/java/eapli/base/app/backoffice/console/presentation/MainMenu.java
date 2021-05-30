@@ -30,6 +30,7 @@ import eapli.base.app.backoffice.console.presentation.service.ContinueServiceSpe
 import eapli.base.app.backoffice.console.presentation.servicecatalog.AddServiceCatalogUI;
 import eapli.base.app.backoffice.console.presentation.team.AddTeamUI;
 import eapli.base.app.backoffice.console.presentation.teamtype.AddTeamTypeUI;
+import eapli.base.app.backoffice.console.presentation.ticket.AddTicketUI;
 import eapli.base.app.common.console.presentation.authz.MyUserMenu;
 import eapli.base.Application;
 import eapli.base.app.backoffice.console.presentation.authz.AddUserUI;
@@ -73,6 +74,8 @@ public class MainMenu extends AbstractUI {
     private static final int ADD_NEW_CATALOG = 9;
     private static final int ADD_NEW_SERVICE = 10;
     private static final int CONTINUE_SERVICE_SPECIFICATION = 11;
+    private static final int CREATE_NEW_TICKET = 12;
+
 
     // SETTINGS
     private static final int SET_KITCHEN_ALERT_LIMIT_OPTION = 1;
@@ -200,6 +203,7 @@ public class MainMenu extends AbstractUI {
         menu.addItem(ADD_NEW_CATALOG, "Add new Service Catalog", new AddServiceCatalogUI()::show);
         menu.addItem(ADD_NEW_SERVICE, "Add new Service", new AddServiceUI()::show);
         menu.addItem(CONTINUE_SERVICE_SPECIFICATION, "Continue Service Specification", new ContinueServiceSpecificationUI()::show);
+        menu.addItem(CREATE_NEW_TICKET, "Create new Ticket", new AddTicketUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;

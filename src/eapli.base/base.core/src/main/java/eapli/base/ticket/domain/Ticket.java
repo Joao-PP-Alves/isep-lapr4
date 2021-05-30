@@ -25,6 +25,7 @@ public class Ticket implements AggregateRoot<Long> {
     @XmlElement
     @JsonProperty
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long ticketId;
 
     @XmlElement
@@ -65,6 +66,17 @@ public class Ticket implements AggregateRoot<Long> {
         this.creationDate = creationDate;
         this.priority = priority;
         this.feedback = feedback;
+        this.fileName = fileName;
+    }
+
+    public Ticket(Long ticketId, UrgencyTypes urgency, TicketState ticketState, Calendar deadline,
+                  Calendar creationDate, Priority priority, AnnexedFile fileName) {
+        this.ticketId = ticketId;
+        this.urgency = urgency;
+        this.ticketState = ticketState;
+        this.deadline = deadline;
+        this.creationDate = creationDate;
+        this.priority = priority;
         this.fileName = fileName;
     }
 
