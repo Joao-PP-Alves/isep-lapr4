@@ -102,7 +102,6 @@ public class RequestServiceUI extends AbstractUI {
 
         String type = Console.readLine("Will the task be Manual or Automatic?");
         TaskSpec taskSpec = new TaskSpec(type);
-        //TODO Let User choose from Manual or Automatic Task
 
         if (submenu()) {
             theDraftController.addServiceDraft(name, listCatalogs.get(0), shortServiceDescription, longServiceDescription, approvalTask, form, taskSpec, null, keyWords, false);

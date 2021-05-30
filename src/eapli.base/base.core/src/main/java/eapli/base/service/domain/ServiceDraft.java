@@ -10,7 +10,6 @@ import eapli.framework.general.domain.model.Designation;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -19,7 +18,7 @@ public class ServiceDraft implements AggregateRoot<Long> {
     @XmlElement
     @JsonProperty
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long draftId;
 
     @XmlElement
@@ -51,6 +50,7 @@ public class ServiceDraft implements AggregateRoot<Long> {
     @XmlElement
     private Icon icon;
 
+
     @JsonProperty
     @XmlElement
     private ApprovalTask approvalTask;
@@ -62,7 +62,7 @@ public class ServiceDraft implements AggregateRoot<Long> {
 
     @JsonProperty
     @XmlElement
-    @OneToOne
+    @OneToOne(orphanRemoval = true, cascade = CascadeType.ALL)
     private Form form;
 
     @JsonProperty

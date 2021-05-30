@@ -5,8 +5,13 @@ import eapli.base.service.application.AddServiceDraftController;
 import eapli.base.service.application.ContinueServiceSpecificationController;
 import eapli.base.service.domain.*;
 import eapli.base.servicecatalog.domain.ServiceCatalog;
+import eapli.base.taskspec.application.AddAutoTaskSpecController;
+import eapli.base.taskspec.application.AddManualTaskSpecController;
+import eapli.base.taskspec.domain.AutoTaskSpec;
+import eapli.base.taskspec.domain.ManualTaskSpec;
 import eapli.base.taskspec.domain.Script;
 import eapli.base.taskspec.domain.TaskSpec;
+import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
 import eapli.framework.actions.menu.MenuItem;
 import eapli.framework.general.domain.model.Description;
@@ -26,7 +31,8 @@ public class ContinueServiceSpecificationUI extends AbstractUI {
 
     private final AddServiceController theController = new AddServiceController();
     private final ContinueServiceSpecificationController theListController = new ContinueServiceSpecificationController();
-
+    private final AddAutoTaskSpecController theAutoController = new AddAutoTaskSpecController();
+    private final AddManualTaskSpecController theManController = new AddManualTaskSpecController();
     @Override
     protected boolean doShow() {
         boolean show = false;
@@ -91,9 +97,52 @@ public class ContinueServiceSpecificationUI extends AbstractUI {
             }
         }
         if (serviceDraftList.get(0).getTaskSpec()==null){
-            String type = Console.readLine("Will the task be Manual or Automatic?");
+            ManualTaskSpec manualTaskSpec;
+            AutoTaskSpec autoTaskSpec;
+            String type = Console.readLine("Will the task be Manual(1) or Automatic(2)?");
             TaskSpec taskSpec = new TaskSpec(type);
+            if (type.equalsIgnoreCase("Manual") || type.equalsIgnoreCase("1")){
+                final String taskSpecId = Console.readLine("TaskSpec ID");
+                String formName = Console.readLine("Form name");
+                System.out.println("Fill the form");
+                Set<Field> fieldSet = new HashSet<>();
+                boolean go=false;
+                while (!go){
+                    String fname = Console.readLine("Variable name");
+                    String expr = Console.readLine("Regular expression to validate answer");
+                    String helpDescription = Console.readLine("Help to fill the field");
+                    String pres = Console.readLine("Presentation ticket");
+                    String dataType = Console.readLine("Type of data needed");
+                    DataTypesAllowed data;
+                    if (dataType.equalsIgnoreCase("double")){
+                        data = DataTypesAllowed.DOUBLE;
+                    } else if (dataType.equalsIgnoreCase("int")){
+                        data = DataTypesAllowed.INT;
+                    } else {
+                        data = DataTypesAllowed.STRING;
+                    }
+                    fieldSet.add(new Field(new RegularExpression(expr),fname, Description.valueOf(helpDescription),new PresentationTicket(pres),data));
+                    String keepAdding = Console.readLine("Add more Fields?? (Y/N)");
+                    if (keepAdding.equalsIgnoreCase("N") || keepAdding.equalsIgnoreCase("No")){
+                        go = true;
+                    }
+                }
+                String sc = Console.readLine("Introduce the script");
+                Script script = new Script(sc);
+                Form form = theManController.createForm(formName, fieldSet,script);
 
+                manualTaskSpec = theManController.addManualTaskSpec(taskSpecId, form);
+                taskSpec = manualTaskSpec;
+            } else if (type.equalsIgnoreCase("Automatic") || type.equalsIgnoreCase("2") || type.equalsIgnoreCase("Auto") ){
+                final String taskSpecId = Console.readLine("TaskSpec ID");
+                String formName = Console.readLine("Put in the script");
+
+                Script script = theAutoController.addScript(formName);
+                autoTaskSpec = theAutoController.addAutoTaskSpec(taskSpecId,script);
+                taskSpec = autoTaskSpec;
+            } else {
+                return false;
+            }
             if (submenu()) {
                 theListController.updateServiceDraft(serviceDraftList.get(0),null,null,null,taskSpec);
                 return true;
@@ -153,6 +202,7 @@ public class ContinueServiceSpecificationUI extends AbstractUI {
     private Menu buildServiceCatalogsMenu(final Set<ServiceCatalog> serviceCatalogs){
         final Menu serviceCatalogsMenu = new Menu();
         int counter = 0;
+        serviceCatalogsMenu.addItem(MenuItem.of(counter++, "Cancel", Actions.SUCCESS));
         for (ServiceCatalog sc: theController.getCatalogs()) {
             serviceCatalogsMenu.addItem(counter++, sc.getTitle().toString(),() -> serviceCatalogs.add(sc));
         }
@@ -161,6 +211,6 @@ public class ContinueServiceSpecificationUI extends AbstractUI {
 
     @Override
     public String headline() {
-        return null;
+        return "Continue Service Specification";
     }
 }

@@ -50,7 +50,7 @@ public class AddServiceUI extends AbstractUI {
             }
         }
         if (submenu()) {
-            theDraftController.addServiceDraft(name, null, shortServiceDescription, longServiceDescription, null, null, null, null, keyWords, false);
+            theDraftController.addServiceDraft(name, null, shortServiceDescription, longServiceDescription, null, null, null, "icon", keyWords, false);
             return true;
         }
         boolean show;
@@ -61,7 +61,7 @@ public class AddServiceUI extends AbstractUI {
         } while (!show);
         List<ServiceCatalog> listCatalogs = new ArrayList<>(serviceCatalogSet);
         if (submenu()) {
-            theDraftController.addServiceDraft(name, listCatalogs.get(0), shortServiceDescription, longServiceDescription, null, null, null, null, keyWords, false);
+            theDraftController.addServiceDraft(name, listCatalogs.get(0), shortServiceDescription, longServiceDescription, null, null, null, "icon", keyWords, false);
             return true;
         }
         String formName = Console.readLine("Form name");
@@ -92,7 +92,7 @@ public class AddServiceUI extends AbstractUI {
         Script script = new Script(sc);
         Form form = new Form(Designation.valueOf(formName), fieldSet,script);
         if (submenu()) {
-            theDraftController.addServiceDraft(name, listCatalogs.get(0), shortServiceDescription, longServiceDescription, null, form, null, null, keyWords, false);
+            theDraftController.addServiceDraft(name, listCatalogs.get(0), shortServiceDescription, longServiceDescription, null, form, null, "icon", keyWords, false);
             return true;
         }
         String approvalTaskS = Console.readLine("Need aproval Task?? (Y/N)");
@@ -104,7 +104,7 @@ public class AddServiceUI extends AbstractUI {
         }
         ApprovalTask approvalTask = new ApprovalTask(apr);
         if (submenu()) {
-            theDraftController.addServiceDraft(name, listCatalogs.get(0), shortServiceDescription, longServiceDescription, approvalTask, form, null, null, keyWords, false);
+            theDraftController.addServiceDraft(name, listCatalogs.get(0), shortServiceDescription, longServiceDescription, approvalTask, form, null, "icon", keyWords, false);
             return true;
         }
 
@@ -156,7 +156,7 @@ public class AddServiceUI extends AbstractUI {
             return false;
         }
         if (submenu()) {
-            theDraftController.addServiceDraft(name, listCatalogs.get(0), shortServiceDescription, longServiceDescription, approvalTask, form, taskSpec, null, keyWords, false);
+            theDraftController.addServiceDraft(name, listCatalogs.get(0), shortServiceDescription, longServiceDescription, approvalTask, form, taskSpec, "icon", keyWords, false);
             return true;
         }
 
@@ -164,7 +164,7 @@ public class AddServiceUI extends AbstractUI {
         if (completion.equalsIgnoreCase("y") || completion.equalsIgnoreCase("yes")){
             theController.addService(name, listCatalogs.get(0), shortServiceDescription, longServiceDescription, approvalTask, form, taskSpec, null, keyWords);
         } else {
-            theDraftController.addServiceDraft(name, listCatalogs.get(0), shortServiceDescription, longServiceDescription, approvalTask, form, taskSpec, null, keyWords, false);
+            theDraftController.addServiceDraft(name, listCatalogs.get(0), shortServiceDescription, longServiceDescription, approvalTask, form, taskSpec, "icon", keyWords, false);
         }
         return true;
     }

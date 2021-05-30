@@ -24,14 +24,26 @@ public class ContinueServiceSpecificationController {
     }
 
     public void updateServiceDraft(ServiceDraft sd, ServiceCatalog sc, Form form, ApprovalTask approvalTask, TaskSpec taskSpec){
-        if (sd.getServiceCatalog()==null)
-            sd.setServiceCatalog(sc);
-        if (sd.getForm()==null)
-            sd.setForm(form);
-        if (sd.getApprovalTask()==null)
-            sd.setApprovalTask(approvalTask);
-        if (sd.getTaskSpec()==null)
-            sd.setTaskSpec(taskSpec);
+        if (sd.getServiceCatalog()==null) {
+            if (sc != null) {
+                sd.setServiceCatalog(sc);
+            }
+        }
+        if (sd.getForm()==null) {
+            if (form != null) {
+                sd.setForm(form);
+            }
+        }
+        if (sd.getApprovalTask()==null) {
+            if (approvalTask != null) {
+                sd.setApprovalTask(approvalTask);
+            }
+        }
+        if (sd.getTaskSpec()==null) {
+            if (taskSpec != null) {
+                sd.setTaskSpec(taskSpec);
+            }
+        }
         rf.servicesDraft().save(sd);
     }
 
