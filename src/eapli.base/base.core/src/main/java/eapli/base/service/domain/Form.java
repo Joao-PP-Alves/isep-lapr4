@@ -11,6 +11,9 @@ import java.util.Set;
 @Entity
 public class Form implements ValueObject {
 
+    @Version
+    private Long version;
+
     @JsonProperty
     @XmlElement
     @Id

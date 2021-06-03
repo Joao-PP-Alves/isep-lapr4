@@ -13,6 +13,9 @@ import java.util.Calendar;
 @Entity
 public class Ticket implements AggregateRoot<Long> {
 
+    @Version
+    private Long version;
+
     @XmlElement
     @JsonProperty
     @Id

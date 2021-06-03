@@ -16,6 +16,9 @@ import java.util.Set;
 @Entity
 public class ServiceCatalog implements AggregateRoot<Long> {
 
+    @Version
+    private Long version;
+
     @JsonProperty
     @XmlElement
     @Id

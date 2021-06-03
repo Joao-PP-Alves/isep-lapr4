@@ -12,6 +12,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 public class TaskSpec implements AggregateRoot<Long> {
 
+    @Version
+    private Long version;
+
     @Id
     @XmlElement
     @JsonProperty
