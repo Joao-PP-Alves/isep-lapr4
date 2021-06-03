@@ -1,7 +1,7 @@
 package eapli.base.app.backoffice.console.presentation.taskspec;
 
-import eapli.base.taskspec.application.AddAutoTaskSpecController;
-import eapli.base.taskspec.domain.Script;
+import eapli.base.service.application.AddAutoTaskSpecController;
+import eapli.base.service.domain.Script;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 

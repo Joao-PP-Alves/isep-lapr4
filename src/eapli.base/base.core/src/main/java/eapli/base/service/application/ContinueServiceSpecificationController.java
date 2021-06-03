@@ -7,7 +7,7 @@ import eapli.base.service.domain.Form;
 import eapli.base.service.domain.ServiceDraft;
 import eapli.base.service.repositories.ServiceDraftRepository;
 import eapli.base.servicecatalog.domain.ServiceCatalog;
-import eapli.base.taskspec.domain.TaskSpec;
+import eapli.base.service.domain.TaskSpec;
 
 import java.util.ArrayList;
 import java.util.List;

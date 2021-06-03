@@ -3,18 +3,13 @@ package eapli.base.service.domain;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import eapli.base.servicecatalog.domain.Icon;
 import eapli.base.servicecatalog.domain.ServiceCatalog;
-import eapli.base.taskspec.domain.TaskSpec;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.general.domain.model.Description;
 import eapli.framework.general.domain.model.Designation;
-import org.hibernate.annotations.CollectionType;
-import org.hibernate.sql.Insert;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 

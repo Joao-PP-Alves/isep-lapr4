@@ -40,9 +40,9 @@
     <class>eapli.base.servicecatalog.domain.AccessCriteria</class>
     <class>eapli.base.servicecatalog.domain.Icon</class>
     <class>eapli.base.servicecatalog.domain.ServiceCatalog</class>
-    <class>eapli.base.taskspec.domain.TaskSpec</class>
-    <class>eapli.base.taskspec.domain.AutoTaskSpec</class>
-    <class>eapli.base.taskspec.domain.ManualTaskSpec</class>
+    <class>eapli.base.service.domain.TaskSpec</class>
+    <class>eapli.base.service.domain.AutoTaskSpec</class>
+    <class>eapli.base.service.domain.ManualTaskSpec</class>
 
 
 

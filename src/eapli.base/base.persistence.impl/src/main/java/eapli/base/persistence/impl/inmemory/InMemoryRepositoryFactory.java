@@ -8,7 +8,7 @@ import eapli.base.infrastructure.persistence.RepositoryFactory;
 import eapli.base.service.repositories.ServiceDraftRepository;
 import eapli.base.service.repositories.ServiceRepository;
 import eapli.base.servicecatalog.repositories.ServiceCatalogRepository;
-import eapli.base.taskspec.repositories.TaskSpecRepository;
+import eapli.base.service.repositories.TaskSpecRepository;
 import eapli.base.team.repository.TeamRepository;
 import eapli.base.teamtype.repository.TeamTypeRepository;
 import eapli.base.ticket.repositories.TicketRepository;

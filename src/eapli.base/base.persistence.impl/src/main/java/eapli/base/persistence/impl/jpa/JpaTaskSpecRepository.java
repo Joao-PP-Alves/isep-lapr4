@@ -2,9 +2,8 @@ package eapli.base.persistence.impl.jpa;
 
 
 import eapli.base.Application;
-import eapli.base.taskspec.domain.ManualTaskSpec;
-import eapli.base.taskspec.domain.TaskSpec;
-import eapli.base.taskspec.repositories.TaskSpecRepository;
+import eapli.base.service.domain.TaskSpec;
+import eapli.base.service.repositories.TaskSpecRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 

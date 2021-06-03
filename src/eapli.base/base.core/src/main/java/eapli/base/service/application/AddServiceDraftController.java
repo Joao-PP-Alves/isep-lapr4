@@ -2,7 +2,7 @@ package eapli.base.service.application;
 
 import eapli.base.service.domain.*;
 import eapli.base.servicecatalog.domain.ServiceCatalog;
-import eapli.base.taskspec.domain.TaskSpec;
+import eapli.base.service.domain.TaskSpec;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;

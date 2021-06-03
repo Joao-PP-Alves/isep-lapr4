@@ -1,22 +1,13 @@
 package eapli.base.ticket.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import eapli.base.service.domain.ApprovalTask;
-import eapli.base.service.domain.Form;
-import eapli.base.service.domain.KeyWord;
-import eapli.base.servicecatalog.domain.Icon;
-import eapli.base.servicecatalog.domain.ServiceCatalog;
-import eapli.base.taskspec.domain.TaskSpec;
+import eapli.base.service.domain.Service;
 import eapli.framework.domain.model.AggregateRoot;
-import eapli.framework.general.domain.model.Description;
-import eapli.framework.general.domain.model.Designation;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Calendar;
-import java.util.Objects;
-import java.util.Set;
 
 @XmlRootElement
 @Entity
@@ -56,6 +47,12 @@ public class Ticket implements AggregateRoot<Long> {
     @JsonProperty
     private AnnexedFile fileName;
 
+    @XmlElement
+    @JsonProperty
+    @OneToOne
+    private Service service;
+
+    //TODO use service to smth and add/create Task
 
     public Ticket(Long ticketId, UrgencyTypes urgency, TicketState ticketState, Calendar deadline,
                   Calendar creationDate, Priority priority, Feedback feedback, AnnexedFile fileName) {

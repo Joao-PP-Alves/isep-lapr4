@@ -5,9 +5,9 @@ import eapli.base.service.domain.*;
 import eapli.base.servicecatalog.application.AddServiceCatalogController;
 import eapli.base.servicecatalog.domain.AccessCriteria;
 import eapli.base.servicecatalog.domain.ServiceCatalog;
-import eapli.base.taskspec.application.AddManualTaskSpecController;
-import eapli.base.taskspec.domain.Script;
-import eapli.base.taskspec.domain.TaskSpec;
+import eapli.base.service.application.AddManualTaskSpecController;
+import eapli.base.service.domain.Script;
+import eapli.base.service.domain.TaskSpec;
 import eapli.base.team.domain.Team;
 import eapli.framework.actions.Action;
 import eapli.framework.domain.repositories.ConcurrencyException;
@@ -18,8 +18,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
 
 public class ServiceBootstrapper implements Action {

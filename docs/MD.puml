@@ -5,21 +5,6 @@ skinparam linetype polyline
 'left to right direction
 hide fields
 
-/'namespace Agregado_Formulario #BAAAAA {
-entity Formulario{
-    - FormularioNome FormularioNome
-    - FormularioId FormularioId
-    --
- }
-
-class Campo{}
-
-class ScriptValidacao{}
-
-.Formulario "1" --> "1..*" Campo : tem
-Campo "1" --> "0..1" ScriptValidacao : tem
-
-}'/
 namespace Agregado_Servico #DDDDDD{
 entity Servico{
     - ServicoId ServicoId
@@ -33,16 +18,17 @@ class Formulario <<Value Object>>{
     --
  }
 
-class Campo <<Value Object>>{}
-
-class ScriptValidacao{}
-Formulario "1" --> "1..*" Campo : tem
-Campo "1" --> "0..1" ScriptValidacao : tem
-'.Servico "1" --> "0..1" Aprovacao
-.Servico "1" -- "1..*" .CatalogoServico : > Organizados em
+class Campo <<Value Object>>{
+    - Long id
+    - RegularExpression regularExpression
+    - String variableName
+    - Description helpDescription
+    - Set<Campo> fields
+    - PresentationTicket presentationTicket
+    - DataTypesAllowed dataType
+    --
 }
 
-namespace Agregado_TarefaSpec #DEEEEE{
 entity TarefaSpec{}
 
 entity TarefaSpecManual{}
@@ -51,15 +37,24 @@ entity TarefaSpecAutomatica{}
 
 class TarefaSpecId<<Value Object>>{}
 
-class ScriptTarefaSpec{}
+class Script<<Value Object>> {
+    - String script
+    --
+}
 
-.TarefaSpecAutomatica "1" --> "1" ScriptTarefaSpec : contém >
+
+.TarefaSpecAutomatica "1" --> "1" Script : contém >
 
 .Pedido "1" --- "1" .TarefaSpec
 .TarefaSpec "1" -> "1" TarefaSpecId
 .TarefaSpec "1" <|-- "1" .TarefaSpecAutomatica : é
 .TarefaSpec "1" <|-- "1" .TarefaSpecManual : é
+Formulario "1" --> "1..*" Campo : tem
+.Servico "1" --> "0..1" Script : tem
+'.Servico "1" --> "0..1" Aprovacao
+.Servico "1" -- "1..*" .CatalogoServico : > Organizados em
 }
+
 
 namespace Agregado_Equipa #DAAAAA{
 

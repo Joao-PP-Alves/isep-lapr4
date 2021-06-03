@@ -1,10 +1,8 @@
 package eapli.base.service.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import eapli.base.taskspec.domain.Script;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.general.domain.model.Designation;
-import org.hibernate.action.internal.OrphanRemovalAction;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;

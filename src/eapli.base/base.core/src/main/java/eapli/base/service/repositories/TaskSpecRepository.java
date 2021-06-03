@@ -1,6 +1,6 @@
-package eapli.base.taskspec.repositories;
+package eapli.base.service.repositories;
 
-import eapli.base.taskspec.domain.TaskSpec;
+import eapli.base.service.domain.TaskSpec;
 import eapli.framework.domain.repositories.DomainRepository;
 
 public interface TaskSpecRepository extends DomainRepository<Long, TaskSpec> {

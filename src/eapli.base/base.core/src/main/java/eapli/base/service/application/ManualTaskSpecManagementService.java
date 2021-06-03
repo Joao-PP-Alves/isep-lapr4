@@ -1,11 +1,10 @@
-package eapli.base.taskspec.application;
+package eapli.base.service.application;
 
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.service.domain.Form;
-import eapli.base.taskspec.domain.ManualTaskSpec;
-import eapli.base.taskspec.domain.ManualTaskSpecBuilder;
-import eapli.base.taskspec.domain.TaskSpec;
-import eapli.base.taskspec.repositories.TaskSpecRepository;
+import eapli.base.service.domain.ManualTaskSpec;
+import eapli.base.service.domain.ManualTaskSpecBuilder;
+import eapli.base.service.repositories.TaskSpecRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class ManualTaskSpecManagementService {

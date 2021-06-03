@@ -1,6 +1,4 @@
-package eapli.base.taskspec.domain;
-
-import eapli.base.service.domain.Form;
+package eapli.base.service.domain;
 
 import javax.persistence.*;
 

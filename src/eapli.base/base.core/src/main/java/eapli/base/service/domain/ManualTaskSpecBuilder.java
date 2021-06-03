@@ -1,8 +1,6 @@
-package eapli.base.taskspec.domain;
+package eapli.base.service.domain;
 
-import eapli.base.service.domain.Form;
 import eapli.framework.domain.model.DomainFactory;
-import eapli.framework.general.domain.model.Designation;
 
 public class ManualTaskSpecBuilder implements DomainFactory<ManualTaskSpec> {
 

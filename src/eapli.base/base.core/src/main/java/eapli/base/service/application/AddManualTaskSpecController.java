@@ -1,4 +1,4 @@
-package eapli.base.taskspec.application;
+package eapli.base.service.application;
 
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.infrastructure.persistence.RepositoryFactory;
@@ -6,9 +6,8 @@ import eapli.base.service.domain.Field;
 import eapli.base.service.domain.Form;
 import eapli.base.servicecatalog.domain.AccessCriteria;
 import eapli.base.servicecatalog.domain.ServiceCatalog;
-import eapli.base.taskspec.domain.ManualTaskSpec;
-import eapli.base.taskspec.domain.Script;
-import eapli.base.taskspec.domain.TaskSpec;
+import eapli.base.service.domain.ManualTaskSpec;
+import eapli.base.service.domain.Script;
 import eapli.base.team.domain.Team;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.application.UseCaseController;

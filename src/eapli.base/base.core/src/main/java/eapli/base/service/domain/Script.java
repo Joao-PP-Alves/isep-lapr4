@@ -1,4 +1,4 @@
-package eapli.base.taskspec.domain;
+package eapli.base.service.domain;
 
 import javax.persistence.Embeddable;
 

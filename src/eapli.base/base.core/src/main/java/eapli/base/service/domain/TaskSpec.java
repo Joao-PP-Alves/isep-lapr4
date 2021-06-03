@@ -1,14 +1,12 @@
-package eapli.base.taskspec.domain;
+package eapli.base.service.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import eapli.framework.domain.model.AggregateRoot;
-import eapli.framework.representations.dto.DTOable;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn
 @Entity

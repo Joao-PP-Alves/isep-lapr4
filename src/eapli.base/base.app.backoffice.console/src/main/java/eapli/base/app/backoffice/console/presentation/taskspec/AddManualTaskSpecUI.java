@@ -1,26 +1,14 @@
 package eapli.base.app.backoffice.console.presentation.taskspec;
 
 import eapli.base.service.domain.*;
-import eapli.base.servicecatalog.domain.ServiceCatalog;
-import eapli.base.taskspec.application.AddManualTaskSpecController;
-import eapli.base.taskspec.domain.ManualTaskSpec;
-import eapli.base.taskspec.domain.Script;
-import eapli.base.taskspec.domain.TaskSpec;
-import eapli.base.team.domain.Team;
-import eapli.framework.actions.Actions;
-import eapli.framework.actions.menu.Menu;
-import eapli.framework.actions.menu.MenuItem;
+import eapli.base.service.application.AddManualTaskSpecController;
+import eapli.base.service.domain.Script;
+import eapli.base.service.domain.TaskSpec;
 import eapli.framework.general.domain.model.Description;
-import eapli.framework.general.domain.model.Designation;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
-import eapli.framework.presentation.console.menu.MenuItemRenderer;
-import eapli.framework.presentation.console.menu.MenuRenderer;
-import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 

@@ -1,9 +1,9 @@
-package eapli.base.taskspec.application;
+package eapli.base.service.application;
 
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.infrastructure.persistence.RepositoryFactory;
-import eapli.base.taskspec.domain.AutoTaskSpec;
-import eapli.base.taskspec.domain.Script;
+import eapli.base.service.domain.AutoTaskSpec;
+import eapli.base.service.domain.Script;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.general.domain.model.Designation;
 

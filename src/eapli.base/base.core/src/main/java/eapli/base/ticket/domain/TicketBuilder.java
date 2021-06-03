@@ -1,21 +1,8 @@
 package eapli.base.ticket.domain;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import eapli.base.service.domain.ApprovalTask;
-import eapli.base.service.domain.Form;
-import eapli.base.service.domain.KeyWord;
-import eapli.base.service.domain.Service;
-import eapli.base.servicecatalog.domain.Icon;
-import eapli.base.servicecatalog.domain.ServiceCatalog;
-import eapli.base.taskspec.domain.TaskSpec;
 import eapli.framework.domain.model.DomainFactory;
-import eapli.framework.general.domain.model.Description;
-import eapli.framework.general.domain.model.Designation;
 
-import javax.persistence.Id;
-import javax.xml.bind.annotation.XmlElement;
 import java.util.Calendar;
-import java.util.Set;
 
 public class TicketBuilder implements DomainFactory<Ticket> {
 

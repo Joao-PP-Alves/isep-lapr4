@@ -3,9 +3,8 @@ package eapli.base.service.application;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.service.domain.*;
 import eapli.base.service.repositories.ServiceDraftRepository;
-import eapli.base.service.repositories.ServiceRepository;
 import eapli.base.servicecatalog.domain.ServiceCatalog;
-import eapli.base.taskspec.domain.TaskSpec;
+import eapli.base.service.domain.TaskSpec;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Set;
