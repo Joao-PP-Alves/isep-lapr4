@@ -1,5 +1,15 @@
 grammar TaskScriptGrammar;
 
+@parser::header { // classes a incluir
+    import java.util.*;
+    import java.lang.*;
+    import java.io.*;
+}
+
+@parser::members {
+    
+}
+
 exprs : (expr? NEWLINE)* ;
 
 expr : FILE_CATCHER file
@@ -21,12 +31,14 @@ semi_op : oper NUM
         | PERCENT NUM
         ;
 
-email : destination NEWLINE (TEXT|VAR_NAME|FILE_NAME) NEWLINE ((TEXT|VAR_NAME|FILE_NAME) NEWLINE)+ SEMI;
+email : destination NEWLINE (STR|NUM)+ NEWLINE (body)+ SEMI;
 
-destination: (TEXT|VAR_NAME|FILE_NAME) AT (TEXT|VAR_NAME|FILE_NAME) email_extension;
+body : ((STR|NUM|AT|PERCENT|MINUS) (((STR|NUM) EQ LBRACKET LBRACKET DOLLAR (STR|NUM) RBRACKET RBRACKET) (STR|NUM|AT|PERCENT|MINUS))?)+ NEWLINE;
 
-email_extension : (DOT TEXT)* DOT 'pt'
-                | (DOT TEXT)* DOT 'com';
+destination: (STR|NUM)+ AT (STR|NUM)+ email_extension;
+
+email_extension : (DOT (STR|NUM)+)* DOT 'pt'
+                | (DOT (STR|NUM)+)* DOT 'com';
 
 oper : EQ | NEQ | LT | GT | LTEQ | GTEQ ;
 
@@ -34,10 +46,7 @@ file : 'write to \'' filename '\''
           | 'read from \'' filename '\''
           ;
 
-filename : FILE_NAME extension
-         | TEXT extension
-         | VAR_NAME extension
-         ;
+filename : (STR|NUM|UNDER|MINUS)+ extension;
 
 extension : '.txt' | '.xsl' | '.xml' ;
 
@@ -68,13 +77,17 @@ RBRACKET: '}' ;
 UNDER	: '_' ;
 AT : '@' ;
 DOT : '.' ;
+DOLLAR : '$';
+EURO : '€'|'£';
+
 
 FILE_CATCHER : 'file:' | 'File:';
 EMAIL_CATCHER: 'email:' | 'Email:';
 
-TEXT : [A-Za-z][A-Za-z ]*;
-VAR_NAME : [A-Za-z][A-Za-z0-9]*;
-FILE_NAME : [A-Za-z][A-Za-z0-9 _\-]*;
+STR: [A-Za-z]+;
+//TEXT : STR[A-Za-z ]*;
+//VAR_NAME : STR[A-Za-z0-9]*;
+//FILE_NAME : STR[A-Za-z0-9 _\-]*;
 NUM : [0-9]+;
 
 

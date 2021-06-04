@@ -1,5 +1,16 @@
 grammar FormScriptGrammar ;
 
+@parser::header { // classes a incluir
+    import java.util.*;
+    import java.lang.*;
+    import java.io.*;
+}
+
+@parser::members {
+
+}
+
+
 exprs : (expr NEWLINE?)* ;
 
 expr : var SEMI
@@ -9,13 +20,11 @@ expr : var SEMI
      | keyevent SEMI
      ;
 
-field : var COMMA TEXT COMMA TEXT COMMA type COMMA TEXT
-      | var COMMA TEXT COMMA TEXT COMMA type COMMA TEXT SIDE_BAR_RL dependencies
+field : var COMMA (STR)+ COMMA (STR)+ COMMA type COMMA (STR)+
+      | var COMMA (STR)+ COMMA (STR)+ COMMA type COMMA (STR)+ SIDE_BAR_RL dependencies
       ;
 
-var : VAR_NAME
-    | TEXT
-    ;
+var : (STR|NUM)+;
 
 dependencies : dependencies COMMA var
             | var
@@ -29,7 +38,7 @@ type : INT
      | DOUBLE
      ;
 
-keyevent : var EQ (NUM | TEXT) unlock var (COMMA var)*
+keyevent : var EQ (NUM | STR)+ unlock var (COMMA var)*
         ;
 
 unlock : COLON COLON
@@ -109,8 +118,7 @@ EURO : '#euro';
 CURRENCY : ('$' | '£' | '€') ;
 
 IF : 'if'|'If'|'IF';
-TEXT : [A-Za-z][A-Za-z ]*;
-VAR_NAME : [A-Za-z][A-Za-z0-9]* ;
+STR: [A-Za-z]+;
 NUM : [0-9]+ ;
 
 
