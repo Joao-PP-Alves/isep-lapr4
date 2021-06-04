@@ -23,11 +23,4 @@ public class KeyWord implements ValueObject {
         }
     }
 
-    public String getKeyWord() {
-        return keyWord;
-    }
-
-    public void setKeyWord(String keyWord) {
-        this.keyWord = keyWord;
-    }
 }

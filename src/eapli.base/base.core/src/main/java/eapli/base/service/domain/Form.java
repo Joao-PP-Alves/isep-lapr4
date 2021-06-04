@@ -39,40 +39,13 @@ public class Form implements ValueObject {
 
     public Form (Designation name, Set<Field> fields, Script script){
         if (name!=null && !fields.isEmpty() && script!=null){
-            setName(name);
-            setFields(fields);
-            setScript(script);
+            this.name = name;
+            this.fields = fields;
+            this.script = script;
         }
     }
 
     public Form() {
     }
 
-    public void setScript(Script script) {
-        this.script = script;
-    }
-
-    public Script getScript() {
-        return script;
-    }
-
-    public void setFields(Set<Field> fields) {
-        this.fields = fields;
-    }
-
-    public void setName(Designation name) {
-        this.name = name;
-    }
-
-    public Designation getName() {
-        return name;
-    }
-
-    public Set<Field> getFields() {
-        return fields;
-    }
-
-    public Long getIdentification() {
-        return identification;
-    }
 }

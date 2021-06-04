@@ -28,19 +28,4 @@ public class ManualTaskSpec extends TaskSpec{
         }
     }
 
-    public void setForm(Form form) {
-        this.form = form;
-    }
-
-    public Form getForm() {
-        return form;
-    }
-
-    public void setDesignation(String designation) {
-        this.designation = designation;
-    }
-
-    public String getDesignation() {
-        return designation;
-    }
 }

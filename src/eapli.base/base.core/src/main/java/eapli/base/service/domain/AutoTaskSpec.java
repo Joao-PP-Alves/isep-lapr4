@@ -20,19 +20,4 @@ public class AutoTaskSpec extends TaskSpec{
 
     protected AutoTaskSpec(){}
 
-    public Script getScript() {
-        return script;
-    }
-
-    public void setDesignation(Designation designation) {
-        this.designation = designation;
-    }
-
-    public void setScript(Script script) {
-        this.script = script;
-    }
-
-    public Designation getDesignation() {
-        return designation;
-    }
 }

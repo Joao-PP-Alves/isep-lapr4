@@ -27,10 +27,6 @@ public class ApprovalTask implements ValueObject, Serializable {
         this.approved=true;
     }
 
-    public void setApproved(boolean approved) {
-        this.approved = approved;
-    }
-
     public boolean isApproved(){
         return this.approved;
     }
