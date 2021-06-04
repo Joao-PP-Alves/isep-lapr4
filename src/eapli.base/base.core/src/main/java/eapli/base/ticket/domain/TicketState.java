@@ -37,5 +37,10 @@ public enum TicketState {
         public String toString() {
             return "resolvido";
         }
+    };
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 }

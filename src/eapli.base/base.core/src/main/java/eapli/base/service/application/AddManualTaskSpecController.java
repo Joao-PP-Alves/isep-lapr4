@@ -21,8 +21,6 @@ import java.util.Set;
 public class AddManualTaskSpecController {
 
     private final AuthorizationService authz = AuthzRegistry.authorizationService();
-    private final ManualTaskSpecManagementService manTaskSpecSvc = new ManualTaskSpecManagementService();
-    private final RepositoryFactory rf = PersistenceContext.repositories();
 
 
 
@@ -30,13 +28,13 @@ public class AddManualTaskSpecController {
 
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.POWER_USER, BaseRoles.ADMIN);
         //TODO add BaseRoles.HELP_SERV_MANAGER or other
-        return manTaskSpecSvc.registerNewManualTaskSpec(taskSpecId, form);
+
+        if (taskSpecId != null && form != null)
+            return new ManualTaskSpec(taskSpecId, form);
+        return null;
     }
 
 
-    public void manageAccessCriteria(ServiceCatalog sc, Set<Team> list){
-        sc.setAccessCriteria(new AccessCriteria(list));
-    }
 
     public Form createForm(String formName, Set<Field> fieldSet, Script script) {
         return new Form(Designation.valueOf(formName), fieldSet, script);
