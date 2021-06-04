@@ -20,14 +20,13 @@ public class TicketBuilder implements DomainFactory<Ticket> {
 
     @Override
     public Ticket build() {
-        return new Ticket(ticketId, urgency, ticketState, deadline, creationDate, priority, feedback, fileName);
+        return new Ticket(ticketId, urgency, deadline, creationDate, priority, feedback, fileName);
     }
 
 
-    public TicketBuilder with(UrgencyTypes urgency, TicketState ticketState, Calendar deadline,
+    public TicketBuilder with(UrgencyTypes urgency, Calendar deadline,
                               Calendar creationDate, int priority, Feedback feedback, String fileName) {
         this.withUrgency(urgency);
-        this.withState(ticketState);
         this.withDeadLine(deadline);
         this.withCreationDate(creationDate);
         this.withPriority(priority);
@@ -38,7 +37,6 @@ public class TicketBuilder implements DomainFactory<Ticket> {
 
     public TicketBuilder with(UrgencyTypes urgency, Calendar deadline, Calendar creationDate, int priority, String fileName) {
         this.withUrgency(urgency);
-        this.withState(TicketState.SUBMETIDO);
         this.withDeadLine(deadline);
         this.withCreationDate(creationDate);
         this.withPriority(priority);
@@ -74,12 +72,6 @@ public class TicketBuilder implements DomainFactory<Ticket> {
     private TicketBuilder withDeadLine(Calendar deadline) {
         if (deadline != null)
             this.deadline = deadline;
-        return this;
-    }
-
-    private TicketBuilder withState(TicketState ticketState) {
-        if (ticketState != null)
-            this.ticketState = ticketState;
         return this;
     }
 

@@ -24,6 +24,8 @@ public class ServiceManagementService {
         servBuilder.with(name,serviceCatalog,shortDesc,longDesc,approvalTask,form,taskSpec,icon,keyWords);
         Service serv = servBuilder.build();
 
-        return this.servRepo.save(serv);
+        if (serv.verifyAttributes())
+            return this.servRepo.save(serv);
+        return null;
     }
 }

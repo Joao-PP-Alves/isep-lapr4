@@ -35,12 +35,12 @@ public class ContinueServiceSpecificationUI extends AbstractUI {
     @Override
     protected boolean doShow() {
         boolean show = false;
-        Set<ServiceDraft> serviceDrafts = new HashSet<>();
+        Set<Service> serviceDrafts = new HashSet<>();
         while (!show){
             show = showServiceDrafts(serviceDrafts);
         }
-        List<ServiceDraft> serviceDraftList = new ArrayList<>(serviceDrafts);
-        if (serviceDraftList.get(0).getServiceCatalog()==null){
+        List<Service> serviceDraftList = new ArrayList<>(serviceDrafts);
+        if (serviceDraftList.get(0).catalog()==null){
             System.out.println("Choose a catalog");
             Set<ServiceCatalog> serviceCatalogSet = new HashSet<>();
             do {
@@ -48,11 +48,11 @@ public class ContinueServiceSpecificationUI extends AbstractUI {
             } while (!show);
             List<ServiceCatalog> listCatalogs = new ArrayList<>(serviceCatalogSet);
             if (submenu()) {
-                theListController.updateServiceDraft(serviceDraftList.get(0),listCatalogs.get(0),null,null,null);
+                theListController.updateService(serviceDraftList.get(0),listCatalogs.get(0),null,null,null);
                 return true;
             }
         }
-        if (serviceDraftList.get(0).getForm()==null){
+        if (serviceDraftList.get(0).form()==null){
             String formName = Console.readLine("Form name");
             System.out.println("Fill the form");
             Set<Field> fieldSet = new HashSet<>();
@@ -81,21 +81,21 @@ public class ContinueServiceSpecificationUI extends AbstractUI {
             Script script = new Script(sc);
             Form form = new Form(Designation.valueOf(formName), fieldSet,script);
             if (submenu()) {
-                theListController.updateServiceDraft(serviceDraftList.get(0),null,form,null,null);
+                theListController.updateService(serviceDraftList.get(0),null,form,null,null);
                 return true;
             }
         }
-        if (serviceDraftList.get(0).getApprovalTask()==null){
+        if (serviceDraftList.get(0).approvalTask()==null){
             String approvalTaskS = Console.readLine("Need aproval Task?? (Y/N)");
             boolean apr;
             apr = !approvalTaskS.equalsIgnoreCase("y") && !approvalTaskS.equalsIgnoreCase("yes");
             ApprovalTask approvalTask = new ApprovalTask(apr);
             if (submenu()) {
-                theListController.updateServiceDraft(serviceDraftList.get(0),null,null,approvalTask,null);
+                theListController.updateService(serviceDraftList.get(0),null,null,approvalTask,null);
                 return true;
             }
         }
-        if (serviceDraftList.get(0).getTaskSpec()==null){
+        if (serviceDraftList.get(0).taskSpec()==null){
             ManualTaskSpec manualTaskSpec;
             AutoTaskSpec autoTaskSpec;
             String type = Console.readLine("Will the task be Manual(1) or Automatic(2)?");
@@ -143,7 +143,7 @@ public class ContinueServiceSpecificationUI extends AbstractUI {
                 return false;
             }
             if (submenu()) {
-                theListController.updateServiceDraft(serviceDraftList.get(0),null,null,null,taskSpec);
+                theListController.updateService(serviceDraftList.get(0),null,null,null,taskSpec);
                 return true;
             }
         }
@@ -151,7 +151,7 @@ public class ContinueServiceSpecificationUI extends AbstractUI {
         if (finish.equalsIgnoreCase("y") || finish.equalsIgnoreCase("yes")){
             theListController.finishServiceSpecification(serviceDraftList.get(0));
         } else {
-            theListController.updateServiceDraft(serviceDraftList.get(0),null,null,null,null);
+            theListController.updateService(serviceDraftList.get(0),null,null,null,null);
         }
         return true;
     }
@@ -178,17 +178,17 @@ public class ContinueServiceSpecificationUI extends AbstractUI {
         return optionsMenu;
     }
 
-    private boolean showServiceDrafts(final Set<ServiceDraft> serviceDrafts) {
+    private boolean showServiceDrafts(final Set<Service> serviceDrafts) {
         final Menu serviceDrafsMenu = buildServiceDraftsMenu(serviceDrafts);
         final MenuRenderer renderer = new VerticalMenuRenderer(serviceDrafsMenu, MenuItemRenderer.DEFAULT);
         return renderer.render();
     }
 
-    private Menu buildServiceDraftsMenu(final Set<ServiceDraft> serviceDrafts){
+    private Menu buildServiceDraftsMenu(final Set<Service> serviceDrafts){
         final Menu serviceDrafsMenu = new Menu();
         int counter = 0;
-        for (ServiceDraft sc: theListController.listServiceDrafts()) {
-            serviceDrafsMenu.addItem(counter++, sc.getName().toString(),() -> serviceDrafts.add(sc));
+        for (Service sc: theListController.listUncompleteServices()) {
+            serviceDrafsMenu.addItem(counter++, sc.name().toString(),() -> serviceDrafts.add(sc));
         }
         return serviceDrafsMenu;
     }

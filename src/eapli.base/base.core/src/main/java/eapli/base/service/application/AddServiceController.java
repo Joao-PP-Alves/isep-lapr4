@@ -34,6 +34,7 @@ public class AddServiceController {
         return servSvc.registerNewService(name,serviceCatalog,shortDesc,longDesc,approvalTask,form,taskSpec,icon,keyWords);
     }
 
+
     public List<ServiceCatalog> getCatalogs(){
         ServiceCatalogRepository scr = rf.serviceCatalogs();
         List<ServiceCatalog> list = new ArrayList<>();
@@ -41,7 +42,16 @@ public class AddServiceController {
         return list;
     }
 
-    public List<ServiceCatalog> getCatalogsAccessedByTeam(){
+    public boolean verifyIfPossible(Service s){
+        return s.verifyAttributes();
+    }
+
+    public void done(Service s){
+        s.done();
+        rf.services().save(s);
+    }
+
+    public List<ServiceCatalog> catalogsAccessedByTeam(){
 
         ServiceCatalogRepository scr = rf.serviceCatalogs();
         List<ServiceCatalog> list = new ArrayList<>();

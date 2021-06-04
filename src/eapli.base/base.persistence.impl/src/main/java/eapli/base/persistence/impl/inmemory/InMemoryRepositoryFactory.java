@@ -5,10 +5,8 @@ import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
 import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
 import eapli.base.infrastructure.bootstrapers.BaseBootstrapper;
 import eapli.base.infrastructure.persistence.RepositoryFactory;
-import eapli.base.service.repositories.ServiceDraftRepository;
 import eapli.base.service.repositories.ServiceRepository;
 import eapli.base.servicecatalog.repositories.ServiceCatalogRepository;
-import eapli.base.service.repositories.TaskSpecRepository;
 import eapli.base.team.repository.TeamRepository;
 import eapli.base.teamtype.repository.TeamTypeRepository;
 import eapli.base.ticket.repositories.TicketRepository;
@@ -101,26 +99,6 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 	@Override
 	public ServiceCatalogRepository serviceCatalogs() {
 		return serviceCatalogs(null);
-	}
-
-	@Override
-	public ServiceDraftRepository servicesDraft(TransactionalContext autoTx) {
-		return new InMemoryServiceDraftRepository();
-	}
-
-	@Override
-	public ServiceDraftRepository servicesDraft() {
-		return servicesDraft(null);
-	}
-
-	@Override
-	public TaskSpecRepository tasksSpec(TransactionalContext autoTx) {
-		return new InMemoryTaskSpecRepository();
-	}
-
-	@Override
-	public TaskSpecRepository tasksSpec() {
-		return tasksSpec(null);
 	}
 
 	@Override

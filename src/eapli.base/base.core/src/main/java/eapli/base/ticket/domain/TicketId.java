@@ -16,14 +16,11 @@ public class TicketId implements ValueObject {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String ticketId;
 
-    public TicketId(String ticketId){
+    public TicketId(String ticketId) {
         this.ticketId = ticketId;
     }
 
-    protected TicketId() {}
-
-
-    public String getTicketId(){
-        return this.ticketId;
+    protected TicketId() {
     }
+
 }

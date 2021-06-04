@@ -10,11 +10,9 @@ import eapli.framework.general.domain.model.Designation;
 @UseCaseController
 public class AddAutoTaskSpecController {
 
-    private final RepositoryFactory rf = PersistenceContext.repositories();
-
     public AutoTaskSpec addAutoTaskSpec(String designation, Script script){
         AutoTaskSpec autoTaskSpec = new AutoTaskSpec(Designation.valueOf(designation),script);
-        return rf.tasksSpec().save(autoTaskSpec) ;
+        return autoTaskSpec ;
     }
 
     public Script addScript(String script){

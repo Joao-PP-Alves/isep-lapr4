@@ -76,7 +76,7 @@ public class ListServiceCatalogsUI extends AbstractUI {
         int counter = 0;
         servicesMenu.addItem(counter++,"Back", Actions.SUCCESS);
         for (Service s: theController.listServicesFromCatalog(serviceCatalog)) {
-            servicesMenu.addItem(counter++, s.getName().toString(),() -> services.add(s));
+            servicesMenu.addItem(counter++, s.name().toString(),() -> services.add(s));
         }
         return servicesMenu;
     }

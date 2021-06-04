@@ -21,12 +21,4 @@ public class Feedback implements ValueObject {
 
     protected Feedback() {}
 
-
-    public String getFeedback(){
-        return this.feedback;
-    }
-
-    public void setFeedback(String feedback) {
-        this.feedback = feedback;
-    }
 }

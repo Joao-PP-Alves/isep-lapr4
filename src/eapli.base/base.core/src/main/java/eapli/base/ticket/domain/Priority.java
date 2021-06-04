@@ -20,15 +20,6 @@ public class Priority implements ValueObject {
 
     protected Priority() {}
 
-
-    public int getPriority(){
-        return this.priority;
-    }
-
-    public void setPriority(int priority) {
-        this.priority = priority;
-    }
-
     public static Priority valueOf(final int name) {
         return new Priority(name);
     }

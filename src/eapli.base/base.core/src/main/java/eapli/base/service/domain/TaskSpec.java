@@ -2,15 +2,18 @@ package eapli.base.service.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import eapli.framework.domain.model.AggregateRoot;
+import eapli.framework.domain.model.ValueObject;
+import eapli.framework.general.domain.model.Designation;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.lang.annotation.Annotation;
 
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn
 @Entity
-public class TaskSpec implements AggregateRoot<Long> {
+public class TaskSpec implements ValueObject {
 
     @Version
     private Long version;
@@ -25,17 +28,6 @@ public class TaskSpec implements AggregateRoot<Long> {
     @JsonProperty
     private String type;    //THIS ATTIBUTE IS TO BE DELETED
 
-    @Override
-    public boolean sameAs(Object other) {
-        TaskSpec taskSpec = (TaskSpec) other;
-        return taskSpec.identity().equals(this.identity());
-    }
-
-    @Override
-    public Long identity() {
-        return this.id;
-    }
-
     protected TaskSpec(){}
 
     public TaskSpec(String type){   //CONSTRUCTOR TO DELETE, NEEDS CODE REFACTORING
@@ -43,5 +35,6 @@ public class TaskSpec implements AggregateRoot<Long> {
             this.type = type;
         }
     }
+
 
 }

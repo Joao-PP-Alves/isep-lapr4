@@ -1,7 +1,6 @@
 package eapli.base.app.backoffice.console.presentation.service;
 
 import eapli.base.service.application.AddServiceController;
-import eapli.base.service.application.AddServiceDraftController;
 import eapli.base.service.domain.*;
 import eapli.base.servicecatalog.domain.ServiceCatalog;
 import eapli.base.service.application.AddAutoTaskSpecController;
@@ -28,7 +27,6 @@ import java.util.Set;
 public class AddServiceUI extends AbstractUI {
 
     private final AddServiceController theController = new AddServiceController();
-    private final AddServiceDraftController theDraftController = new AddServiceDraftController();
     private final AddManualTaskSpecController theManController = new AddManualTaskSpecController();
     private final AddAutoTaskSpecController theAutoController = new AddAutoTaskSpecController();
 
@@ -48,7 +46,7 @@ public class AddServiceUI extends AbstractUI {
             }
         }
         if (submenu()) {
-            theDraftController.addServiceDraft(name, null, shortServiceDescription, longServiceDescription, null, null, null, "icon", keyWords, false);
+            theController.addService(name, null, shortServiceDescription, longServiceDescription, null, null, null, "icon", keyWords);
             return true;
         }
         boolean show;
@@ -59,7 +57,7 @@ public class AddServiceUI extends AbstractUI {
         } while (!show);
         List<ServiceCatalog> listCatalogs = new ArrayList<>(serviceCatalogSet);
         if (submenu()) {
-            theDraftController.addServiceDraft(name, listCatalogs.get(0), shortServiceDescription, longServiceDescription, null, null, null, "icon", keyWords, false);
+            theController.addService(name, listCatalogs.get(0), shortServiceDescription, longServiceDescription, null, null, null, "icon", keyWords);
             return true;
         }
         String formName = Console.readLine("Form name");
@@ -90,7 +88,7 @@ public class AddServiceUI extends AbstractUI {
         Script script = new Script(sc);
         Form form = new Form(Designation.valueOf(formName), fieldSet,script);
         if (submenu()) {
-            theDraftController.addServiceDraft(name, listCatalogs.get(0), shortServiceDescription, longServiceDescription, null, form, null, "icon", keyWords, false);
+            theController.addService(name, listCatalogs.get(0), shortServiceDescription, longServiceDescription, null, form, null, "icon", keyWords);
             return true;
         }
         String approvalTaskS = Console.readLine("Need aproval Task?? (Y/N)");
@@ -102,7 +100,7 @@ public class AddServiceUI extends AbstractUI {
         }
         ApprovalTask approvalTask = new ApprovalTask(apr);
         if (submenu()) {
-            theDraftController.addServiceDraft(name, listCatalogs.get(0), shortServiceDescription, longServiceDescription, approvalTask, form, null, "icon", keyWords, false);
+            theController.addService(name, listCatalogs.get(0), shortServiceDescription, longServiceDescription, approvalTask, form, null, "icon", keyWords);
             return true;
         }
 
@@ -154,15 +152,16 @@ public class AddServiceUI extends AbstractUI {
             return false;
         }
         if (submenu()) {
-            theDraftController.addServiceDraft(name, listCatalogs.get(0), shortServiceDescription, longServiceDescription, approvalTask, form, taskSpec, "icon", keyWords, false);
+            theController.addService(name, listCatalogs.get(0), shortServiceDescription, longServiceDescription, approvalTask, form, taskSpec, "icon", keyWords);
             return true;
         }
 
+        Service s = theController.addService(name, listCatalogs.get(0), shortServiceDescription, longServiceDescription, approvalTask, form, taskSpec, "icon", keyWords);
         String completion = Console.readLine("Consider this service specification complete? (Y/N)");
         if (completion.equalsIgnoreCase("y") || completion.equalsIgnoreCase("yes")){
-            theController.addService(name, listCatalogs.get(0), shortServiceDescription, longServiceDescription, approvalTask, form, taskSpec, null, keyWords);
-        } else {
-            theDraftController.addServiceDraft(name, listCatalogs.get(0), shortServiceDescription, longServiceDescription, approvalTask, form, taskSpec, "icon", keyWords, false);
+            if (theController.verifyIfPossible(s)){
+                theController.done(s);
+            }
         }
         return true;
     }

@@ -84,7 +84,7 @@ public class AddTicketUI extends AbstractUI {
         final Menu servicesMenu = new Menu();
         int counter = 0;
         for (Service serv : ticketController.getServices()) {
-            servicesMenu.addItem(counter++, serv.getName().toString(), () -> services.add(serv));
+            servicesMenu.addItem(counter++, serv.name().toString(), () -> services.add(serv));
         }
         return servicesMenu;
     }

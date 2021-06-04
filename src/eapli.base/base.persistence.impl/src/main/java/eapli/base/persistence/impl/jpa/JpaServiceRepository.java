@@ -28,4 +28,9 @@ implements ServiceRepository {
     public Iterable<Service> findBelongingToCatalog(ServiceCatalog serviceCatalog) {
         return match("e.serviceCatalog == serviceCatalog");
     }
+
+    @Override
+    public Iterable<Service> findUncomplete() {
+        return match("e.complete == true");
+    }
 }

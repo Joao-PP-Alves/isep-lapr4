@@ -57,11 +57,10 @@ public class Ticket implements AggregateRoot<Long> {
 
     //TODO use service to smth and add/create Task
 
-    public Ticket(Long ticketId, UrgencyTypes urgency, TicketState ticketState, Calendar deadline,
+    public Ticket(Long ticketId, UrgencyTypes urgency, Calendar deadline,
                   Calendar creationDate, Priority priority, Feedback feedback, AnnexedFile fileName) {
         this.ticketId = ticketId;
         this.urgency = urgency;
-        this.ticketState = ticketState;
         this.deadline = deadline;
         this.creationDate = creationDate;
         this.priority = priority;
@@ -69,17 +68,24 @@ public class Ticket implements AggregateRoot<Long> {
         this.fileName = fileName;
     }
 
-    public Ticket(Long ticketId, UrgencyTypes urgency, TicketState ticketState, Calendar deadline,
+    public Ticket(Long ticketId, UrgencyTypes urgency, Calendar deadline,
                   Calendar creationDate, Priority priority, AnnexedFile fileName) {
         this.ticketId = ticketId;
         this.urgency = urgency;
-        this.ticketState = ticketState;
         this.deadline = deadline;
         this.creationDate = creationDate;
         this.priority = priority;
         this.fileName = fileName;
     }
 
+    public TicketState state(){return this.ticketState;}
+
+    public boolean isSubmited(){ return state() == TicketState.SUBMETIDO; }
+    public boolean isInApproval(){ return state() == TicketState.EM_APROVACAO; }
+    public boolean isApproved(){ return state() == TicketState.APROVADO; }
+    public boolean isRejected(){ return state() == TicketState.REJEITADO; }
+    public boolean isInResolution(){ return state() == TicketState.EM_RESOLUCAO; }
+    public boolean isSolved(){ return state() == TicketState.RESOLVIDO; }
 
     public Ticket() {
         //

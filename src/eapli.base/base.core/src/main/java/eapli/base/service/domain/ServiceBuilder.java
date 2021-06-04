@@ -52,52 +52,48 @@ public class ServiceBuilder implements DomainFactory<Service> {
 
 
     public ServiceBuilder withKeyWords(final Set<KeyWord> keyWords){
-        if (!keyWords.isEmpty()){
-            this.keyWords = keyWords;
-        }
+        this.keyWords = keyWords;
         return this;
     }
 
     public ServiceBuilder withTaskSpec (final TaskSpec taskSpec){
-        if (taskSpec!= null)
-            this.taskSpec = taskSpec;
+        this.taskSpec = taskSpec;
         return this;
     }
 
     public ServiceBuilder withShortDesc (final String shortDesc){
-        if (shortDesc!= null)
-            this.shortDesc = Description.valueOf(shortDesc);
+        this.shortDesc = Description.valueOf(shortDesc);
         return this;
     }
 
     public ServiceBuilder withLongDesc (final String shortDesc){
-        if (shortDesc!= null)
-            this.longDesc = Description.valueOf(shortDesc);
+
+        this.longDesc = Description.valueOf(shortDesc);
         return this;
     }
 
     public ServiceBuilder withIcon (final String icon){
-        if (icon!= null)
-            this.icon = new Icon(icon);
+
+        this.icon = new Icon(icon);
         return this;
     }
 
     public ServiceBuilder withApprovalTask (final ApprovalTask approvalTask){
-        if (approvalTask!= null)
-            this.approvalTask = approvalTask;
+
+        this.approvalTask = approvalTask;
         return this;
     }
 
     public ServiceBuilder withForm (final Form form){
-        if (form!= null)
-            this.form = form;
+
+        this.form = form;
         return this;
     }
 
 
     public ServiceBuilder withServiceCatalog(final ServiceCatalog sc){
-        if (sc!=null)
-            this.serviceCatalog = sc;
+
+        this.serviceCatalog = sc;
         return this;
     }
 

@@ -20,14 +20,6 @@ public class AnnexedFile implements ValueObject {
 
     protected AnnexedFile() {}
 
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
     public static AnnexedFile valueOf(final String name) {
         return new AnnexedFile(name);
     }

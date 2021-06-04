@@ -4,10 +4,8 @@ import eapli.base.Application;
 import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
 import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
 import eapli.base.infrastructure.persistence.RepositoryFactory;
-import eapli.base.service.repositories.ServiceDraftRepository;
 import eapli.base.service.repositories.ServiceRepository;
 import eapli.base.servicecatalog.repositories.ServiceCatalogRepository;
-import eapli.base.service.repositories.TaskSpecRepository;
 import eapli.base.team.repository.TeamRepository;
 import eapli.base.teamtype.repository.TeamTypeRepository;
 import eapli.base.ticket.repositories.TicketRepository;
@@ -102,26 +100,6 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	@Override
 	public ServiceCatalogRepository serviceCatalogs() {
 		return new JpaServiceCatalogRepository(Application.settings().getPersistenceUnitName());
-	}
-
-	@Override
-	public ServiceDraftRepository servicesDraft(TransactionalContext autoTx) {
-		return new JpaServiceDraftRepository(autoTx);
-	}
-
-	@Override
-	public ServiceDraftRepository servicesDraft() {
-		return new JpaServiceDraftRepository(Application.settings().getPersistenceUnitName());
-	}
-
-	@Override
-	public TaskSpecRepository tasksSpec(TransactionalContext autoTx) {
-		return new JpaTaskSpecRepository(autoTx);
-	}
-
-	@Override
-	public TaskSpecRepository tasksSpec() {
-		return new JpaTaskSpecRepository(Application.settings().getPersistenceUnitName());
 	}
 
 	@Override

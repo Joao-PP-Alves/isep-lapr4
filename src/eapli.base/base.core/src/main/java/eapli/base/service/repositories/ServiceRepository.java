@@ -7,4 +7,6 @@ import eapli.framework.domain.repositories.DomainRepository;
 public interface ServiceRepository extends DomainRepository<Long, Service> {
 
     Iterable<Service> findBelongingToCatalog(ServiceCatalog serviceCatalog);
+
+    Iterable<Service> findUncomplete();
 }

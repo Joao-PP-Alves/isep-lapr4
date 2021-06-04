@@ -58,7 +58,7 @@ public class Service implements AggregateRoot<Long> {
 
     @XmlElement
     @JsonProperty
-    @OneToOne
+    @OneToOne(orphanRemoval = true, cascade = CascadeType.ALL)
     private TaskSpec taskSpec;
 
     @JsonProperty
@@ -66,27 +66,70 @@ public class Service implements AggregateRoot<Long> {
     @OneToOne(orphanRemoval = true, cascade = CascadeType.ALL)
     private Form form;
 
-
-    public Service(Designation name, ServiceCatalog serviceCatalog){
-        if (name != null && serviceCatalog!= null){
-            this.name=name;
-            this.serviceCatalog = serviceCatalog;
-        }
-    }
+    @JsonProperty
+    @XmlElement
+    private boolean complete;
 
     public Service(Designation name, ServiceCatalog serviceCatalog, Set<KeyWord> keyWords, TaskSpec taskSpec,
                    Description shortServiceDescription, Description longServiceDescription,Icon icon, ApprovalTask approvalTask,
                    Form form){
-       this.name = Objects.requireNonNull(name);
-       this.serviceCatalog = Objects.requireNonNull(serviceCatalog);
-       this.keyWords = Objects.requireNonNull(keyWords);
-       this.taskSpec = Objects.requireNonNull(taskSpec);
-       this.longServiceDescription = Objects.requireNonNull(longServiceDescription);
-       this.shortServiceDescription = Objects.requireNonNull(shortServiceDescription);
-       this.form = Objects.requireNonNull(form);
+       this.name = name;
+       this.serviceCatalog = serviceCatalog;
+       this.keyWords = keyWords;
+       this.taskSpec = taskSpec;
+       this.longServiceDescription = longServiceDescription;
+       this.shortServiceDescription = shortServiceDescription;
+       this.form = form;
        this.approvalTask = approvalTask;
        this.icon = icon;
     }
+
+    public void done() {
+        this.complete = true;
+    }
+
+    public boolean verifyAttributes(){
+        return this.name != null &&
+                this.name.length() > 0 &&
+                this.name.length() < 50 &&
+                this.shortServiceDescription != null &&
+                this.shortServiceDescription.length() > 0 &&
+                this.shortServiceDescription.length() < 40 &&
+                this.longServiceDescription != null &&
+                this.longServiceDescription.length() > 0 &&
+                this.longServiceDescription.length() < 500 &&
+                this.keyWords != null &&
+                !this.keyWords.isEmpty();
+    }
+
+    public ApprovalTask approvalTask() { return this.approvalTask;}
+
+    public Form form() { return this.form;}
+
+    public TaskSpec taskSpec() { return  this.taskSpec; }
+
+    public void updateAndCheckCatalog(ServiceCatalog catalog){
+        if (catalog() == null || (catalog != null && catalog() != catalog) ){
+            this.serviceCatalog = catalog;
+        }
+    }
+    public void updateAndCheckForm(Form form){
+        if (this.form == null || (form != null && this.form != form) ){
+            this.form = form;
+        }
+    }
+    public void updateAndCheckApprovalTask(ApprovalTask approvalTask){
+        if (this.approvalTask == null || (approvalTask != null && this.approvalTask != approvalTask) ){
+            this.approvalTask = approvalTask;
+        }
+    }
+    public void updateAndCheckTaskSpec(TaskSpec taskSpec){
+        if (this.taskSpec == null || (taskSpec != null && this.taskSpec != taskSpec) ){
+            this.taskSpec = taskSpec;
+        }
+    }
+
+    public boolean isComplete() {return this.complete;}
 
     public Service(){
         //
@@ -97,7 +140,7 @@ public class Service implements AggregateRoot<Long> {
         return se.identity().equals(this.identity());
     }
 
-    public ServiceCatalog getServiceCatalog() {
+    public ServiceCatalog catalog() {
         return serviceCatalog;
     }
 
@@ -109,7 +152,7 @@ public class Service implements AggregateRoot<Long> {
         return -1;
     }
 
-    public Designation getName() {
+    public Designation name() {
         return name;
     }
 

@@ -1,6 +1,5 @@
 package eapli.base.persistence.impl.inmemory;
 
-import eapli.base.clientusermanagement.domain.MecanographicNumber;
 import eapli.base.service.domain.Service;
 import eapli.base.service.repositories.ServiceRepository;
 import eapli.base.servicecatalog.domain.ServiceCatalog;
@@ -15,6 +14,11 @@ public class InMemoryServiceRepository extends InMemoryDomainRepository<Service,
 
     @Override
     public Iterable<Service> findBelongingToCatalog(ServiceCatalog serviceCatalog){
-        return match(e -> e.getServiceCatalog() == serviceCatalog);
+        return match(e -> e.catalog() == serviceCatalog);
+    }
+
+    @Override
+    public Iterable<Service> findUncomplete() {
+        return match(Service::isComplete);
     }
 }

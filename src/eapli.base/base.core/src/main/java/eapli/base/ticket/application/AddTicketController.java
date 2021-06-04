@@ -57,6 +57,7 @@ public class AddTicketController {
 
         ticketBuilder.with(urgency, deadline, creationDate, priority, fileName);
         Ticket ticket = ticketBuilder.build();
+        ticket.isSubmited();
         return this.ticketsRepo.save(ticket);
     }
 
