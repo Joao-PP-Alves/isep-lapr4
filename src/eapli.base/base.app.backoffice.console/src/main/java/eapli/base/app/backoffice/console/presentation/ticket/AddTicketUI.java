@@ -1,6 +1,9 @@
 package eapli.base.app.backoffice.console.presentation.ticket;
 
+import eapli.base.service.application.AddManualTaskSpecController;
+import eapli.base.service.application.AddServiceController;
 import eapli.base.service.domain.*;
+import eapli.base.task.domain.Task;
 import eapli.base.ticket.application.AddTicketController;
 import eapli.base.ticket.domain.*;
 import eapli.framework.actions.menu.Menu;
@@ -27,6 +30,8 @@ public class AddTicketUI extends AbstractUI {
             show = showServices(services);
         } while (!show);
 
+        List<Service> servicesList = new LinkedList<>(services);
+
         show = false;
         System.out.println("Choose Urgency");
         Set<UrgencyTypes> urgencies = new HashSet<>();
@@ -50,10 +55,16 @@ public class AddTicketUI extends AbstractUI {
 
         int priority = 1; //TODO Priority formula should be defined later
 
+        //final String formName = Console.readLine("Form name to attach");
+
+        CompletedForm completedform = ticketController.fillForm(servicesList.get(0));
+
+        //TODO get Collaborator from access criteria of service catalog and description
+        /*
+        Task task = new Task(creationDate, servicesList.get(0), COLLAB, DESCRIPTION);
         final String fileName = Console.readLine("File name to attach");
-
-        ticketController.addTicket(urgenciesList.get(0), deadline, creationDate, priority, fileName);
-
+        ticketController.addTicket(urgenciesList.get(0), servicesList.get(0), deadline, creationDate, priority, fileName, completedform, task);
+*/
 
         return true;
     }

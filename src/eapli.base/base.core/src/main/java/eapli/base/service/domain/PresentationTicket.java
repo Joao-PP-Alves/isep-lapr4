@@ -15,4 +15,9 @@ public class PresentationTicket implements ValueObject {
     public PresentationTicket(String s){
         this.presTicket = Objects.requireNonNull(s);
     }
+
+    @Override
+    public String toString() {
+        return presTicket;
+    }
 }

@@ -1,6 +1,8 @@
-package eapli.base.service.domain;
+package eapli.base.ticket.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import eapli.base.service.domain.Field;
+import eapli.base.service.domain.Script;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.general.domain.model.Designation;
 
@@ -9,7 +11,7 @@ import javax.xml.bind.annotation.XmlElement;
 import java.util.Set;
 
 @Entity
-public class Form implements ValueObject {
+public class CompletedForm implements ValueObject {
 
     @Version
     private Long version;
@@ -18,41 +20,35 @@ public class Form implements ValueObject {
     @XmlElement
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long identification;
+    private Long id;
 
     @JsonProperty
     @XmlElement
-    private Designation name;
+    private Long identification;
 
     @JsonProperty
     @XmlElement
     @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<Field> fields;
 
-    @JsonProperty
-    @XmlElement
-    private Script script;
 
-    protected Form(Long id){
-        this.identification = id;
-    }
-
-    public Form (Designation name, Set<Field> fields, Script script){
-        if (name!=null && !fields.isEmpty() && script!=null){
-            this.name = name;
-            this.fields = fields;
-            this.script = script;
+    protected CompletedForm(Long identification){
+        if (identification != null){
+            this.identification = identification;
         }
     }
 
-    public Form() {
+    public CompletedForm(Long identification, Set<Field> fields){
+        if (!fields.isEmpty() && identification != null){
+            this.identification = identification;
+            this.fields = fields;
+        }
+    }
+
+    public CompletedForm() {
     }
 
     public Set<Field> fields() {
         return fields;
-    }
-
-    public Long identification() {
-        return identification;
     }
 }

@@ -1,5 +1,8 @@
 package eapli.base.ticket.domain;
 
+import eapli.base.service.domain.Form;
+import eapli.base.service.domain.Service;
+import eapli.base.task.domain.Task;
 import eapli.framework.domain.model.DomainFactory;
 
 import java.util.Calendar;
@@ -14,33 +17,45 @@ public class TicketBuilder implements DomainFactory<Ticket> {
     private Priority priority;
     private Feedback feedback;
     private AnnexedFile fileName;
+    private CompletedForm form;
+    private Service service;
+    private Task task;
 
     public TicketBuilder() {
     }
 
     @Override
     public Ticket build() {
-        return new Ticket(ticketId, urgency, deadline, creationDate, priority, feedback, fileName);
+        return new Ticket(ticketId, urgency, deadline, creationDate, priority, feedback, fileName, form, service, task);
     }
 
 
-    public TicketBuilder with(UrgencyTypes urgency, Calendar deadline,
-                              Calendar creationDate, int priority, Feedback feedback, String fileName) {
+    public TicketBuilder with(UrgencyTypes urgency, Calendar deadline, Calendar creationDate, int priority,
+                              Feedback feedback, String fileName, CompletedForm form, Service service, Task task) {
         this.withUrgency(urgency);
         this.withDeadLine(deadline);
         this.withCreationDate(creationDate);
         this.withPriority(priority);
         this.withFeedback(feedback);
         this.withFile(fileName);
+        this.withCompletedForm(form);
+        this.withService(service);
+        this.withTask(task);
         return this;
     }
 
-    public TicketBuilder with(UrgencyTypes urgency, Calendar deadline, Calendar creationDate, int priority, String fileName) {
+
+
+    public TicketBuilder with(UrgencyTypes urgency, Calendar deadline, Calendar creationDate, int priority,
+                              String fileName, CompletedForm form, Service service, Task task) {
         this.withUrgency(urgency);
         this.withDeadLine(deadline);
         this.withCreationDate(creationDate);
         this.withPriority(priority);
         this.withFile(fileName);
+        this.withCompletedForm(form);
+        this.withService(service);
+        this.withTask(task);
         return this;
     }
 
@@ -76,17 +91,34 @@ public class TicketBuilder implements DomainFactory<Ticket> {
     }
 
 
-    public TicketBuilder withUrgency(UrgencyTypes urgency) {
+    private TicketBuilder withUrgency(UrgencyTypes urgency) {
         if (urgency != null)
             this.urgency = urgency;
         return this;
     }
 
-    public TicketBuilder withTicketId(final Long ticketId) {
+    private TicketBuilder withTicketId(final Long ticketId) {
         if (ticketId != null)
             this.ticketId = ticketId;
         return this;
     }
 
+    private TicketBuilder withCompletedForm(CompletedForm form) {
+        if (form != null)
+            this.form = form;
+        return this;
+    }
+
+    private TicketBuilder withService(Service service) {
+        if (service != null)
+            this.service = service;
+        return this;
+    }
+
+    private TicketBuilder withTask(Task task) {
+        if (task != null)
+            this.task = task;
+        return this;
+    }
 }
 

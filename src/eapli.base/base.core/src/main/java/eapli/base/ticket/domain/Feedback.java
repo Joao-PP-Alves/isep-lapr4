@@ -4,21 +4,53 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import eapli.framework.domain.model.ValueObject;
 
 import javax.persistence.Embeddable;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.xml.bind.annotation.XmlElement;
 
+
 @Embeddable
-public class Feedback implements ValueObject {
+public enum Feedback implements ValueObject {
 
     @XmlElement
     @JsonProperty
-    private String feedback;
+    ZERO{
+        @Override
+        public String toString() {
+            return String.valueOf(0);
+        }
+    },
+    ONE{
+        @Override
+        public String toString() {
+            return String.valueOf(1);
+        }
+    },
+    TWO{
+        @Override
+        public String toString() {
+            return String.valueOf(2);
+        }
+    },
+    THREE{
+        @Override
+        public String toString() {
+            return String.valueOf(3);
+        }
+    },
+    FOUR{
+        @Override
+        public String toString() {
+            return String.valueOf(4);
+        }
+    },
+    FIVE{
+        @Override
+        public String toString() {
+            return String.valueOf(5);
+        }
+    };
 
-    public Feedback(String feedback){
-        this.feedback = feedback;
+    @Override
+    public String toString() {
+        return super.toString();
     }
-
-    protected Feedback() {}
-
 }

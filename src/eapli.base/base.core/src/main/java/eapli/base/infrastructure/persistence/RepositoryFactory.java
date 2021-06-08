@@ -9,6 +9,7 @@ import eapli.base.clientusermanagement.repositories.SignupRequestRepository;
 import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
 import eapli.base.service.repositories.ServiceRepository;
 import eapli.base.servicecatalog.repositories.ServiceCatalogRepository;
+import eapli.base.task.repositories.TaskRepository;
 import eapli.base.team.repository.TeamRepository;
 import eapli.base.teamtype.repository.TeamTypeRepository;
 import eapli.base.ticket.repositories.TicketRepository;
@@ -155,6 +156,17 @@ public interface RepositoryFactory {
 	TicketRepository tickets(TransactionalContext autoTx);
 
 
+	/**
+	 * repository will be created in auto transaction mode
+	 *
+	 * @return
+	 */
+	TaskRepository tasks();
 
-
+	/**
+	 *
+	 * @param autoTx the transactional context to enroll
+	 * @return
+	 */
+	TaskRepository tasks(TransactionalContext autoTx);
 }

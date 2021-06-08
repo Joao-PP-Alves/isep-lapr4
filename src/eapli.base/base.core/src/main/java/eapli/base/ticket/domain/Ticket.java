@@ -1,7 +1,9 @@
 package eapli.base.ticket.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import eapli.base.service.domain.Form;
 import eapli.base.service.domain.Service;
+import eapli.base.task.domain.Task;
 import eapli.framework.domain.model.AggregateRoot;
 
 import javax.persistence.*;
@@ -55,10 +57,21 @@ public class Ticket implements AggregateRoot<Long> {
     @OneToOne
     private Service service;
 
+    @XmlElement
+    @JsonProperty
+    @OneToOne
+    private Task task;
+
+    @XmlElement
+    @JsonProperty
+    @OneToOne
+    private CompletedForm completedForm;
+
     //TODO use service to smth and add/create Task
 
-    public Ticket(Long ticketId, UrgencyTypes urgency, Calendar deadline,
-                  Calendar creationDate, Priority priority, Feedback feedback, AnnexedFile fileName) {
+    public Ticket(Long ticketId, UrgencyTypes urgency, Calendar deadline, Calendar creationDate,
+                  Priority priority, Feedback feedback, AnnexedFile fileName, CompletedForm completedForm, Service service,
+                  Task task) {
         this.ticketId = ticketId;
         this.urgency = urgency;
         this.deadline = deadline;
@@ -66,16 +79,22 @@ public class Ticket implements AggregateRoot<Long> {
         this.priority = priority;
         this.feedback = feedback;
         this.fileName = fileName;
+        this.completedForm = completedForm;
+        this.service = service;
+        this.task = task;
     }
 
-    public Ticket(Long ticketId, UrgencyTypes urgency, Calendar deadline,
-                  Calendar creationDate, Priority priority, AnnexedFile fileName) {
+    public Ticket(Long ticketId, UrgencyTypes urgency, Calendar deadline, Calendar creationDate,
+                  Priority priority, AnnexedFile fileName, CompletedForm completedForm, Service service, Task Task) {
         this.ticketId = ticketId;
         this.urgency = urgency;
         this.deadline = deadline;
         this.creationDate = creationDate;
         this.priority = priority;
         this.fileName = fileName;
+        this.completedForm = completedForm;
+        this.service = service;
+        this.task = task;
     }
 
     public TicketState state(){return this.ticketState;}

@@ -6,6 +6,7 @@ import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
 import eapli.base.infrastructure.persistence.RepositoryFactory;
 import eapli.base.service.repositories.ServiceRepository;
 import eapli.base.servicecatalog.repositories.ServiceCatalogRepository;
+import eapli.base.task.repositories.TaskRepository;
 import eapli.base.team.repository.TeamRepository;
 import eapli.base.teamtype.repository.TeamTypeRepository;
 import eapli.base.ticket.repositories.TicketRepository;
@@ -110,6 +111,16 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	@Override
 	public TicketRepository tickets(TransactionalContext autoTx) {
 		return new JpaTicketRepository(autoTx);
+	}
+
+	@Override
+	public TaskRepository tasks() {
+		return new JpaTaskRepository(Application.settings().getPersistenceUnitName());
+	}
+
+	@Override
+	public TaskRepository tasks(TransactionalContext autoTx) {
+		return new JpaTaskRepository(autoTx);
 	}
 
 

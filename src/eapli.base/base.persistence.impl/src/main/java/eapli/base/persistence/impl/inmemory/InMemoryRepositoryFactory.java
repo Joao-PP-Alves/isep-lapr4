@@ -7,6 +7,7 @@ import eapli.base.infrastructure.bootstrapers.BaseBootstrapper;
 import eapli.base.infrastructure.persistence.RepositoryFactory;
 import eapli.base.service.repositories.ServiceRepository;
 import eapli.base.servicecatalog.repositories.ServiceCatalogRepository;
+import eapli.base.task.repositories.TaskRepository;
 import eapli.base.team.repository.TeamRepository;
 import eapli.base.teamtype.repository.TeamTypeRepository;
 import eapli.base.ticket.repositories.TicketRepository;
@@ -110,6 +111,18 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 	public TicketRepository tickets(TransactionalContext autoTx) {
 		return new InMemoryTicketRepository();
 	}
+
+
+	@Override
+	public TaskRepository tasks() {
+		return tasks(null);
+	}
+
+	@Override
+	public TaskRepository tasks(TransactionalContext autoTx) {
+		return new InMemoryTaskRepository();
+	}
+
 
 	@Override
 	public SignupRequestRepository signupRequests(final TransactionalContext tx) {

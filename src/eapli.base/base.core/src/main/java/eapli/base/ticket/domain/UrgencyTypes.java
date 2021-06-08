@@ -1,7 +1,9 @@
 package eapli.base.ticket.domain;
 
 
-public enum UrgencyTypes {
+import eapli.framework.domain.model.ValueObject;
+
+public enum UrgencyTypes implements ValueObject {
     REDUZIDA{
         @Override
         public String toString() {

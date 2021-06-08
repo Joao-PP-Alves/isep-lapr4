@@ -11,7 +11,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-public class Field implements ValueObject {
+public class Field implements ValueObject, Cloneable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -44,4 +44,22 @@ public class Field implements ValueObject {
         this.dataType = Objects.requireNonNull(dataTypesAllowed);
         this.presentationTicket = Objects.requireNonNull(presentationTicket);
     }
+
+    public Set<Field> fields() {
+        return fields;
+    }
+
+    public PresentationTicket presentationTicket() {
+        return presentationTicket;
+    }
+
+    public Object clone()throws CloneNotSupportedException{
+        return super.clone();
+    }
+
+
+    public void putAnswer(String answer) {
+        this.variableName = answer;
+    }
+
 }
