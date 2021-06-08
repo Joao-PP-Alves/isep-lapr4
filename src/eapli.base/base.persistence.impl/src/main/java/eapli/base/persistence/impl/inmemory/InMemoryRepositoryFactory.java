@@ -10,6 +10,7 @@ import eapli.base.servicecatalog.repositories.ServiceCatalogRepository;
 import eapli.base.task.repositories.TaskRepository;
 import eapli.base.team.repository.TeamRepository;
 import eapli.base.teamtype.repository.TeamTypeRepository;
+import eapli.base.ticket.repositories.CompletedFormRepository;
 import eapli.base.ticket.repositories.TicketRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
@@ -129,6 +130,16 @@ public class InMemoryRepositoryFactory implements RepositoryFactory {
 		return new InMemorySignupRequestRepository();
 	}
 
+
+	@Override
+	public CompletedFormRepository completeForms() {
+		return null;
+	}
+
+	@Override
+	public CompletedFormRepository completeForms(TransactionalContext autoTx) {
+		return null;
+	}
 
 	@Override
 	public TransactionalContext newTransactionalContext() {

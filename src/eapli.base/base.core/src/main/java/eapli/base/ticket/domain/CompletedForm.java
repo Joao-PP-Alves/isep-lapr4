@@ -3,6 +3,7 @@ package eapli.base.ticket.domain;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import eapli.base.service.domain.Field;
 import eapli.base.service.domain.Script;
+import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.general.domain.model.Designation;
 
@@ -11,7 +12,7 @@ import javax.xml.bind.annotation.XmlElement;
 import java.util.Set;
 
 @Entity
-public class CompletedForm implements ValueObject {
+public class CompletedForm implements AggregateRoot<Long> {
 
     @Version
     private Long version;
@@ -50,5 +51,15 @@ public class CompletedForm implements ValueObject {
 
     public Set<Field> fields() {
         return fields;
+    }
+
+    @Override
+    public boolean sameAs(Object other) {
+        return false;
+    }
+
+    @Override
+    public Long identity() {
+        return null;
     }
 }

@@ -12,6 +12,7 @@ import eapli.base.servicecatalog.repositories.ServiceCatalogRepository;
 import eapli.base.task.repositories.TaskRepository;
 import eapli.base.team.repository.TeamRepository;
 import eapli.base.teamtype.repository.TeamTypeRepository;
+import eapli.base.ticket.repositories.CompletedFormRepository;
 import eapli.base.ticket.repositories.TicketRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
@@ -21,6 +22,10 @@ import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
  *
  */
 public interface RepositoryFactory {
+
+	CompletedFormRepository completeForms();
+
+	CompletedFormRepository completeForms(TransactionalContext autoTx);
 
 	/**
 	 * factory method to create a transactional context to use in the repositories
