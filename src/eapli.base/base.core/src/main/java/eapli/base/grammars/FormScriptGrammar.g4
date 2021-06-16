@@ -10,7 +10,7 @@ grammar FormScriptGrammar ;
 
 }
 
-
+init : exprs;
 exprs : (expr NEWLINE?)* ;
 
 expr : var SEMI

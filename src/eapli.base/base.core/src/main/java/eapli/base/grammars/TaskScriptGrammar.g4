@@ -7,8 +7,9 @@ grammar TaskScriptGrammar;
 }
 
 @parser::members {
-    
+
 }
+init: exprs;
 
 exprs : (expr? NEWLINE)* ;
 
