@@ -18,28 +18,21 @@ expr : FILE_CATCHER file
      | EMAIL_CATCHER email
      ;
 
-operation : NUM oper NUM
-          | NUM (MULTI|DIV) NUM
-          | NUM (PLUS|MINUS) NUM
-          | NUM POWER NUM
-          | NUM PERCENT NUM
+operation : NUM symbol NUM
           ;
-
-semi_op : oper NUM
-        | (MULTI|DIV) NUM
-        | (PLUS|MINUS) NUM
-        | POWER NUM
-        | PERCENT NUM
+symbol : oper
+        | (MULTI|DIV)
+        | (PLUS|MINUS)
+        | POWER
+        | PERCENT
         ;
 
-email : destination NEWLINE (STR|NUM)+ NEWLINE (body)+ SEMI;
+semi_op : symbol NUM
+        ;
+
+email : (STR|NUM)+ NEWLINE (body)+ SEMI;
 
 body : ((STR|NUM|AT|PERCENT|MINUS) (((STR|NUM) EQ LBRACKET LBRACKET DOLLAR (STR|NUM) RBRACKET RBRACKET) (STR|NUM|AT|PERCENT|MINUS))?)+ NEWLINE;
-
-destination: (STR|NUM)+ AT (STR|NUM)+ email_extension;
-
-email_extension : (DOT (STR|NUM)+)* DOT 'pt'
-                | (DOT (STR|NUM)+)* DOT 'com';
 
 oper : EQ | NEQ | LT | GT | LTEQ | GTEQ ;
 

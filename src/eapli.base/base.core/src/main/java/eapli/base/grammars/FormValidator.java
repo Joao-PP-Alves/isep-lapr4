@@ -19,7 +19,7 @@ public class FormValidator {
             FormScriptGrammarParser parser = new FormScriptGrammarParser(tokenStream);
             ParseTree tree = parser.init();
             EvalVisitor evalVisitor = new EvalVisitor();
-            return evalVisitor.visit(tree);
+            return evalVisitor.visitInit(parser.init());
         } catch (IOException io) {
             System.out.println(io);
         }

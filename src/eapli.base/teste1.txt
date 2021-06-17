@@ -1,0 +1,8 @@
+formName;
+atributoUm, etiqueta, descricaoAjuda, int, expressaoTeste
+atributoDois, etiquetadois, desc, float, expre/atributoUm
+atributoTrespixa, etiquetaTres, descTres, String, expTres/atributoUm, atributoDois;
+atributoUm = valorB :: atributoDois, atributoTres
+atributoDois = valor :: atributoTrespixa;
+
+

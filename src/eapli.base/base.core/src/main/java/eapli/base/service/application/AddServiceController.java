@@ -1,5 +1,7 @@
 package eapli.base.service.application;
 
+import eapli.base.grammars.EvalVisitor;
+import eapli.base.grammars.FormValidator;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.infrastructure.persistence.RepositoryFactory;
 import eapli.base.service.domain.ApprovalTask;
@@ -42,6 +44,7 @@ public class AddServiceController {
     public String makeStringFromFile(String sc){
         try {
             BufferedReader reader = new BufferedReader(new FileReader(sc));
+            System.out.println(FormValidator.validation(sc));
             StringBuilder stringBuilder = new StringBuilder();
             String line = null;
             String ls = System.getProperty("line.separator");
@@ -65,6 +68,7 @@ public class AddServiceController {
         scr.findAll().forEach(list::add);
         return list;
     }
+
 
     public boolean verifyIfPossible(Service s){
         return s.verifyAttributes();

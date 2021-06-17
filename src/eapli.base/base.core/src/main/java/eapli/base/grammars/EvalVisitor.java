@@ -10,14 +10,20 @@ public class EvalVisitor extends FormScriptGrammarBaseVisitor<String>{
     @Override
     public String visitInit(FormScriptGrammarParser.InitContext ctx) {
         System.out.println("Inicio da validacao do formulario");
-        return visit(ctx.exprs());
+        for (int i=0; i<ctx.exprs().expr().size(); i++){
+            String s = visitExpr(ctx.exprs().expr(i));
+            if (s.equals(INVALID)){
+                return INVALID;
+            }
+        }
+        return VALID;
     }
 
     @Override
     public String visitExpr(FormScriptGrammarParser.ExprContext ctx){
         String varValid = visit(ctx.var());
-        String field = visit(ctx.field());
-        String keyevent = visit(ctx.keyevent());
+        String field = visitField(ctx.field());
+        String keyevent = visitKeys(ctx.keyevent());
         if (varValid.equals(INVALID) || field.equals(INVALID) || keyevent.equals(INVALID)){
             return INVALID;
         }

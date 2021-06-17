@@ -31,6 +31,6 @@ implements ServiceRepository {
 
     @Override
     public Iterable<Service> findUncomplete() {
-        return match("e.complete == true");
+        return match("e.complete = false");
     }
 }
