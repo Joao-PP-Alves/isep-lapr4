@@ -2,7 +2,6 @@ package eapli.base.servicecatalog.application;
 
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.infrastructure.persistence.RepositoryFactory;
-import eapli.base.service.domain.Service;
 import eapli.base.servicecatalog.domain.AccessCriteria;
 import eapli.base.servicecatalog.domain.ServiceCatalog;
 import eapli.base.servicecatalog.repositories.ServiceCatalogRepository;
@@ -47,8 +46,9 @@ public class AddServiceCatalogController {
         return list;
     }
 
-    public void manageAccessCriteria(ServiceCatalog sc, Set<Team> list){
+    public ServiceCatalog manageAccessCriteria(ServiceCatalog sc, Set<Team> list){
         sc.setAccessCriteria(new AccessCriteria(list));
+        return servCatSvc.updateServiceCatalog(sc);
     }
 
 }

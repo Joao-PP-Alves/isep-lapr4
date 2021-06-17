@@ -3,9 +3,11 @@ package eapli.base.service.domain;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import eapli.framework.domain.model.ValueObject;
 import eapli.framework.general.domain.model.Designation;
+import eapli.framework.validations.Preconditions;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -38,6 +40,7 @@ public class Form implements ValueObject {
     }
 
     public Form (Designation name, Set<Field> fields, Script script){
+        Preconditions.noneNull(name, fields, String.valueOf(script));
         if (name!=null && !fields.isEmpty() && script!=null){
             this.name = name;
             this.fields = fields;

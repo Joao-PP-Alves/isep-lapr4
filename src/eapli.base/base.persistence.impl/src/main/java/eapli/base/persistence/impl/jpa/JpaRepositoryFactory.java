@@ -9,7 +9,6 @@ import eapli.base.servicecatalog.repositories.ServiceCatalogRepository;
 import eapli.base.task.repositories.TaskRepository;
 import eapli.base.team.repository.TeamRepository;
 import eapli.base.teamtype.repository.TeamTypeRepository;
-import eapli.base.ticket.repositories.CompletedFormRepository;
 import eapli.base.ticket.repositories.TicketRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.repositories.UserRepository;
@@ -122,16 +121,6 @@ public class JpaRepositoryFactory implements RepositoryFactory {
 	@Override
 	public TaskRepository tasks(TransactionalContext autoTx) {
 		return new JpaTaskRepository(autoTx);
-	}
-
-	@Override
-	public CompletedFormRepository completeForms() {
-		return new JpaCompletedFormRepository(Application.settings().getPersistenceUnitName());
-	}
-
-	@Override
-	public CompletedFormRepository completeForms(TransactionalContext autoTx) {
-		return new JpaCompletedFormRepository(autoTx);
 	}
 
 

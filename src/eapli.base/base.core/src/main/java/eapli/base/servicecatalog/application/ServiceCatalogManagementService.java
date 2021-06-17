@@ -1,13 +1,10 @@
 package eapli.base.servicecatalog.application;
 
 import eapli.base.infrastructure.persistence.PersistenceContext;
-import eapli.base.service.domain.Service;
 import eapli.base.servicecatalog.domain.ServiceCatalog;
 import eapli.base.servicecatalog.domain.ServiceCatalogBuilder;
 import eapli.base.servicecatalog.repositories.ServiceCatalogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.Set;
 
 public class ServiceCatalogManagementService {
 
@@ -25,5 +22,9 @@ public class ServiceCatalogManagementService {
         ServiceCatalog servCat = servCatBuilder.build();
 
         return this.servCatRepo.save(servCat);
+    }
+
+    public ServiceCatalog updateServiceCatalog(ServiceCatalog sc) {
+        return this.servCatRepo.save(sc);
     }
 }

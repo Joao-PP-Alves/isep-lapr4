@@ -1,9 +1,6 @@
 package eapli.base.app.backoffice.console.presentation.ticket;
 
-import eapli.base.service.application.AddManualTaskSpecController;
-import eapli.base.service.application.AddServiceController;
 import eapli.base.service.domain.*;
-import eapli.base.task.domain.Task;
 import eapli.base.ticket.application.AddTicketController;
 import eapli.base.ticket.domain.*;
 import eapli.framework.actions.menu.Menu;
@@ -60,11 +57,15 @@ public class AddTicketUI extends AbstractUI {
         CompletedForm completedform = ticketController.fillForm(servicesList.get(0));
 
         //TODO get Collaborator from access criteria of service catalog and description
-        /*
+
+
+/*
         Task task = new Task(creationDate, servicesList.get(0), COLLAB, DESCRIPTION);
         final String fileName = Console.readLine("File name to attach");
         ticketController.addTicket(urgenciesList.get(0), servicesList.get(0), deadline, creationDate, priority, fileName, completedform, task);
 */
+
+
 
         return true;
     }

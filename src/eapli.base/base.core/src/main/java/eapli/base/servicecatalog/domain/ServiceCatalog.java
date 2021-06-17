@@ -2,6 +2,7 @@ package eapli.base.servicecatalog.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import eapli.base.service.domain.Service;
+import eapli.base.team.domain.Team;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.general.domain.model.Description;
 import eapli.framework.general.domain.model.Designation;
@@ -113,5 +114,14 @@ public class ServiceCatalog implements AggregateRoot<Long> {
     @Override
     public boolean hasIdentity(Long otherId) {
         return otherId.equals(this.identity());
+    }
+
+    public boolean checkIfTeamHasAccess(Team team) {
+        for (Team t : accessCriteria.getTeamsWithAccess()) {
+            if (t.equals(team)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

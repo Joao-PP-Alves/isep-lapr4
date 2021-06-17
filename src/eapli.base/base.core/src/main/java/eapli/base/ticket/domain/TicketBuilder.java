@@ -1,6 +1,5 @@
 package eapli.base.ticket.domain;
 
-import eapli.base.service.domain.Form;
 import eapli.base.service.domain.Service;
 import eapli.base.task.domain.Task;
 import eapli.framework.domain.model.DomainFactory;
@@ -26,7 +25,7 @@ public class TicketBuilder implements DomainFactory<Ticket> {
 
     @Override
     public Ticket build() {
-        return new Ticket(ticketId, urgency, deadline, creationDate, priority, feedback, fileName, form, service, task);
+        return new Ticket(urgency, deadline, creationDate, priority, feedback, fileName, form, service, task);
     }
 
 

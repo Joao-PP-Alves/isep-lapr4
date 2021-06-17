@@ -1,5 +1,6 @@
 package eapli.base.app.backoffice.console.presentation.servicecatalog;
 
+import eapli.base.service.domain.KeyWord;
 import eapli.base.servicecatalog.application.AddServiceCatalogController;
 import eapli.base.servicecatalog.domain.ServiceCatalog;
 import eapli.base.team.domain.Team;
@@ -46,13 +47,42 @@ public class AddServiceCatalogUI extends AbstractUI {
             do {
                 show = showTeams(teamsSet);
             } while(!show);
+            teams.clear();
             teams.addAll(teamsSet);
-            do {
-                show = showOptions(ints);
-            } while(!show);
-            listInts.clear();
-            listInts.addAll(ints);
+            if (!teams.isEmpty()) {
+                do {
+                    ints.clear();
+                    show = showOptions(ints);
+                } while (!show);
+                listInts.clear();
+                listInts.addAll(ints);
+            } else {
+                System.out.println("Service Catalog already has all teams added");
+            }
+            ints.clear();
         }
+
+/*
+        Set<KeyWord> keyWords = new HashSet<>();
+
+        while (!keepGoing){
+            keyWords.add(new KeyWord(Console.readLine("Key Word")));
+            String keepAdding = Console.readLine("Add more KeyWords? (Y/N)");
+            if (keepAdding.equalsIgnoreCase("N") || keepAdding.equalsIgnoreCase("No")){
+                keepGoing = true;
+            }
+        }
+*/
+
+
+
+/*        do {
+            show = showTeams(teamsSet);
+        } while(!show);
+        */
+        //teams.addAll(teamsSet);
+
+
         teamsSet.clear();
         teamsSet.addAll(teams);
         theController.manageAccessCriteria(sc,teamsSet);

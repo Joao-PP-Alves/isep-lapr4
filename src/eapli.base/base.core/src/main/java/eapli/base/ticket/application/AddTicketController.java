@@ -37,6 +37,7 @@ import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 import eapli.framework.io.util.Console;
+import eapli.framework.validations.Preconditions;
 
 import java.util.*;
 
@@ -111,7 +112,9 @@ public class AddTicketController {
 
     private void showFieldToComplete(Field f) {
         System.out.printf("Complete the following field:");
-        f.putAnswer(Console.readLine(f.presentationTicket().toString()));
+        String answer = Console.readLine(f.presentationTicket().toString());
+        Preconditions.nonNull(answer);
+        f.putAnswer(answer);
     }
 
 

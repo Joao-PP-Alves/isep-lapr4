@@ -2,26 +2,26 @@ package eapli.base.ticket.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import eapli.base.service.domain.Field;
-import eapli.base.service.domain.Script;
-import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.domain.model.ValueObject;
-import eapli.framework.general.domain.model.Designation;
+import eapli.framework.validations.Preconditions;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
 import java.util.Set;
 
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn
 @Entity
-public class CompletedForm implements AggregateRoot<Long> {
+public class CompletedForm implements ValueObject {
 
     @Version
     private Long version;
 
+    @Id
     @JsonProperty
     @XmlElement
-    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long completedFormId;
 
     @JsonProperty
     @XmlElement
@@ -33,17 +33,15 @@ public class CompletedForm implements AggregateRoot<Long> {
     private Set<Field> fields;
 
 
-    protected CompletedForm(Long identification){
-        if (identification != null){
-            this.identification = identification;
-        }
+    protected CompletedForm(Long identification) {
+        Preconditions.nonNull(identification);
+        this.identification = identification;
     }
 
-    public CompletedForm(Long identification, Set<Field> fields){
-        if (!fields.isEmpty() && identification != null){
-            this.identification = identification;
-            this.fields = fields;
-        }
+    public CompletedForm(Long identification, Set<Field> fields) {
+        Preconditions.noneNull(identification, fields);
+        this.identification = identification;
+        this.fields = fields;
     }
 
     public CompletedForm() {
@@ -51,15 +49,5 @@ public class CompletedForm implements AggregateRoot<Long> {
 
     public Set<Field> fields() {
         return fields;
-    }
-
-    @Override
-    public boolean sameAs(Object other) {
-        return false;
-    }
-
-    @Override
-    public Long identity() {
-        return null;
     }
 }
