@@ -7,6 +7,10 @@ import eapli.base.service.domain.Script;
 import eapli.framework.application.UseCaseController;
 import eapli.framework.general.domain.model.Designation;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 @UseCaseController
 public class AddAutoTaskSpecController {
 
@@ -16,6 +20,24 @@ public class AddAutoTaskSpecController {
     }
 
     public Script addScript(String script){
-        return new Script(script);
+        String completeScript;
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(script));
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            String ls = System.getProperty("line.separator");
+            while ((line = reader.readLine()) != null) {
+                stringBuilder.append(line);
+                stringBuilder.append(ls);
+            }
+            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+            reader.close();
+
+            completeScript = stringBuilder.toString();
+            return new Script(completeScript);
+        } catch (IOException io){
+            System.out.println(io);
+        }
+        return null;
     }
 }

@@ -12,7 +12,7 @@ public class AddAutoTaskSpecUI  extends AbstractUI {
     @Override
     protected boolean doShow() {
         final String taskSpecId = Console.readLine("TaskSpec ID");
-        String formName = Console.readLine("Put in the script");
+        String formName = Console.readLine("Introduce the file containing the script");
 
         Script script = theController.addScript(formName);
         theController.addAutoTaskSpec(taskSpecId,script);

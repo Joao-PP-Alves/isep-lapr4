@@ -43,8 +43,8 @@ public class AddManualTaskSpecUI extends AbstractUI {
                 go = true;
             }
         }
-        String sc = Console.readLine("Introduce the script");
-        Script script = new Script(sc);
+        String sc = Console.readLine("Introduce the file containing the script");
+        Script script = new Script(theController.makeStringFromFile(sc));
         Form form = theController.createForm(formName, fieldSet,script);
 
         TaskSpec manualTaskSpec = theController.addManualTaskSpec(taskSpecId, form);

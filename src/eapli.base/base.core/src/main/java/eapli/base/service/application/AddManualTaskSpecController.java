@@ -15,6 +15,9 @@ import eapli.framework.general.domain.model.Designation;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Set;
 
 @UseCaseController
@@ -34,6 +37,24 @@ public class AddManualTaskSpecController {
         return null;
     }
 
+    public String makeStringFromFile(String sc){
+        try {
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            String ls = System.getProperty("line.separator");
+            BufferedReader rdr = new BufferedReader(new FileReader(sc));
+            while ((line = rdr.readLine()) != null) {
+                stringBuilder.append(line);
+                stringBuilder.append(ls);
+            }
+            rdr.close();
+            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+            return stringBuilder.toString();
+        } catch (IOException io){
+            System.out.println(io);
+            return "INVALID FILE PATH";
+        }
+    }
 
 
     public Form createForm(String formName, Set<Field> fieldSet, Script script) {

@@ -84,8 +84,8 @@ public class AddServiceUI extends AbstractUI {
                 keepGoing = true;
             }
         }
-        String sc = Console.readLine("Introduce the script");
-        Script script = new Script(sc);
+        String sc = Console.readLine("Introduce the file containing the script");
+        Script script = new Script(theController.makeStringFromFile(sc));
         Form form = new Form(Designation.valueOf(formName), fieldSet,script);
         if (submenu()) {
             theController.addService(name, listCatalogs.get(0), shortServiceDescription, longServiceDescription, null, form, null, "icon", keyWords);

@@ -15,6 +15,10 @@ import eapli.framework.application.UseCaseController;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -34,6 +38,26 @@ public class AddServiceController {
         return servSvc.registerNewService(name,serviceCatalog,shortDesc,longDesc,approvalTask,form,taskSpec,icon,keyWords);
     }
 
+
+    public String makeStringFromFile(String sc){
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(sc));
+            StringBuilder stringBuilder = new StringBuilder();
+            String line = null;
+            String ls = System.getProperty("line.separator");
+            while ((line = reader.readLine()) != null) {
+                stringBuilder.append(line);
+                stringBuilder.append(ls);
+            }
+            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+            reader.close();
+
+            return stringBuilder.toString();
+        } catch (IOException io){
+            System.out.println(io);
+            return "INVALID FILE PATH";
+        }
+    }
 
     public List<ServiceCatalog> getCatalogs(){
         ServiceCatalogRepository scr = rf.serviceCatalogs();
