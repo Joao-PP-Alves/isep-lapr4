@@ -1,11 +1,4 @@
-// Generated from TaskScriptGrammar.g4 by ANTLR 4.9.2
- // classes a incluir
-package eapli.base.grammars;
-
-    import java.util.*;
-    import java.lang.*;
-    import java.io.*;
-
+package eapli.base.grammars;// Generated from TaskScriptGrammar.g4 by ANTLR 4.9.2
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -70,13 +63,13 @@ public class TaskScriptGrammarBaseListener implements TaskScriptGrammarListener 
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSemi_op(TaskScriptGrammarParser.Semi_opContext ctx) { }
+	@Override public void enterSymbol(TaskScriptGrammarParser.SymbolContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSemi_op(TaskScriptGrammarParser.Semi_opContext ctx) { }
+	@Override public void exitSymbol(TaskScriptGrammarParser.SymbolContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -101,30 +94,6 @@ public class TaskScriptGrammarBaseListener implements TaskScriptGrammarListener 
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitBody(TaskScriptGrammarParser.BodyContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterDestination(TaskScriptGrammarParser.DestinationContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitDestination(TaskScriptGrammarParser.DestinationContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterEmail_extension(TaskScriptGrammarParser.Email_extensionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitEmail_extension(TaskScriptGrammarParser.Email_extensionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

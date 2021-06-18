@@ -21,9 +21,7 @@ public interface TaskScriptGrammarVisitor<T> extends ParseTreeVisitor<T> {
 
     T visitOper(TaskScriptGrammarParser.OperContext ctx);
 
-    T visitSemi_op(TaskScriptGrammarParser.Semi_opContext ctx);
-
     T visitExprs(TaskScriptGrammarParser.ExprsContext ctx);
 
-
+    T visitSymbol(TaskScriptGrammarParser.SymbolContext ctx);
 }

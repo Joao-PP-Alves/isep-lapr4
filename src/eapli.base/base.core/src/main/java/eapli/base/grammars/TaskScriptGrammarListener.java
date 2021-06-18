@@ -1,11 +1,5 @@
 // Generated from TaskScriptGrammar.g4 by ANTLR 4.9.2
- // classes a incluir
 package eapli.base.grammars;
-
-    import java.util.*;
-    import java.lang.*;
-    import java.io.*;
-
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -54,15 +48,15 @@ public interface TaskScriptGrammarListener extends ParseTreeListener {
 	 */
 	void exitOperation(TaskScriptGrammarParser.OperationContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link TaskScriptGrammarParser#semi_op}.
+	 * Enter a parse tree produced by {@link TaskScriptGrammarParser#symbol}.
 	 * @param ctx the parse tree
 	 */
-	void enterSemi_op(TaskScriptGrammarParser.Semi_opContext ctx);
+	void enterSymbol(TaskScriptGrammarParser.SymbolContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link TaskScriptGrammarParser#semi_op}.
+	 * Exit a parse tree produced by {@link TaskScriptGrammarParser#symbol}.
 	 * @param ctx the parse tree
 	 */
-	void exitSemi_op(TaskScriptGrammarParser.Semi_opContext ctx);
+	void exitSymbol(TaskScriptGrammarParser.SymbolContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link TaskScriptGrammarParser#email}.
 	 * @param ctx the parse tree
@@ -83,26 +77,6 @@ public interface TaskScriptGrammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitBody(TaskScriptGrammarParser.BodyContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link TaskScriptGrammarParser#destination}.
-	 * @param ctx the parse tree
-	 */
-	void enterDestination(TaskScriptGrammarParser.DestinationContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link TaskScriptGrammarParser#destination}.
-	 * @param ctx the parse tree
-	 */
-	void exitDestination(TaskScriptGrammarParser.DestinationContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link TaskScriptGrammarParser#email_extension}.
-	 * @param ctx the parse tree
-	 */
-	void enterEmail_extension(TaskScriptGrammarParser.Email_extensionContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link TaskScriptGrammarParser#email_extension}.
-	 * @param ctx the parse tree
-	 */
-	void exitEmail_extension(TaskScriptGrammarParser.Email_extensionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link TaskScriptGrammarParser#oper}.
 	 * @param ctx the parse tree

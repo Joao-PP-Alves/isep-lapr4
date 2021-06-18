@@ -49,13 +49,12 @@ public class TaskScriptGrammarBaseVisitor<T> extends AbstractParseTreeVisitor<T>
     }
 
     @Override
-    public T visitSemi_op(TaskScriptGrammarParser.Semi_opContext ctx) {
+    public T visitExprs(TaskScriptGrammarParser.ExprsContext ctx) {
         return visitChildren(ctx);
     }
 
-
     @Override
-    public T visitExprs(TaskScriptGrammarParser.ExprsContext ctx) {
+    public T visitSymbol(TaskScriptGrammarParser.SymbolContext ctx) {
         return visitChildren(ctx);
     }
 }

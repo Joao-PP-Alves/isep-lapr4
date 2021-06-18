@@ -1,24 +1,15 @@
 grammar TaskScriptGrammar;
 
-@parser::header { // classes a incluir
-    import java.util.*;
-    import java.lang.*;
-    import java.io.*;
-}
-
-@parser::members {
-
-}
 init: exprs;
 
 exprs : (expr? NEWLINE)* ;
 
 expr : FILE_CATCHER file
-     | EQ operation (semi_op)*
+     | EQ operation
      | EMAIL_CATCHER email
      ;
 
-operation : NUM symbol NUM
+operation : NUM symbol NUM (symbol NUM)*
           ;
 symbol : oper
         | (MULTI|DIV)
@@ -27,8 +18,6 @@ symbol : oper
         | PERCENT
         ;
 
-semi_op : symbol NUM
-        ;
 
 email : (STR|NUM)+ NEWLINE (body)+ SEMI;
 
