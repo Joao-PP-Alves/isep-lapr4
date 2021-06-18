@@ -17,7 +17,7 @@ public class FluxEngine {
 
         LOGGER.info("Kickstarting the Server.");
 
-        AuthzRegistry.configure(PersistenceContext.repositories().users(), new BasePasswordPolicy(), new PlainTextEncoder());
+        //AuthzRegistry.configure(PersistenceContext.repositories().users(), new BasePasswordPolicy(), new PlainTextEncoder());
 
         TcpFluxSrv srv = new TcpFluxSrv();
 

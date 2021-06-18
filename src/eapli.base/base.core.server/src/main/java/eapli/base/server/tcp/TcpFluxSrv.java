@@ -24,8 +24,8 @@ public class TcpFluxSrv extends Thread{
         s.close();
     }
 
-    static final String TRUSTED_STORE="target/classes/server_J.jks";
-    static final String KEYSTORE_PASS="forgotten";
+    static final String TRUSTED_STORE="certs/server_J.jks";
+    static final String KEYSTORE_PASS="changeit";
 
     private static SSLServerSocket sock;
 
@@ -41,12 +41,15 @@ public class TcpFluxSrv extends Thread{
         System.setProperty("javax.net.ssl.keyStore",TRUSTED_STORE);
         System.setProperty("javax.net.ssl.keyStorePassword",KEYSTORE_PASS);
 
+        System.out.println();
+
         SSLServerSocketFactory sslF = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
 
         try {
             sock = (SSLServerSocket) sslF.createServerSocket(port);
             sock.setNeedClientAuth(true);
         } catch (IOException ex) {
+            ex.printStackTrace();
             System.out.println("Local port number not available.");
             System.exit(1);
         }
