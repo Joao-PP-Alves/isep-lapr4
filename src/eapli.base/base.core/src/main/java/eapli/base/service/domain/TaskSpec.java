@@ -28,9 +28,10 @@ public class TaskSpec implements ValueObject {
     @JsonProperty
     private String type;    //THIS ATTIBUTE IS TO BE DELETED
 
-    protected TaskSpec(){}
+    protected TaskSpec() {
+    }
 
-    public TaskSpec(String type){   //CONSTRUCTOR TO DELETE, NEEDS CODE REFACTORING
+    public TaskSpec(String type) {   //CONSTRUCTOR TO DELETE, NEEDS CODE REFACTORING
         if (type != null) {
             this.type = type;
         }

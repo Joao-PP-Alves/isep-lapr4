@@ -60,7 +60,7 @@ public class AddTeamController {
      *
      * @return a list of TeamTypes
      */
-    public Iterable<TeamType>getTeamTypes() {
+    public Iterable<TeamType> getTeamTypes() {
         return repo.findAll();
     }
 

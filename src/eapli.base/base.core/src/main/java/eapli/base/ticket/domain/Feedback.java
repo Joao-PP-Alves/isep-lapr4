@@ -12,37 +12,37 @@ public enum Feedback implements ValueObject {
 
     @XmlElement
     @JsonProperty
-    ZERO{
+    ZERO {
         @Override
         public String toString() {
             return String.valueOf(0);
         }
     },
-    ONE{
+    ONE {
         @Override
         public String toString() {
             return String.valueOf(1);
         }
     },
-    TWO{
+    TWO {
         @Override
         public String toString() {
             return String.valueOf(2);
         }
     },
-    THREE{
+    THREE {
         @Override
         public String toString() {
             return String.valueOf(3);
         }
     },
-    FOUR{
+    FOUR {
         @Override
         public String toString() {
             return String.valueOf(4);
         }
     },
-    FIVE{
+    FIVE {
         @Override
         public String toString() {
             return String.valueOf(5);

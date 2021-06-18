@@ -29,7 +29,7 @@ public class TeamType implements AggregateRoot<TeamTypeId> {
     private Color color;
 
 
-    public TeamType(TeamTypeId id, Description description, Color color){
+    public TeamType(TeamTypeId id, Description description, Color color) {
         setId(id);
         setColor(color);
         setDescription(description);
@@ -39,30 +39,18 @@ public class TeamType implements AggregateRoot<TeamTypeId> {
         //Needed
     }
 
-    public void setId(TeamTypeId id) {
+    private void setId(TeamTypeId id) {
         if (id != null)
-        this.id = id;
+            this.id = id;
     }
 
-    public void setColor(Color color) {
-        //Color colorAsObject;
-        try {
-            if (color!= null)
-            this.color = color;
-
-/*            java.awt.Color c = java.awt.Color.getColor(color);
-
-            Field field = Class.forName("java.awt.Color").getField(color);
-            colorAsObject = (Color)field.get(null);
-            this.color = colorAsObject;*/
-        } catch (Exception e) {
-            this.color = null; // Not defined
-        }
+    private void setColor(Color color) {
+        if (color != null) this.color = color;
     }
 
-    public void setDescription(Description description) {
-        if (description!= null)
-        this.teamTypeDescription = description;
+    private void setDescription(Description description) {
+        if (description != null)
+            this.teamTypeDescription = description;
     }
 
     @Override
@@ -77,22 +65,13 @@ public class TeamType implements AggregateRoot<TeamTypeId> {
 
     @Override
     public boolean sameAs(Object other) {
-        return false;
-    }
-
-    @Override
-    public int compareTo(TeamTypeId other) {
-        return 0;
+        final TeamType that = (TeamType) other;
+        return that.identity().equals(this.identity());
     }
 
     @Override
     public TeamTypeId identity() {
-        return null;
-    }
-
-    @Override
-    public boolean hasIdentity(TeamTypeId otherId) {
-        return false;
+        return this.id;
     }
 
     public String getTeamId() {

@@ -1,13 +1,11 @@
 package eapli.base.infrastructure.bootstrapers;
 
+import eapli.base.service.application.AddManualTaskSpecController;
 import eapli.base.service.application.AddServiceController;
 import eapli.base.service.domain.*;
 import eapli.base.servicecatalog.application.AddServiceCatalogController;
 import eapli.base.servicecatalog.domain.AccessCriteria;
 import eapli.base.servicecatalog.domain.ServiceCatalog;
-import eapli.base.service.application.AddManualTaskSpecController;
-import eapli.base.service.domain.Script;
-import eapli.base.service.domain.TaskSpec;
 import eapli.base.team.domain.Team;
 import eapli.framework.actions.Action;
 import eapli.framework.domain.repositories.ConcurrencyException;
@@ -20,9 +18,9 @@ import org.slf4j.LoggerFactory;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ServiceBootstrapper implements Action {
+public class TicketBootstrapper implements Action {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ServiceBootstrapper.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TicketBootstrapper.class);
 
     private static final String SERVICE_NAME1 = "Do this.";
     private static final String SERVICE_NAME2 = "Do that.";

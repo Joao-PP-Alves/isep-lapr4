@@ -1,9 +1,14 @@
 package eapli.base.app.backoffice.console.presentation.ticket;
 
+import eapli.base.clientusermanagement.domain.ApprovalStatus;
+import eapli.base.collaboratormanagement.domain.*;
 import eapli.base.service.domain.*;
+import eapli.base.task.domain.Task;
 import eapli.base.ticket.application.AddTicketController;
 import eapli.base.ticket.domain.*;
 import eapli.framework.actions.menu.Menu;
+import eapli.framework.general.domain.model.Description;
+import eapli.framework.infrastructure.authz.domain.model.Role;
 import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.menu.MenuItemRenderer;
@@ -58,12 +63,14 @@ public class AddTicketUI extends AbstractUI {
 
         //TODO get Collaborator from access criteria of service catalog and description
 
+        Collaborator collab = new Collaborator(FullName.valueOf("COLLABORATOR_FULLNAME"), ShortName.valueOf("COLLABORATOR_SHORTNAME") ,
+                Address.valueOf("COLLABORATOR_ADDRESS"), PhoneNumber.valueOf(963852741),
+                new LinkedList<Role>(), Calendar.getInstance(),CompanyRole.valueOf("COLLABORATOR_COMPANY_ROLE"));
 
-/*
-        Task task = new Task(creationDate, servicesList.get(0), COLLAB, DESCRIPTION);
+        Task task = new Task(creationDate, Description.valueOf("test Description"), collab, ApprovalStatus.PENDING);
         final String fileName = Console.readLine("File name to attach");
         ticketController.addTicket(urgenciesList.get(0), servicesList.get(0), deadline, creationDate, priority, fileName, completedform, task);
-*/
+
 
 
 

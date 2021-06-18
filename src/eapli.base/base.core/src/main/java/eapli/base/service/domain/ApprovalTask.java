@@ -17,17 +17,18 @@ public class ApprovalTask implements ValueObject, Serializable {
     @Column(nullable = true)
     private boolean approved;
 
-    public ApprovalTask(boolean approved){
+    public ApprovalTask(boolean approved) {
         this.approved = approved;
     }
 
-    protected ApprovalTask() {}
-
-    public void approveTask(){
-        this.approved=true;
+    protected ApprovalTask() {
     }
 
-    public boolean isApproved(){
+    public void approveTask() {
+        this.approved = true;
+    }
+
+    public boolean isApproved() {
         return this.approved;
     }
 }

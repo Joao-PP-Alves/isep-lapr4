@@ -2,11 +2,8 @@ package eapli.base.app.user.console.presentation.service;
 import eapli.base.service.domain.Service;
 import eapli.base.servicecatalog.application.ListServiceCatalogsController;
 import eapli.base.servicecatalog.domain.ServiceCatalog;
-import eapli.base.team.domain.Team;
 import eapli.framework.actions.Actions;
 import eapli.framework.actions.menu.Menu;
-import eapli.framework.infrastructure.authz.domain.model.Role;
-import eapli.framework.io.util.Console;
 import eapli.framework.presentation.console.AbstractUI;
 import eapli.framework.presentation.console.menu.MenuItemRenderer;
 import eapli.framework.presentation.console.menu.MenuRenderer;
@@ -92,7 +89,7 @@ public class ListServiceCatalogsUI extends AbstractUI {
         int counter = 0;
         serviceCatalogsMenu.addItem(counter++,"Back", Actions.SUCCESS);
         for (ServiceCatalog sc: theController.listTopServiceCatalogs()) {
-            serviceCatalogsMenu.addItem(counter++, sc.getTitle().toString(),() -> serviceCatalogs.add(sc));
+            serviceCatalogsMenu.addItem(counter++, sc.getTitleAndBriefDescription(),() -> serviceCatalogs.add(sc));
         }
         return serviceCatalogsMenu;
     }

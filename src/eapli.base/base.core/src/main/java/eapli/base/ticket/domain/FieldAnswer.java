@@ -22,9 +22,10 @@ public class FieldAnswer implements ValueObject {
     private String answer;
 
 
-    protected FieldAnswer(){}
+    protected FieldAnswer() {
+    }
 
-    public FieldAnswer(String answer){
+    public FieldAnswer(String answer) {
         Preconditions.nonNull(answer);
         this.answer = answer;
     }

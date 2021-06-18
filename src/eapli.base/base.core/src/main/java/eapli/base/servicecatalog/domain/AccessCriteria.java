@@ -17,11 +17,11 @@ public class AccessCriteria implements ValueObject {
     @OneToMany
     private Set<Team> teamsWithAccess;
 
-    protected AccessCriteria(){
+    protected AccessCriteria() {
         //
     }
 
-    public AccessCriteria(Set<Team> teamsWithAccess){
+    public AccessCriteria(Set<Team> teamsWithAccess) {
         this.teamsWithAccess = teamsWithAccess;
     }
 

@@ -16,7 +16,6 @@ public class TaskBuilder implements DomainFactory<Task> {
     private ApprovalStatus approvalStatus;
 
 
-
     public TaskBuilder() {
     }
 
@@ -36,24 +35,23 @@ public class TaskBuilder implements DomainFactory<Task> {
     }
 
 
-
     private TaskBuilder withCreationDate(Calendar creationDate) {
         if (creationDate != null)
             this.date = creationDate;
         return this;
     }
 
-    private TaskBuilder withDescription (final String helpDescription){
+    private TaskBuilder withDescription(final String helpDescription) {
         this.helpDescription = Description.valueOf(helpDescription);
         return this;
     }
 
-    private TaskBuilder withCollaborator (final Collaborator collab){
+    private TaskBuilder withCollaborator(final Collaborator collab) {
         this.solverCollab = collab;
         return this;
     }
 
-    private TaskBuilder withApprovalStatus (final ApprovalStatus approvalStatus){
+    private TaskBuilder withApprovalStatus(final ApprovalStatus approvalStatus) {
         this.approvalStatus = approvalStatus;
         return this;
     }

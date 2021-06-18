@@ -14,11 +14,12 @@ public class Priority implements ValueObject {
     @Column(nullable = true)
     private int priority;
 
-    public Priority(int ticketId){
+    public Priority(int ticketId) {
         this.priority = ticketId;
     }
 
-    protected Priority() {}
+    protected Priority() {
+    }
 
     public static Priority valueOf(final int name) {
         return new Priority(name);

@@ -44,7 +44,6 @@ public class TicketBuilder implements DomainFactory<Ticket> {
     }
 
 
-
     public TicketBuilder with(UrgencyTypes urgency, Calendar deadline, Calendar creationDate, int priority,
                               String fileName, CompletedForm form, Service service, Task task) {
         this.withUrgency(urgency);

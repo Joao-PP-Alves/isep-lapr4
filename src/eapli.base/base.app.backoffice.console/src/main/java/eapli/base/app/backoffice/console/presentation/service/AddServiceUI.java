@@ -188,7 +188,7 @@ public class AddServiceUI extends AbstractUI {
         final Menu serviceCatalogsMenu = new Menu();
         int counter = 0;
         for (ServiceCatalog sc: theController.getCatalogs()) {
-            serviceCatalogsMenu.addItem(counter++, sc.getTitle().toString(),() -> serviceCatalogs.add(sc));
+            serviceCatalogsMenu.addItem(counter++, sc.getTitleAndBriefDescription(),() -> serviceCatalogs.add(sc));
         }
         return serviceCatalogsMenu;
     }

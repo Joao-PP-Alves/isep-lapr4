@@ -35,13 +35,13 @@ public class Form implements ValueObject {
     @XmlElement
     private Script script;
 
-    protected Form(Long id){
+    protected Form(Long id) {
         this.identification = id;
     }
 
-    public Form (Designation name, Set<Field> fields, Script script){
+    public Form(Designation name, Set<Field> fields, Script script) {
         Preconditions.noneNull(name, fields, String.valueOf(script));
-        if (name!=null && !fields.isEmpty() && script!=null){
+        if (name != null && !fields.isEmpty() && script != null) {
             this.name = name;
             this.fields = fields;
             this.script = script;

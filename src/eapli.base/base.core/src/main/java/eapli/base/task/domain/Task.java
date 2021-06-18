@@ -49,7 +49,8 @@ public class Task implements AggregateRoot<Long> {
         this.approvalStatus = approval;
     }
 
-    public Task() {}
+    public Task() {
+    }
 
 
     @Override
@@ -65,7 +66,7 @@ public class Task implements AggregateRoot<Long> {
 
     @Override
     public int compareTo(Long o) {
-        if (o.equals(this.identity())){
+        if (o.equals(this.identity())) {
             return 1;
         }
         return -1;

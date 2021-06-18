@@ -4,19 +4,19 @@ package eapli.base.ticket.domain;
 import eapli.framework.domain.model.ValueObject;
 
 public enum UrgencyTypes implements ValueObject {
-    REDUZIDA{
+    REDUZIDA {
         @Override
         public String toString() {
             return "reduzida";
         }
     },
-    MODERADA{
+    MODERADA {
         @Override
         public String toString() {
             return "moderada";
         }
     },
-    URGENTE{
+    URGENTE {
         @Override
         public String toString() {
             return "urgente";

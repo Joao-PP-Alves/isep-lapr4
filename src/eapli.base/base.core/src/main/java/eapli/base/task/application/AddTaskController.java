@@ -60,9 +60,8 @@ public class AddTaskController {
     private final TaskRepository taskRepo = PersistenceContext.repositories().tasks();
 
 
-
     public Task addTask(Long version, Long id, Calendar date, String helpDescription, Collaborator solverCollab,
-                          ApprovalStatus approval) {
+                        ApprovalStatus approval) {
         authz.ensureAuthenticatedUserHasAnyOf(BaseRoles.HRR, BaseRoles.ADMIN, BaseRoles.POWER_USER, BaseRoles.COLLABORATOR);
 
         taskBuilder.with(date, helpDescription, solverCollab, approval);

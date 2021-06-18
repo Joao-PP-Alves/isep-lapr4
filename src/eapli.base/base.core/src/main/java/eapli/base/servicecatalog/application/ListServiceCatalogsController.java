@@ -24,7 +24,7 @@ public class ListServiceCatalogsController {
     private ServiceRepository sr;
     private TeamRepository tr;
 
-    public List<ServiceCatalog> listTopServiceCatalogs(){
+    public List<ServiceCatalog> listTopServiceCatalogs() {
         List<ServiceCatalog> list = new ArrayList<>();
         scr = rf.serviceCatalogs();
         scr.findTopCatalogs().forEach(list::add);
@@ -39,8 +39,7 @@ public class ListServiceCatalogsController {
     }
 
 
-
-    public List<Service> listServicesFromCatalog(ServiceCatalog serviceCatalog){
+    public List<Service> listServicesFromCatalog(ServiceCatalog serviceCatalog) {
         List<Service> list = new ArrayList<>();
         sr = rf.services();
         sr.findBelongingToCatalog(serviceCatalog).forEach(list::add);

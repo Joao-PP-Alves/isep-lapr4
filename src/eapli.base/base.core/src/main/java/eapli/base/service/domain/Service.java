@@ -71,24 +71,24 @@ public class Service implements AggregateRoot<Long> {
     private boolean complete;
 
     public Service(Designation name, ServiceCatalog serviceCatalog, Set<KeyWord> keyWords, TaskSpec taskSpec,
-                   Description shortServiceDescription, Description longServiceDescription,Icon icon, ApprovalTask approvalTask,
-                   Form form){
-       this.name = name;
-       this.serviceCatalog = serviceCatalog;
-       this.keyWords = keyWords;
-       this.taskSpec = taskSpec;
-       this.longServiceDescription = longServiceDescription;
-       this.shortServiceDescription = shortServiceDescription;
-       this.form = form;
-       this.approvalTask = approvalTask;
-       this.icon = icon;
+                   Description shortServiceDescription, Description longServiceDescription, Icon icon, ApprovalTask approvalTask,
+                   Form form) {
+        this.name = name;
+        this.serviceCatalog = serviceCatalog;
+        this.keyWords = keyWords;
+        this.taskSpec = taskSpec;
+        this.longServiceDescription = longServiceDescription;
+        this.shortServiceDescription = shortServiceDescription;
+        this.form = form;
+        this.approvalTask = approvalTask;
+        this.icon = icon;
     }
 
     public void done() {
         this.complete = true;
     }
 
-    public boolean verifyAttributes(){
+    public boolean verifyAttributes() {
         return this.name != null &&
                 this.name.length() > 0 &&
                 this.name.length() < 50 &&
@@ -102,38 +102,50 @@ public class Service implements AggregateRoot<Long> {
                 !this.keyWords.isEmpty();
     }
 
-    public ApprovalTask approvalTask() { return this.approvalTask;}
+    public ApprovalTask approvalTask() {
+        return this.approvalTask;
+    }
 
-    public Form form() { return this.form;}
+    public Form form() {
+        return this.form;
+    }
 
-    public TaskSpec taskSpec() { return  this.taskSpec; }
+    public TaskSpec taskSpec() {
+        return this.taskSpec;
+    }
 
-    public void updateAndCheckCatalog(ServiceCatalog catalog){
-        if (catalog() == null || (catalog != null && catalog() != catalog) ){
+    public void updateAndCheckCatalog(ServiceCatalog catalog) {
+        if (catalog() == null || (catalog != null && catalog() != catalog)) {
             this.serviceCatalog = catalog;
         }
     }
-    public void updateAndCheckForm(Form form){
-        if (this.form == null || (form != null && this.form != form) ){
+
+    public void updateAndCheckForm(Form form) {
+        if (this.form == null || (form != null && this.form != form)) {
             this.form = form;
         }
     }
-    public void updateAndCheckApprovalTask(ApprovalTask approvalTask){
-        if (this.approvalTask == null || (approvalTask != null && this.approvalTask != approvalTask) ){
+
+    public void updateAndCheckApprovalTask(ApprovalTask approvalTask) {
+        if (this.approvalTask == null || (approvalTask != null && this.approvalTask != approvalTask)) {
             this.approvalTask = approvalTask;
         }
     }
-    public void updateAndCheckTaskSpec(TaskSpec taskSpec){
-        if (this.taskSpec == null || (taskSpec != null && this.taskSpec != taskSpec) ){
+
+    public void updateAndCheckTaskSpec(TaskSpec taskSpec) {
+        if (this.taskSpec == null || (taskSpec != null && this.taskSpec != taskSpec)) {
             this.taskSpec = taskSpec;
         }
     }
 
-    public boolean isComplete() {return this.complete;}
+    public boolean isComplete() {
+        return this.complete;
+    }
 
-    public Service(){
+    public Service() {
         //
     }
+
     @Override
     public boolean sameAs(Object other) {
         Service se = (Service) other;
@@ -146,7 +158,7 @@ public class Service implements AggregateRoot<Long> {
 
     @Override
     public int compareTo(Long other) {
-        if (other.equals(this.identity())){
+        if (other.equals(this.identity())) {
             return 1;
         }
         return -1;
