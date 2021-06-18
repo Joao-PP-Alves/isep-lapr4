@@ -2,6 +2,8 @@ package eapli.base.server.tcp;
 
 import eapli.base.server.etc.ProtocolConsts;
 
+import javax.net.ssl.SSLServerSocket;
+import javax.net.ssl.SSLServerSocketFactory;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -22,21 +24,41 @@ public class TcpFluxSrv extends Thread{
         s.close();
     }
 
+    static final String TRUSTED_STORE="target/classes/server_J.jks";
+    static final String KEYSTORE_PASS="forgotten";
 
-    private static ServerSocket sock;
+    private static SSLServerSocket sock;
 
-    public static void run(int port) throws Exception {
+    private static int port = ProtocolConsts.TCP_PORT;
+
+    public void run(){
+
+        // Trust these certificates provided by authorized clients
+        System.setProperty("javax.net.ssl.trustStore", TRUSTED_STORE);
+        System.setProperty("javax.net.ssl.trustStorePassword",KEYSTORE_PASS);
+
+        // Use this certificate and private key as server certificate
+        System.setProperty("javax.net.ssl.keyStore",TRUSTED_STORE);
+        System.setProperty("javax.net.ssl.keyStorePassword",KEYSTORE_PASS);
+
+        SSLServerSocketFactory sslF = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
 
         try {
-            sock = new ServerSocket(port);
+            sock = (SSLServerSocket) sslF.createServerSocket(port);
+            sock.setNeedClientAuth(true);
         } catch (IOException ex) {
             System.out.println("Local port number not available.");
             System.exit(1);
         }
 
         while (true) {
-            Socket s = sock.accept(); // wait for a new client connection request
-            addCli(s);
+            Socket s = null; // wait for a new client connection request
+            try {
+                s = sock.accept();
+                addCli(s);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             Thread cli = new TCPFluxSrvClient(s);
             cli.start();
         }
