@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 
 @DiscriminatorValue("Automatic")
 @Entity
-public class AutoTaskSpec extends TaskSpec{
+public class AutoTaskSpec extends TaskSpec {
 
     private Designation designation;
     private Script script;
@@ -18,6 +18,7 @@ public class AutoTaskSpec extends TaskSpec{
         this.script = script;
     }
 
-    protected AutoTaskSpec(){}
+    protected AutoTaskSpec() {
+    }
 
 }

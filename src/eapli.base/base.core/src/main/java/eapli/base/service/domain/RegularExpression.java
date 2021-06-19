@@ -13,10 +13,11 @@ public class RegularExpression implements ValueObject {
     @XmlElement
     private String regularExpression;
 
-    protected RegularExpression(){}
+    protected RegularExpression() {
+    }
 
-    public RegularExpression(String rge){
-        if (rge!=null){
+    public RegularExpression(String rge) {
+        if (rge != null) {
             regularExpression = rge;
         } else {
             regularExpression = "[A-Za-z 0-9]+";

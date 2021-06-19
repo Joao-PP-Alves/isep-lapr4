@@ -44,9 +44,10 @@ public class Field implements ValueObject, Cloneable {
     @XmlElement
     private DataTypesAllowed dataType;
 
-    protected Field(){}
+    protected Field() {
+    }
 
-    public Field(RegularExpression regularExpression, String variableName, Description helpDescription, /*Set<Field> fields, */PresentationTicket presentationTicket, DataTypesAllowed dataTypesAllowed){
+    public Field(RegularExpression regularExpression, String variableName, Description helpDescription, /*Set<Field> fields, */PresentationTicket presentationTicket, DataTypesAllowed dataTypesAllowed) {
         this.regularExpression = Objects.requireNonNull(regularExpression);
         this.variableName = Objects.requireNonNull(variableName);
         this.helpDescription = helpDescription;
@@ -63,7 +64,7 @@ public class Field implements ValueObject, Cloneable {
         return presentationTicket;
     }
 
-    public Object clone()throws CloneNotSupportedException{
+    public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
 

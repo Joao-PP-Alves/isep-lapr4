@@ -15,10 +15,11 @@ public class KeyWord implements ValueObject {
     @XmlElement
     private String keyWord;
 
-    protected KeyWord(){}
+    protected KeyWord() {
+    }
 
-    public KeyWord(String keyWord){
-        if (keyWord!=null){
+    public KeyWord(String keyWord) {
+        if (keyWord != null) {
             this.keyWord = keyWord;
         }
     }

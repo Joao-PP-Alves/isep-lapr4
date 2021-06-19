@@ -24,6 +24,7 @@ public class AddServiceCatalogController {
     private final RepositoryFactory rf = PersistenceContext.repositories();
     private ServiceCatalogRepository scr;
     private TeamRepository tr;
+
     public ServiceCatalog addServiceCatalog(String title, String shortDescription, String longDescription, String icon,
                                             ServiceCatalog topCatalog) {
 
@@ -32,7 +33,7 @@ public class AddServiceCatalogController {
         return servCatSvc.registerNewServiceCatalog(title, shortDescription, longDescription, icon, topCatalog);
     }
 
-    public List<ServiceCatalog> listAllCatalogs(){
+    public List<ServiceCatalog> listAllCatalogs() {
         List<ServiceCatalog> list = new ArrayList<>();
         scr = rf.serviceCatalogs();
         scr.findAll().forEach(list::add);
@@ -46,8 +47,8 @@ public class AddServiceCatalogController {
         return list;
     }
 
-    public ServiceCatalog manageAccessCriteria(ServiceCatalog sc, Set<Team> list){
-        sc.setAccessCriteria(new AccessCriteria(list));
+    public ServiceCatalog manageAccessCriteria(ServiceCatalog sc, Set<Team> list) {
+        sc.defineAccessCriteria(new AccessCriteria(list));
         return servCatSvc.updateServiceCatalog(sc);
     }
 

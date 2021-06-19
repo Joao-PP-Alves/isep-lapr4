@@ -55,12 +55,12 @@ public class ServiceCatalog implements AggregateRoot<Long> {
     private AccessCriteria accessCriteria;
 
     public ServiceCatalog(Designation title, Description shortDescription, Icon icon, Description longDescription,
-                          ServiceCatalog serviceCatalogs){
-        this.title=title;
-        this.shortDescription=shortDescription;
-        this.longDescription=longDescription;
-        this.topCatalog=serviceCatalogs;
-        this.icon=icon;
+                          ServiceCatalog serviceCatalogs) {
+        this.title = title;
+        this.shortDescription = shortDescription;
+        this.longDescription = longDescription;
+        this.topCatalog = serviceCatalogs;
+        this.icon = icon;
     }
 
     public ServiceCatalog() {
@@ -75,30 +75,30 @@ public class ServiceCatalog implements AggregateRoot<Long> {
 
     @Override
     public int compareTo(Long other) {
-        if (other.equals(this.identity())){
+        if (other.equals(this.identity())) {
             return 1;
         }
         return -1;
     }
 
-    public Designation getTitle() {
-        return title;
+    public String getTitleAndBriefDescription() {
+        return title.toString() + ": " + shortDescription.toString();
     }
 
-    @Nullable
+/*    @Nullable
     public ServiceCatalog getTopCatalog() {
         return this.topCatalog;
-    }
+    }*/
 
-    public boolean isTopCatalog(){
-        if (this.topCatalog == null){
+    public boolean isTopCatalog() {
+        if (this.topCatalog == null) {
             return true;
         } else {
             return false;
         }
     }
 
-    public void setAccessCriteria(AccessCriteria accessCriteria) {
+    public void defineAccessCriteria(AccessCriteria accessCriteria) {
         this.accessCriteria = accessCriteria;
     }
 
@@ -124,4 +124,5 @@ public class ServiceCatalog implements AggregateRoot<Long> {
         }
         return false;
     }
+
 }

@@ -1,6 +1,5 @@
 package eapli.base.app.backoffice.console.presentation.servicecatalog;
 
-import eapli.base.service.domain.KeyWord;
 import eapli.base.servicecatalog.application.AddServiceCatalogController;
 import eapli.base.servicecatalog.domain.ServiceCatalog;
 import eapli.base.team.domain.Team;
@@ -100,7 +99,7 @@ public class AddServiceCatalogUI extends AbstractUI {
         int counter = 0;
         serviceCatalogsMenu.addItem(counter++,"None", () -> serviceCatalogs.add(null));
         for (ServiceCatalog sc: theController.listAllCatalogs()) {
-            serviceCatalogsMenu.addItem(counter++, sc.getTitle().toString(),() -> serviceCatalogs.add(sc));
+            serviceCatalogsMenu.addItem(counter++, sc.getTitleAndBriefDescription(),() -> serviceCatalogs.add(sc));
         }
         return serviceCatalogsMenu;
     }

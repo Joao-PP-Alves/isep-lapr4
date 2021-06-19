@@ -44,54 +44,53 @@ public class ServiceBuilder implements DomainFactory<Service> {
     }
 
 
-
     public ServiceBuilder withName(final String name) {
         this.name = Designation.valueOf(name);
         return this;
     }
 
 
-    public ServiceBuilder withKeyWords(final Set<KeyWord> keyWords){
+    public ServiceBuilder withKeyWords(final Set<KeyWord> keyWords) {
         this.keyWords = keyWords;
         return this;
     }
 
-    public ServiceBuilder withTaskSpec (final TaskSpec taskSpec){
+    public ServiceBuilder withTaskSpec(final TaskSpec taskSpec) {
         this.taskSpec = taskSpec;
         return this;
     }
 
-    public ServiceBuilder withShortDesc (final String shortDesc){
+    public ServiceBuilder withShortDesc(final String shortDesc) {
         this.shortDesc = Description.valueOf(shortDesc);
         return this;
     }
 
-    public ServiceBuilder withLongDesc (final String shortDesc){
+    public ServiceBuilder withLongDesc(final String shortDesc) {
 
         this.longDesc = Description.valueOf(shortDesc);
         return this;
     }
 
-    public ServiceBuilder withIcon (final String icon){
+    public ServiceBuilder withIcon(final String icon) {
 
         this.icon = new Icon(icon);
         return this;
     }
 
-    public ServiceBuilder withApprovalTask (final ApprovalTask approvalTask){
+    public ServiceBuilder withApprovalTask(final ApprovalTask approvalTask) {
 
         this.approvalTask = approvalTask;
         return this;
     }
 
-    public ServiceBuilder withForm (final Form form){
+    public ServiceBuilder withForm(final Form form) {
 
         this.form = form;
         return this;
     }
 
 
-    public ServiceBuilder withServiceCatalog(final ServiceCatalog sc){
+    public ServiceBuilder withServiceCatalog(final ServiceCatalog sc) {
 
         this.serviceCatalog = sc;
         return this;

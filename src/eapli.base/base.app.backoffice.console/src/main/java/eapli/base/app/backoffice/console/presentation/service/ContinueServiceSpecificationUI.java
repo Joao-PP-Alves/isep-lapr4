@@ -203,7 +203,7 @@ public class ContinueServiceSpecificationUI extends AbstractUI {
         int counter = 0;
         serviceCatalogsMenu.addItem(MenuItem.of(counter++, "Cancel", Actions.SUCCESS));
         for (ServiceCatalog sc: theController.getCatalogs()) {
-            serviceCatalogsMenu.addItem(counter++, sc.getTitle().toString(),() -> serviceCatalogs.add(sc));
+            serviceCatalogsMenu.addItem(counter++, sc.getTitleAndBriefDescription(),() -> serviceCatalogs.add(sc));
         }
         return serviceCatalogsMenu;
     }

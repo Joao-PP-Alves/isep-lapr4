@@ -2,19 +2,19 @@ package eapli.base.service.domain;
 
 
 public enum DataTypesAllowed {
-    STRING{
+    STRING {
         @Override
         public String toString() {
             return "String";
         }
     },
-    INT{
+    INT {
         @Override
         public String toString() {
             return "int";
         }
     },
-    DOUBLE{
+    DOUBLE {
         @Override
         public String toString() {
             return "double";

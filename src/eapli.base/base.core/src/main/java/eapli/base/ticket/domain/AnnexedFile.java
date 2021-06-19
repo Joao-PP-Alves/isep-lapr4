@@ -14,11 +14,12 @@ public class AnnexedFile implements ValueObject {
     @JsonProperty
     private String fileName;
 
-    public AnnexedFile(String fileName){
+    public AnnexedFile(String fileName) {
         this.fileName = fileName;
     }
 
-    protected AnnexedFile() {}
+    protected AnnexedFile() {
+    }
 
     public static AnnexedFile valueOf(final String name) {
         return new AnnexedFile(name);

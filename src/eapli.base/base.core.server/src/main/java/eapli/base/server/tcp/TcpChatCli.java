@@ -1,15 +1,17 @@
 package eapli.base.server.tcp;
 
+import javax.net.ssl.SSLSocket;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
 //Probably does not work
-class TcpChatCli {
+/*class TcpChatCli {
 	static InetAddress serverIP;
-	static Socket sock;
-
+	static SSLSocket sock;
+	static final String KEYSTORE_PASS="forgotten";
+	static final String TRUSTED_STORE="target/classes/client1_J.jks";
 
 	public static void main(String args[]) throws Exception {
 		String nick, frase;
@@ -55,7 +57,7 @@ class TcpChatCli {
 		sock.close();
 		} 
 	}
-
+*/
 
 class TcpChatCliConn implements Runnable {
 	private Socket s;

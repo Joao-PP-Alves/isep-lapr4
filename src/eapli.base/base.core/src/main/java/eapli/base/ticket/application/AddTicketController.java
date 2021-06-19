@@ -111,7 +111,7 @@ public class AddTicketController {
 
 
     private void showFieldToComplete(Field f) {
-        System.out.printf("Complete the following field:");
+        System.out.printf("Complete the following field: ");
         String answer = Console.readLine(f.presentationTicket().toString());
         Preconditions.nonNull(answer);
         f.putAnswer(answer);

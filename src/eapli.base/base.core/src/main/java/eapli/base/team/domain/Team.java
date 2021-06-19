@@ -46,7 +46,7 @@ public class Team implements AggregateRoot<Designation> {
     @OneToOne
     private Collaborator responsibleCollab;
 
-    public Team(Designation teamId, Description description, TeamType teamType, Set<Collaborator> collaboratorSet, Collaborator responsibleCollab){
+    public Team(Designation teamId, Description description, TeamType teamType, Set<Collaborator> collaboratorSet, Collaborator responsibleCollab) {
         setId(teamId);
         setDescription(description);
         setTeamType(teamType);
@@ -73,29 +73,26 @@ public class Team implements AggregateRoot<Designation> {
         this.members = members;
     }
 
-    public void setId(Designation id) {
+    private void setId(Designation id) {
         this.id = id;
     }
 
-    public void setDescription(Description description) {
+    private void setDescription(Description description) {
         this.teamDescription = description;
     }
 
-    public void setTeamType(TeamType teamType) {
+    private void setTeamType(TeamType teamType) {
         this.teamType = teamType;
     }
 
     private void setResponsibleCollaborator(Collaborator responsibleCollab) {
-        this.responsibleCollab=responsibleCollab;
-    }
-
-    public Designation getId() {
-        return id;
+        this.responsibleCollab = responsibleCollab;
     }
 
     @Override
     public boolean sameAs(Object other) {
-        return false;
+        final Team that = (Team) other;
+        return that.identity().equals(this.identity());
     }
 
     @Override

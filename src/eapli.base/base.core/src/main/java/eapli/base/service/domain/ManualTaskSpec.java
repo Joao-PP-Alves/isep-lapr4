@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @DiscriminatorValue("Manual")
 @Entity
-public class ManualTaskSpec extends TaskSpec{
+public class ManualTaskSpec extends TaskSpec {
 
     private String designation;
 
@@ -12,17 +12,18 @@ public class ManualTaskSpec extends TaskSpec{
     private Form form;
 
 
-    protected ManualTaskSpec(){}
+    protected ManualTaskSpec() {
+    }
 
-    public ManualTaskSpec(Form form){
-        if (form != null){
+    public ManualTaskSpec(Form form) {
+        if (form != null) {
             this.form = form;
         }
     }
 
-    public ManualTaskSpec(String taskSpecId, Form form){
+    public ManualTaskSpec(String taskSpecId, Form form) {
         super();
-        if (form != null && taskSpecId != null){
+        if (form != null && taskSpecId != null) {
             this.form = form;
             this.designation = taskSpecId;
         }

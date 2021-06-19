@@ -2,37 +2,37 @@ package eapli.base.ticket.domain;
 
 
 public enum TicketState {
-    SUBMETIDO{
+    SUBMETIDO {
         @Override
         public String toString() {
             return "submetido";
         }
     },
-    EM_APROVACAO{
+    EM_APROVACAO {
         @Override
         public String toString() {
             return "em aprovacao";
         }
     },
-    APROVADO{
+    APROVADO {
         @Override
         public String toString() {
             return "aprovado";
         }
-    },     
-    REJEITADO{
+    },
+    REJEITADO {
         @Override
         public String toString() {
             return "rejeitado";
         }
     },
-    EM_RESOLUCAO{
+    EM_RESOLUCAO {
         @Override
         public String toString() {
             return "em resolucao";
         }
     },
-    RESOLVIDO{
+    RESOLVIDO {
         @Override
         public String toString() {
             return "resolvido";

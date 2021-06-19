@@ -12,15 +12,16 @@ public class Script {
 
     private Blob script;
 
-    public Script(String script){
+    public Script(String script) {
         try {
             this.script = new SerialBlob(script.getBytes());
-        } catch (SQLException se){
+        } catch (SQLException se) {
             System.out.println(se);
         }
     }
 
-    protected Script(){}
+    protected Script() {
+    }
 
     public String getScript() {
         return script.toString();
@@ -29,7 +30,7 @@ public class Script {
     public void setScript(String script) {
         try {
             this.script = new SerialBlob(script.getBytes());
-        } catch (SQLException se){
+        } catch (SQLException se) {
             System.out.println(se);
         }
     }

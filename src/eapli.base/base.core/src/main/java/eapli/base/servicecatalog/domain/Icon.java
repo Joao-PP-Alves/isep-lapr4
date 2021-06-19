@@ -13,12 +13,12 @@ public class Icon implements ValueObject {
     @XmlElement
     private String icon;
 
-    public Icon(String icon){
-        this.icon=icon;
+    public Icon(String icon) {
+        this.icon = icon;
     }
 
     public Icon() {
-        this.icon="Default-Icon";
+        this.icon = "Default-Icon";
     }
 
     public void setIcon(String icon) {

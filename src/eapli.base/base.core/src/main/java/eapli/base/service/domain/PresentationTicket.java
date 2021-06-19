@@ -10,9 +10,10 @@ public class PresentationTicket implements ValueObject {
 
     private String presTicket;
 
-    protected PresentationTicket(){}
+    protected PresentationTicket() {
+    }
 
-    public PresentationTicket(String s){
+    public PresentationTicket(String s) {
         this.presTicket = Objects.requireNonNull(s);
     }
 

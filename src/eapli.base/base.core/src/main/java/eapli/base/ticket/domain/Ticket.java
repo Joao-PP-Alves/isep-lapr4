@@ -59,12 +59,12 @@ public class Ticket implements AggregateRoot<Long> {
 
     @XmlElement
     @JsonProperty
-    @OneToOne
+    @OneToOne(orphanRemoval = true, cascade = CascadeType.ALL)
     private Task task;
 
     @XmlElement
     @JsonProperty
-    @OneToOne
+    @OneToOne(orphanRemoval = true, cascade = CascadeType.ALL)
     private CompletedForm completedForm;
 
     //TODO use service to smth and add/create Task
@@ -96,14 +96,33 @@ public class Ticket implements AggregateRoot<Long> {
         this.task = task;
     }
 
-    public TicketState state(){return this.ticketState;}
+    public TicketState state() {
+        return this.ticketState;
+    }
 
-    public boolean isSubmited(){ return state() == TicketState.SUBMETIDO; }
-    public boolean isInApproval(){ return state() == TicketState.EM_APROVACAO; }
-    public boolean isApproved(){ return state() == TicketState.APROVADO; }
-    public boolean isRejected(){ return state() == TicketState.REJEITADO; }
-    public boolean isInResolution(){ return state() == TicketState.EM_RESOLUCAO; }
-    public boolean isSolved(){ return state() == TicketState.RESOLVIDO; }
+    public boolean isSubmited() {
+        return state() == TicketState.SUBMETIDO;
+    }
+
+    public boolean isInApproval() {
+        return state() == TicketState.EM_APROVACAO;
+    }
+
+    public boolean isApproved() {
+        return state() == TicketState.APROVADO;
+    }
+
+    public boolean isRejected() {
+        return state() == TicketState.REJEITADO;
+    }
+
+    public boolean isInResolution() {
+        return state() == TicketState.EM_RESOLUCAO;
+    }
+
+    public boolean isSolved() {
+        return state() == TicketState.RESOLVIDO;
+    }
 
     public Ticket() {
         //
