@@ -51,7 +51,7 @@ public class TcpFluxSrv extends Thread{
         } catch (IOException ex) {
             ex.printStackTrace();
             System.out.println("Local port number not available.");
-            System.exit(1);
+            return;
         }
 
         while (true) {
