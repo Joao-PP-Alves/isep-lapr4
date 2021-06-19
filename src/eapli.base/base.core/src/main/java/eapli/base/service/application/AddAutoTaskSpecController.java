@@ -1,5 +1,7 @@
 package eapli.base.service.application;
 
+import eapli.base.grammars.EvalTaskScriptVisitor;
+import eapli.base.grammars.TaskHandler;
 import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.infrastructure.persistence.RepositoryFactory;
 import eapli.base.service.domain.AutoTaskSpec;
@@ -23,6 +25,7 @@ public class AddAutoTaskSpecController {
         String completeScript;
         try {
             BufferedReader reader = new BufferedReader(new FileReader(script));
+            TaskHandler.validation(script);
             StringBuilder stringBuilder = new StringBuilder();
             String line;
             String ls = System.getProperty("line.separator");

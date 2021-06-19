@@ -51,6 +51,10 @@ public class Task implements AggregateRoot<Long> {
 
     public Task() {}
 
+    public Collaborator responsableCollab(){
+        return this.solverCollab;
+    }
+
 
     @Override
     public boolean sameAs(Object other) {

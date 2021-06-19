@@ -2,6 +2,7 @@ package eapli.base.persistence.impl.jpa;
 
 
 import eapli.base.Application;
+import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.base.service.domain.Service;
 import eapli.base.service.repositories.ServiceRepository;
 import eapli.base.servicecatalog.domain.ServiceCatalog;
@@ -25,4 +26,8 @@ implements TaskRepository {
         return this.repo.findAll();
     }
 
+    @Override
+    public Iterable<Task> checkPendingTasks(Collaborator collaborator) {
+        return match("e.solverCollab = :collaborator",collaborator);
+    }
 }
