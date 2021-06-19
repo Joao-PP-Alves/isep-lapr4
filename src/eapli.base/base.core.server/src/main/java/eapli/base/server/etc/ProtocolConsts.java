@@ -23,4 +23,5 @@ public class ProtocolConsts {
     public static final int CODE_CONFIRMATION = 2; //Carries no data.
     public static final int CODE_OVERSIZED = 255; //Oversized message
 
+    public static final String BASE_FOLDER = "www";
 }
