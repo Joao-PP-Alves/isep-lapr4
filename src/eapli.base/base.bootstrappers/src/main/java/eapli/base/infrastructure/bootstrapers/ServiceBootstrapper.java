@@ -18,6 +18,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 public class ServiceBootstrapper implements Action {
@@ -53,11 +55,11 @@ public class ServiceBootstrapper implements Action {
         ServiceCatalog servCat1 = registerServiceCatalog(SERVICE_CATALOG_TITLE1, SERVICE_CATALOG_SHORTDESC1,
                 SERVICE_CATALOG_LONGDESC1, SERVICE_CATALOG_ICON1, null);
         Iterable<Team> iter = addServCatController.getTeams();
-        Set<Team> listTeams = new HashSet<>();
+        List<Team> listTeams = new LinkedList<>();
         for (Team team : iter) {
             listTeams.add(team);
         }
-        servCat1.defineAccessCriteria(new AccessCriteria(listTeams));
+        servCat1.defineAccessCriteria(new AccessCriteria(listTeams.get(0)));
 
         ServiceCatalog servCat2 = registerServiceCatalog(SERVICE_CATALOG_TITLE2, SERVICE_CATALOG_SHORTDESC2,
                 SERVICE_CATALOG_LONGDESC2, SERVICE_CATALOG_ICON2,null);

@@ -1,7 +1,6 @@
 package eapli.base.servicecatalog.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import eapli.base.service.domain.Service;
 import eapli.base.team.domain.Team;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.general.domain.model.Description;
@@ -11,7 +10,6 @@ import org.springframework.lang.Nullable;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.Set;
 
 @XmlRootElement
 @Entity
@@ -116,13 +114,15 @@ public class ServiceCatalog implements AggregateRoot<Long> {
         return otherId.equals(this.identity());
     }
 
+/*
     public boolean checkIfTeamHasAccess(Team team) {
-        for (Team t : accessCriteria.getTeamsWithAccess()) {
+        for (Team t : accessCriteria.getTeamWithAccess()) {
             if (t.equals(team)) {
                 return true;
             }
         }
         return false;
     }
+*/
 
 }

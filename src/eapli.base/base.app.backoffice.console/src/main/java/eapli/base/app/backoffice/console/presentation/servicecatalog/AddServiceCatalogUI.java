@@ -12,10 +12,7 @@ import eapli.framework.presentation.console.menu.MenuItemRenderer;
 import eapli.framework.presentation.console.menu.MenuRenderer;
 import eapli.framework.presentation.console.menu.VerticalMenuRenderer;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 public class AddServiceCatalogUI extends AbstractUI {
@@ -39,6 +36,16 @@ public class AddServiceCatalogUI extends AbstractUI {
         do {
             show = showOptions(ints);
         } while(!show);
+
+        Set<Team> teamsSet= new HashSet<>();
+        do {
+            show = showTeams(teamsSet);
+        } while(!show);
+
+        List<Team> teams = new LinkedList<>(teamsSet);
+
+
+/*
         List<Integer> listInts = new ArrayList<>(ints);
         Set<Team> teamsSet= new HashSet<>();
         List<Team> teams = new ArrayList<>();
@@ -60,6 +67,7 @@ public class AddServiceCatalogUI extends AbstractUI {
             }
             ints.clear();
         }
+*/
 
 /*
         Set<KeyWord> keyWords = new HashSet<>();
@@ -82,9 +90,8 @@ public class AddServiceCatalogUI extends AbstractUI {
         //teams.addAll(teamsSet);
 
 
-        teamsSet.clear();
-        teamsSet.addAll(teams);
-        theController.manageAccessCriteria(sc,teamsSet);
+
+        theController.manageAccessCriteria(sc,teams.get(0));
         return true;
     }
 

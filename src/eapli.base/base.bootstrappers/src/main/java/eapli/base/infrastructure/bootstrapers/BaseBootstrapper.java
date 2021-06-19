@@ -79,8 +79,8 @@ public class BaseBootstrapper implements Action {
         registerPowerUser();
 
         authenticateForBootstrapping();
-        servBoot.execute();
         orgBoot.execute();
+        servBoot.execute();
 
         // execute all bootstrapping
         boolean ret = true;
