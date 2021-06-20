@@ -6,7 +6,6 @@ import eapli.base.ticket.repositories.TicketRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
-import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.Calendar;
 

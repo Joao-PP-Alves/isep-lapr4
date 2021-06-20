@@ -18,9 +18,6 @@ public class HTTPServerAjaxDashboard {
 
     private static ServerSocket socket;
 
-    //TODO Different Tasks Storages by Type for HTTP Text purposes.
-    //TODO Implement constant updating.
-
     public static void main(String[] args) throws Exception {
 
         Socket clientSocket;
