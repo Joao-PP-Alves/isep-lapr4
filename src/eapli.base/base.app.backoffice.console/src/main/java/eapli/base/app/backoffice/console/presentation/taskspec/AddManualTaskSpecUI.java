@@ -15,6 +15,7 @@ import java.util.Set;
 public class AddManualTaskSpecUI extends AbstractUI {
 
     private final AddManualTaskSpecController theController = new AddManualTaskSpecController();
+
     @Override
     protected boolean doShow() {
 
@@ -22,30 +23,32 @@ public class AddManualTaskSpecUI extends AbstractUI {
         String formName = Console.readLine("Form name");
         System.out.println("Fill the form");
         Set<Field> fieldSet = new HashSet<>();
-        boolean go=false;
-        while (!go){
+        Set<Field> fields = new HashSet<>();
+        boolean go = false;
+        while (!go) {
             String fname = Console.readLine("Variable name");
             String expr = Console.readLine("Regular expression to validate answer");
             String helpDescription = Console.readLine("Help to fill the field");
             String pres = Console.readLine("Presentation ticket");
             String dataType = Console.readLine("Type of data needed");
             DataTypesAllowed data;
-            if (dataType.equalsIgnoreCase("double")){
+            if (dataType.equalsIgnoreCase("double")) {
                 data = DataTypesAllowed.DOUBLE;
-            } else if (dataType.equalsIgnoreCase("int")){
+            } else if (dataType.equalsIgnoreCase("int")) {
                 data = DataTypesAllowed.INT;
             } else {
                 data = DataTypesAllowed.STRING;
             }
-            fieldSet.add(new Field(new RegularExpression(expr),fname, Description.valueOf(helpDescription),new PresentationTicket(pres),data));
+            fieldSet.add(new Field(new RegularExpression(expr), fname, Description.valueOf(helpDescription),
+                    fields, new PresentationTicket(pres), data));
             String keepAdding = Console.readLine("Add more Fields?? (Y/N)");
-            if (keepAdding.equalsIgnoreCase("N") || keepAdding.equalsIgnoreCase("No")){
+            if (keepAdding.equalsIgnoreCase("N") || keepAdding.equalsIgnoreCase("No")) {
                 go = true;
             }
         }
         String sc = Console.readLine("Introduce the file containing the script");
         Script script = new Script(theController.makeStringFromFile(sc));
-        Form form = theController.createForm(formName, fieldSet,script);
+        Form form = theController.createForm(formName, fieldSet, script);
 
         TaskSpec manualTaskSpec = theController.addManualTaskSpec(taskSpecId, form);
 
@@ -53,7 +56,6 @@ public class AddManualTaskSpecUI extends AbstractUI {
         //theController.manageAccessCriteria(sc,teamsSet);
         return true;
     }
-
 
 
     @Override

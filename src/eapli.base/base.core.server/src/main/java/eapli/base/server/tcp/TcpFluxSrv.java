@@ -80,18 +80,18 @@ class TCPFluxSrvClient extends Thread {
 
         InetAddress clientIP=myS.getInetAddress();
         System.out.println("New client connection from " + clientIP.getHostAddress() +
-                ", port number " + myS.getPort());
+                ":" + myS.getPort());
         int nChars = 0;
         byte[] data = new byte[ProtocolConsts.MESSAGE_SIZE];
 
         try {
-            System.out.println("Trying to read data");
             sIn = new DataInputStream(myS.getInputStream());
             sOut = new DataOutputStream(myS.getOutputStream());
             while (true) {
                 nChars = sIn.read(data, 0, ProtocolConsts.MESSAGE_SIZE);
-                if (nChars == 0)
-                    continue;
+                if (nChars == -1)
+                    //Connection closed.
+                    break;
                 int version = ParseMessage.getVersion(data);
                 if (version != ProtocolConsts.PROTOCOL_VERSION) {
                     //I don't know this protocol version, ending connection.
@@ -101,13 +101,13 @@ class TCPFluxSrvClient extends Thread {
                 if (code == ProtocolConsts.CODE_END_CONN)
                 {
                     //Respond that you understood, close connection afterwards
-                    System.out.println("Received end code from " + clientIP.getHostAddress());
+                    System.out.println("Received end code from " + clientIP.getHostAddress()+ ":" + myS.getPort());
                     sOut.write(RespondAffirmative.getMessage());
                     break;
                 }
                 else if (code == ProtocolConsts.CODE_TEST)
                 {
-                    System.out.println("Received test code from " + clientIP.getHostAddress());
+                    System.out.println("Received test code from " + clientIP.getHostAddress()+ ":" + myS.getPort());
                     sOut.write(RespondAffirmative.getMessage());
                 }
 
@@ -118,7 +118,8 @@ class TCPFluxSrvClient extends Thread {
             ex.printStackTrace();
             System.out.println("Error");
         }
-        System.out.println("Ending");
+        System.out.println("Connection with " + clientIP.getHostAddress() +
+                ":" + myS.getPort() + " terminated.");
     }
 }
 

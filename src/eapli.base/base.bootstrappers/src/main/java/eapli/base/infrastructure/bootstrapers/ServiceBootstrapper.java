@@ -67,7 +67,7 @@ public class ServiceBootstrapper implements Action {
         ApprovalTask approvalTask = new ApprovalTask(true);
         Set<Field> fields = new HashSet<>();
         Field field1 = new Field(new RegularExpression("(Test)"), "bootstrapperField",
-                Description.valueOf("helpDescription"), new PresentationTicket("bootstrapper Pres. Ticket"),
+                Description.valueOf("helpDescription"), fields, new PresentationTicket("bootstrapper Pres. Ticket"),
                 DataTypesAllowed.STRING);
         fields.add(field1);
         Script script = new Script("Bootstrapped Form;\nbootstrapperField, bootstrapper Pres. Ticket, helpDescription, String, (Test)");
