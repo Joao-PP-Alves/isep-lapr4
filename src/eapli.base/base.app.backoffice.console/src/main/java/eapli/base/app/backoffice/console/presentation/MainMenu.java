@@ -25,6 +25,7 @@ package eapli.base.app.backoffice.console.presentation;
 
 import eapli.base.app.backoffice.console.presentation.collaborator.AddCollaboratorUI;
 import eapli.base.app.backoffice.console.presentation.collaborator.ModifyCollaboratorTeamUI;
+import eapli.base.app.backoffice.console.presentation.engine.EngineTestUI;
 import eapli.base.app.backoffice.console.presentation.service.AddServiceUI;
 import eapli.base.app.backoffice.console.presentation.service.ContinueServiceSpecificationUI;
 import eapli.base.app.backoffice.console.presentation.servicecatalog.AddServiceCatalogUI;
@@ -75,6 +76,7 @@ public class MainMenu extends AbstractUI {
     private static final int ADD_NEW_SERVICE = 10;
     private static final int CONTINUE_SERVICE_SPECIFICATION = 11;
     private static final int CREATE_NEW_TICKET = 12;
+    private static final int PING = 13;
 
 
     // SETTINGS
@@ -204,6 +206,7 @@ public class MainMenu extends AbstractUI {
         menu.addItem(ADD_NEW_SERVICE, "Add new Service", new AddServiceUI()::show);
         menu.addItem(CONTINUE_SERVICE_SPECIFICATION, "Continue Service Specification", new ContinueServiceSpecificationUI()::show);
         menu.addItem(CREATE_NEW_TICKET, "Create new Ticket", new AddTicketUI()::show);
+        menu.addItem(PING,"Test Engine", new EngineTestUI()::show);
         menu.addItem(EXIT_OPTION, RETURN_LABEL, Actions.SUCCESS);
 
         return menu;
