@@ -16,8 +16,8 @@
 
 
     <properties>
-        <eapli.framework.core.version>16.3.2</eapli.framework.core.version>
-        <eapli.framework.authz.version>16.3.2</eapli.framework.authz.version>
+        <eapli.framework.core.version>16.6.0</eapli.framework.core.version>
+        <eapli.framework.authz.version>17.0.0</eapli.framework.authz.version>
         <eapli.framework.pubsub.version>16.3.1</eapli.framework.pubsub.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -108,8 +108,8 @@
 
     <repositories>
         <repository>
-            <id>jfrog-pagsousa</id>
-            <url>https://pagsousa.jfrog.io/artifactory/default-maven-virtual</url>
+            <id>local-repository</id>
+            <url>http://localhost:80/</url>
         </repository>
         <repository>
             <id>jitpack.io</id>
