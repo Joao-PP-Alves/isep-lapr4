@@ -59,4 +59,8 @@ public class ApprovalTask implements ValueObject, Serializable {
     public boolean isApproved() {
         return this.approved;
     }
+
+    public Collaborator assignedCollab(){return this.solverCollab;}
+
+    public Long identity(){ return this.id;}
 }
