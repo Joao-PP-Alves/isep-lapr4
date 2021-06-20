@@ -34,10 +34,11 @@ public class ApprovalTask implements ValueObject, Serializable {
 
     @JsonProperty
     @XmlElement
+    @Nullable
     @OneToOne(orphanRemoval = true, cascade = CascadeType.ALL)
     private Collaborator solverCollab;
 
-    
+
     public ApprovalTask(boolean approved) {
         this.approved = approved;
     }
@@ -48,6 +49,10 @@ public class ApprovalTask implements ValueObject, Serializable {
         this.solverCollab = solverCollab;
     }
 
+    public ApprovalTask(Form form) {
+        this.approved = false;
+        this.form = form;
+    }
 
     protected ApprovalTask() {
     }
@@ -59,4 +64,5 @@ public class ApprovalTask implements ValueObject, Serializable {
     public boolean isApproved() {
         return this.approved;
     }
+
 }

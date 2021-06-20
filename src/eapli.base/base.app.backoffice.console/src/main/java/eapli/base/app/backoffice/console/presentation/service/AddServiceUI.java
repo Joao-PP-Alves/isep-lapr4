@@ -63,51 +63,18 @@ public class AddServiceUI extends AbstractUI {
 
         Form form = createForm();
 
-/*
-        String formName = Console.readLine("Form name");
-        System.out.println("Fill the form");
-        Set<Field> fieldSet = new HashSet<>();
-        keepGoing = false;
-        while (!keepGoing) {
-            String fname = Console.readLine("Variable name");
-            String expr = Console.readLine("Regular expression to validate answer");
-            String helpDescription = Console.readLine("Help to fill the field");
-            String pres = Console.readLine("Presentation ticket");
-            String dataType = Console.readLine("Type of data needed");
-            DataTypesAllowed data;
-            if (dataType.equalsIgnoreCase("double")) {
-                data = DataTypesAllowed.DOUBLE;
-            } else if (dataType.equalsIgnoreCase("int")) {
-                data = DataTypesAllowed.INT;
-            } else {
-                data = DataTypesAllowed.STRING;
-            }
-            fieldSet.add(new Field(new RegularExpression(expr), fname, Description.valueOf(helpDescription), new PresentationTicket(pres), data));
-            String keepAdding = Console.readLine("Add more Fields?? (Y/N)");
-            if (keepAdding.equalsIgnoreCase("N") || keepAdding.equalsIgnoreCase("No")) {
-                keepGoing = true;
-            }
-        }
-        String sc = Console.readLine("Introduce the file containing the script");
-        Script script = new Script(theController.makeStringFromFile(sc));
-        Form form = new Form(Designation.valueOf(formName), fieldSet, script);
-*/
-
-
         if (submenu()) {
             theController.addService(name, listCatalogs.get(0), shortServiceDescription, longServiceDescription, null, form, null, "icon", keyWords);
             return true;
         }
         String approvalTaskS = Console.readLine("Need aproval Task?? (Y/N)");
-        boolean apr;
+        ApprovalTask approvalTask;
         if (approvalTaskS.equalsIgnoreCase("y") || approvalTaskS.equalsIgnoreCase("yes")) {
-            apr = false;
-
-
+            approvalTask = new ApprovalTask(createForm());
         } else {
-            apr = true;
+            boolean apr = true;
+            approvalTask = new ApprovalTask(apr);
         }
-        ApprovalTask approvalTask = new ApprovalTask(apr);
         if (submenu()) {
             theController.addService(name, listCatalogs.get(0), shortServiceDescription, longServiceDescription, approvalTask, form, null, "icon", keyWords);
             return true;
@@ -117,43 +84,12 @@ public class AddServiceUI extends AbstractUI {
         AutoTaskSpec autoTaskSpec;
         String type = Console.readLine("Will the task be Manual(1) or Automatic(2)?");
         TaskSpec taskSpec = new TaskSpec(type);
-        //TODO Let User choose from Manual or Automatic Task
         if (type.equalsIgnoreCase("Manual") || type.equalsIgnoreCase("1")) {
             final String taskSpecId = Console.readLine("TaskSpec ID");
 
-            form = createForm();
+            Form form2 = createForm();
 
-/*
-            formName = Console.readLine("Form name");
-            System.out.println("Fill the form");
-            fieldSet = new HashSet<>();
-            boolean go = false;
-            while (!go) {
-                String fname = Console.readLine("Variable name");
-                String expr = Console.readLine("Regular expression to validate answer");
-                String helpDescription = Console.readLine("Help to fill the field");
-                String pres = Console.readLine("Presentation ticket");
-                String dataType = Console.readLine("Type of data needed");
-                DataTypesAllowed data;
-                if (dataType.equalsIgnoreCase("double")) {
-                    data = DataTypesAllowed.DOUBLE;
-                } else if (dataType.equalsIgnoreCase("int")) {
-                    data = DataTypesAllowed.INT;
-                } else {
-                    data = DataTypesAllowed.STRING;
-                }
-                fieldSet.add(new Field(new RegularExpression(expr), fname, Description.valueOf(helpDescription), new PresentationTicket(pres), data));
-                String keepAdding = Console.readLine("Add more Fields?? (Y/N)");
-                if (keepAdding.equalsIgnoreCase("N") || keepAdding.equalsIgnoreCase("No")) {
-                    go = true;
-                }
-            }
-            sc = Console.readLine("Introduce the script");
-            script = new Script(sc);
-            form = theManController.createForm(formName, fieldSet, script);
-*/
-
-            manualTaskSpec = theManController.addManualTaskSpec(taskSpecId, form);
+            manualTaskSpec = theManController.addManualTaskSpec(taskSpecId, form2);
             taskSpec = manualTaskSpec;
         } else if (type.equalsIgnoreCase("Automatic") || type.equalsIgnoreCase("2") || type.equalsIgnoreCase("Auto")) {
             final String taskSpecId = Console.readLine("TaskSpec ID");
