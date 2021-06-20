@@ -1,56 +1,27 @@
-// A lot of things here will have to change. This is merely a placeholder.
-
-function refreshColaborator() {
+function refreshTasks() {
 
     var request = new XMLHttpRequest();
-    var vBoard=document.getElementById("colaborador");
+    var vBoard = document.getElementById("tasks");
 
-    request.onload = function() {
+    request.onload = function () {
         vBoard.innerHTML = this.responseText;
-        vBoard.style.color="black";
-        setTimeout(refreshColaborator, 2000);
+        vBoard.style.color = "black";
+        setTimeout(refreshTasks, 2000);
     };
 
-    request.ontimeout = function() {
+    request.ontimeout = function () {
         vBoard.innerHTML = "Server timeout, still trying ...";
-        vBoard.style.color="red";
-        setTimeout(refreshColaborator, 100);
+        vBoard.style.color = "red";
+        setTimeout(refreshTasks, 100);
     };
 
-    request.onerror = function() {
+    request.onerror = function () {
         vBoard.innerHTML = "No server reply, still trying ...";
-        vBoard.style.color="red";
-        setTimeout(refreshColaborator, 5000);
+        vBoard.style.color = "red";
+        setTimeout(refreshTasks, 5000);
     };
 
-    request.open("GET", "/colaborador", true);
-    request.timeout = 5000;
-    request.send();
-}
-
-function refreshGestor() {
-    var request = new XMLHttpRequest();
-    var vBoard=document.getElementById("gestor");
-
-    request.onload = function() {
-        vBoard.innerHTML = this.responseText;
-        vBoard.style.color="black";
-        setTimeout(refreshGestor, 2000);
-    };
-
-    request.ontimeout = function() {
-        vBoard.innerHTML = "Server timeout, still trying ...";
-        vBoard.style.color="red";
-        setTimeout(refreshGestor, 100);
-    };
-
-    request.onerror = function() {
-        vBoard.innerHTML = "No server reply, still trying ...";
-        vBoard.style.color="red";
-        setTimeout(refreshGestor, 5000);
-    };
-
-    request.open("GET", "/gestor", true);
+    request.open("GET", "/tasks", true);
     request.timeout = 5000;
     request.send();
 }
