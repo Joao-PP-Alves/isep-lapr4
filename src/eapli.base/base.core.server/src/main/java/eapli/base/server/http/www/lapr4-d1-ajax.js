@@ -21,6 +21,7 @@ function refreshTasks() {
         setTimeout(refreshTasks, 5000);
     };
 
+    request.open("PUT", "/tasks", true);
     request.open("GET", "/tasks", true);
     request.timeout = 5000;
     request.send();
