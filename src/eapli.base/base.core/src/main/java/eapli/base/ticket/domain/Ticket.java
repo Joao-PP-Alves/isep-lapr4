@@ -85,7 +85,7 @@ public class Ticket implements AggregateRoot<Long> {
     }
 
     public Ticket(UrgencyTypes urgency, Calendar deadline, Calendar creationDate,
-                  Priority priority, AnnexedFile fileName, CompletedForm completedForm, Service service, Task Task) {
+                  Priority priority, AnnexedFile fileName, CompletedForm completedForm, Service service, Task task) {
         this.urgency = urgency;
         this.deadline = deadline;
         this.creationDate = creationDate;

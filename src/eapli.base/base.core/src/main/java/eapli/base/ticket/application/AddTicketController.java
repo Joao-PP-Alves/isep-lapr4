@@ -61,7 +61,11 @@ public class AddTicketController {
 
         ticketBuilder.with(urgency, deadline, creationDate, priority, fileName, form, service, task);
         Ticket ticket = ticketBuilder.build();
-        ticket.isSubmited();
+        if (service.approvalTask().isApproved()){
+            ticket.isApproved();
+        } else {
+            ticket.isSubmited();
+        }
         return this.ticketsRepo.save(ticket);
     }
 

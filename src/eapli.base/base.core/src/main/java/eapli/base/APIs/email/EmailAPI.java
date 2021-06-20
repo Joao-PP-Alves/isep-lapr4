@@ -17,11 +17,12 @@ public class EmailAPI {
         throw new IllegalArgumentException("Utility Only class");
     }
 
-    private static final Logger DEFAULT_EMAIL = Logger.getLogger(EmailAPI.class.getName());
-    private static final String SMTP_SERVER = "smtp.gmail.com";
+
     private static final String USERNAME = "lapr4G1DD@gmail.com";
     private static final String ACCESS = "lapr4Grupo1DD";
     private static final String EMAIL_FROM = "lapr4G1DD@gmail.com";
+    private static final Logger DEFAULT_EMAIL = Logger.getLogger(EmailAPI.class.getName());
+    private static final String SMTP_SERVER = "smtp.gmail.com";
 
     public static void sendMail(String email, String subject, String text) {
         Properties prop = System.getProperties();
