@@ -6,7 +6,11 @@ import eapli.base.ticket.repositories.TicketRepository;
 import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
-public class JpaTicketRepository extends JpaAutoTxRepository<Ticket,Long,Long> implements TicketRepository {
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import java.util.Calendar;
+
+public class JpaTicketRepository extends JpaAutoTxRepository<Ticket, Long, Long> implements TicketRepository {
 
     public JpaTicketRepository(TransactionalContext autoTx) {
         super(autoTx, "id");
@@ -14,5 +18,34 @@ public class JpaTicketRepository extends JpaAutoTxRepository<Ticket,Long,Long> i
 
     public JpaTicketRepository(String puname) {
         super(puname, Application.settings().getExtendedPersistenceProperties(), "id");
+    }
+
+    @Override
+    public Long findPendingAmount() {
+
+        final Query q = createNativeQuery("SELECT COUNT(*) FROM TICKET INNER JOIN TASK t\n" +
+                "ON t.approvedStatus = 'PENDING'", Ticket.class);
+
+        return (Long) q.getSingleResult();
+    }
+
+    @Override
+    public Long findExpiredAmount() {
+
+        final Query q = createNativeQuery("SELECT COUNT(*) FROM TICKET INNER JOIN TASK t\n" +
+                "ON t.approvedStatus = 'EXPIRED'", Ticket.class);
+
+        return (Long) q.getSingleResult();
+    }
+
+    @Override
+    public Long findSoonToBeExpiredAmount(Calendar startDate, Calendar endDate) {
+
+        final Query q = createNativeQuery("SELECT COUNT(*) FROM Ticket t\n" +
+                "WHERE t.deadline BETWEEN :startDate AND :endDate", Ticket.class);
+        q.setParameter("startDate", startDate);
+        q.setParameter("endDate", endDate);
+
+        return (Long) q.getSingleResult();
     }
 }

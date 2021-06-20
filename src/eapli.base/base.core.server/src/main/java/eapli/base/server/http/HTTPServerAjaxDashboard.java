@@ -14,14 +14,12 @@ public class HTTPServerAjaxDashboard {
     private static final int TASK_SOON_EXPIRED = 2;
     private static final String BASE_FOLDER = "www";
 
-    private static int[] taskAmounts = new int[TASK_TYPE_AMOUNT];
+    private static final int[] taskAmounts = new int[TASK_TYPE_AMOUNT];
 
     private static ServerSocket socket;
 
     //TODO Different Tasks Storages by Type for HTTP Text purposes.
     //TODO Implement constant updating.
-    private HTTPServerAjaxDashboard() {
-    }
 
     public static void main(String[] args) throws Exception {
 
