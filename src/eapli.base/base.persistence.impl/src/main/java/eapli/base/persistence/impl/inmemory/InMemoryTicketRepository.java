@@ -1,11 +1,14 @@
 package eapli.base.persistence.impl.inmemory;
 
 import eapli.base.ticket.domain.Ticket;
+import eapli.base.ticket.domain.TicketState;
 import eapli.base.ticket.repositories.TicketRepository;
 import eapli.framework.infrastructure.repositories.impl.inmemory.InMemoryDomainRepository;
 
 import javax.persistence.Query;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Optional;
 
 public class InMemoryTicketRepository extends InMemoryDomainRepository<Ticket,Long> implements TicketRepository {
@@ -21,31 +24,35 @@ public class InMemoryTicketRepository extends InMemoryDomainRepository<Ticket,Lo
 
 
     @Override
-    public Long findPendingAmount() {
-
-        final Query q = createNativeQuery("SELECT COUNT(*) FROM TICKET INNER JOIN TASK t\n" +
-                "ON t.approvedStatus = 'PENDING'", Ticket.class);
-
-        return (Long) q.getSingleResult();
+    public int findPendingAmount() {
+        List<Ticket> list = new ArrayList<>();
+        match(e -> e.state().equals(TicketState.SUBMETIDO)).forEach(list::add);
+        return list.size();
     }
 
     @Override
-    public Long findExpiredAmount() {
+    public int findExpiredAmount() {
 
-        final Query q = createNativeQuery("SELECT COUNT(*) FROM TICKET INNER JOIN TASK t\n" +
-                "ON t.approvedStatus = 'EXPIRED'", Ticket.class);
-
-        return (Long) q.getSingleResult();
+        List<Ticket> list = new ArrayList<>();
+        match(e -> e.state().equals(TicketState.RESOLVIDO)).forEach(list::add);
+        return list.size();
     }
 
     @Override
-    public Long findSoonToBeExpiredAmount(Calendar startDate, Calendar endDate) {
+    public int findSoonToBeExpiredAmount(Calendar startDate, Calendar endDate) {
 
-        final Query q = createNativeQuery("SELECT COUNT(*) FROM Ticket t\n" +
-                "WHERE t.deadline BETWEEN :startDate AND :endDate", Ticket.class);
-        q.setParameter("startDate", startDate);
-        q.setParameter("endDate", endDate);
-
-        return (Long) q.getSingleResult();
+        List<Ticket> list = new ArrayList<>();
+        match(e -> e.deadLine().before(endDate)).forEach(list::add);
+        List<Ticket> list2 = new ArrayList<>();
+        match(e -> e.deadLine().after(startDate)).forEach(list2::add);
+        List<Ticket> theFinalOne = new ArrayList<>();
+        for (Ticket t : list){
+            for (Ticket t2 : list2){
+                if (t.equals(t2)){
+                    theFinalOne.add(t);
+                }
+            }
+        }
+        return theFinalOne.size();
     }
 }

@@ -19,9 +19,9 @@ public interface TicketRepository extends DomainRepository<Long, Ticket> {
 
     Optional<Ticket> findById(Long id);
 
-    Long findPendingAmount();
+    int findPendingAmount();
 
-    Long findExpiredAmount();
+    int findExpiredAmount();
 
-    Long findSoonToBeExpiredAmount(@Param("startDate")Calendar startDate, @Param("endDate")Calendar endDate);
+    int findSoonToBeExpiredAmount(@Param("startDate")Calendar startDate, @Param("endDate")Calendar endDate);
 }
