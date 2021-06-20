@@ -61,28 +61,20 @@ public class HTTPAjaxTaskRequest extends Thread {
 
             } else {
 
-                /* if (request.getMethod().equals("PUT") && request.getURI().startsWith("/colaborador/inc/")) {
-                    HTTPServerAjaxDashboard.updateTarefasInc(request.getURI().substring(17));
+                if (request.getMethod().equals("PUT") && request.getURI().startsWith("/tasks/")) {
+                    HTTPServerAjaxDashboard.updateTasksHTML();
                     response.setResponseStatus("200 Ok");
 
-                } else if (request.getMethod().equals("PUT")
-                        && request.getURI().startsWith("/colaborador/dec/")) {
-                    HttpServerAjaxDashboard.updateTarefasDec(request.getURI().substring(17));
-                    response.setResponseStatus("200 Ok");
                 } else {
                     response.setContentFromString(
                             "<html><body><h1>ERROR: 405 Method Not Allowed</h1></body></html>",
                             "text/html");
                     response.setResponseStatus("405 Method Not Allowed");
-                }*/
-                response.setContentFromString(
-                        "<html><body><h1>ERROR: 405 Method Not Allowed</h1></body></html>",
-                        "text/html");
-                response.setResponseStatus("405 Method Not Allowed");
+                }
                 response.send(outStream);
             }
         } catch (IOException e) {
-            System.out.println("Thread error when reading request");
+            System.out.println("Error on Thread on Reading request.");
         }
         try {
             socket.close();
