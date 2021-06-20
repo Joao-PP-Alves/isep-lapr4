@@ -24,6 +24,7 @@
 package eapli.base.infrastructure.bootstrapers;
 
 import eapli.base.collaboratormanagement.domain.Collaborator;
+import eapli.base.infrastructure.bootstrapers.demo.ClientUserBootstrapper;
 import eapli.base.service.domain.Service;
 import eapli.base.team.domain.Team;
 import eapli.base.team.domain.TeamBuilder;
@@ -67,6 +68,9 @@ public class BaseBootstrapper implements Action {
     private final UserRepository userRepository = PersistenceContext.repositories().users();
     private final ServiceBootstrapper servBoot = new ServiceBootstrapper();
     private final OrganizationBootstrapper orgBoot = new OrganizationBootstrapper();
+    private final ClientUserBootstrapper cliBoot = new ClientUserBootstrapper();
+    private final TicketBootstrapper tickBoot = new TicketBootstrapper();
+
     private final TeamTypeRepository teamTypeRepository = PersistenceContext.repositories().teamTypes();
     private final TeamRepository teamRepository = PersistenceContext.repositories().teams();
 
@@ -80,7 +84,9 @@ public class BaseBootstrapper implements Action {
 
         authenticateForBootstrapping();
         orgBoot.execute();
+        cliBoot.execute();
         servBoot.execute();
+        tickBoot.execute();
 
         // execute all bootstrapping
         boolean ret = true;

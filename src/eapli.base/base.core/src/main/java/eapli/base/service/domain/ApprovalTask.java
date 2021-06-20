@@ -65,7 +65,20 @@ public class ApprovalTask implements ValueObject, Serializable {
         return this.approved;
     }
 
-    public Collaborator assignedCollab(){return this.solverCollab;}
+    public Collaborator assignedCollab() {
+        return this.solverCollab;
+    }
 
-    public Long identity(){ return this.id;}
+    public Long identity() {
+        return this.id;
+    }
+
+    @Override
+    public String toString() {
+        return "ApprovalTask{" +
+                "id=" + id +
+                ", approved=" + approved +
+                ", form=" + form +
+                '}';
+    }
 }

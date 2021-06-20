@@ -16,7 +16,7 @@ import java.util.Set;
 
 public class CheckAssignedTasksUI extends AbstractUI {
 
-    private final CheckPendingTasksController theController = new CheckPendingTasksController();
+    CheckPendingTasksController theController = new CheckPendingTasksController();
 
     @Override
     protected boolean doShow() {
@@ -30,7 +30,7 @@ public class CheckAssignedTasksUI extends AbstractUI {
         do {
             show = showTasks(tasks);
         } while (!show);
-        return true;
+        return false;
     }
 
     @Override
@@ -49,7 +49,7 @@ public class CheckAssignedTasksUI extends AbstractUI {
         int counter=0;
         apTasksMenu.addItem(counter++, "See Non-Approval Tasks", Actions.SUCCESS);
         for (ApprovalTask task : theController.checkPendingApprovalTasks()){
-            apTasksMenu.addItem(counter++,String.valueOf(task.identity()), () -> approvalTasks.add(task));
+            apTasksMenu.addItem(counter++,String.valueOf(task.toString()), () -> approvalTasks.add(task));
         }
         return apTasksMenu;
     }
@@ -65,7 +65,7 @@ public class CheckAssignedTasksUI extends AbstractUI {
         int counter = 0;
         tasksMenu.addItem(counter++,"Back", Actions.SUCCESS);
         for (Task task : theController.checkPendingTasks()){
-            tasksMenu.addItem(counter++, String.valueOf(task.identity()),() -> tasks.add(task));
+            tasksMenu.addItem(counter++, String.valueOf(task.toString()),() -> tasks.add(task));
         }
         return tasksMenu;
     }

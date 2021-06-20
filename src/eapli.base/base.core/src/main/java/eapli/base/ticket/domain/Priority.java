@@ -14,8 +14,8 @@ public class Priority implements ValueObject {
     @Column(nullable = true)
     private int priority;
 
-    public Priority(int ticketId) {
-        this.priority = ticketId;
+    public Priority(int priority) {
+        this.priority = priority;
     }
 
     protected Priority() {

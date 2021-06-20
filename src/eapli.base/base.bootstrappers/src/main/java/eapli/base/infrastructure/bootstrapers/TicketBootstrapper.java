@@ -1,24 +1,31 @@
 package eapli.base.infrastructure.bootstrapers;
 
+import eapli.base.clientusermanagement.domain.ApprovalStatus;
+import eapli.base.collaboratormanagement.application.AddCollaboratorController;
+import eapli.base.collaboratormanagement.domain.Collaborator;
+import eapli.base.collaboratormanagement.repositories.CollaboratorRepository;
+import eapli.base.infrastructure.persistence.PersistenceContext;
 import eapli.base.service.application.AddManualTaskSpecController;
 import eapli.base.service.application.AddServiceController;
 import eapli.base.service.domain.*;
 import eapli.base.servicecatalog.application.AddServiceCatalogController;
 import eapli.base.servicecatalog.domain.AccessCriteria;
 import eapli.base.servicecatalog.domain.ServiceCatalog;
+import eapli.base.task.domain.Task;
 import eapli.base.team.domain.Team;
+import eapli.base.ticket.application.AddTicketController;
+import eapli.base.ticket.domain.*;
 import eapli.framework.actions.Action;
 import eapli.framework.domain.repositories.ConcurrencyException;
 import eapli.framework.domain.repositories.IntegrityViolationException;
 import eapli.framework.general.domain.model.Description;
 import eapli.framework.general.domain.model.Designation;
+import eapli.framework.infrastructure.authz.domain.model.Username;
+import eapli.framework.time.util.Calendars;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class TicketBootstrapper implements Action {
 
@@ -46,9 +53,21 @@ public class TicketBootstrapper implements Action {
     final AddServiceController addServController = new AddServiceController();
     final AddServiceCatalogController addServCatController = new AddServiceCatalogController();
     final AddManualTaskSpecController addManualTaskSpecController = new AddManualTaskSpecController();
+    final AddCollaboratorController addCollabController = new AddCollaboratorController();
+    final AddTicketController addTicketController = new AddTicketController();
+    final CollaboratorRepository collaboratorRepository = PersistenceContext.repositories().collaborators();
 
     @Override
     public boolean execute() {
+
+
+        UrgencyTypes urgency = UrgencyTypes.REDUZIDA;
+        Calendar deadline = Calendars.of(2021, 12, 31);
+        Calendar creationDate = Calendar.getInstance();
+        int priority = 1;
+        String fileName = "teste1.txt";
+        CompletedForm completedForm = new CompletedForm(10L, new HashSet<>());
+
 
         ServiceCatalog servCat1 = registerServiceCatalog(SERVICE_CATALOG_TITLE1, SERVICE_CATALOG_SHORTDESC1,
                 SERVICE_CATALOG_LONGDESC1, SERVICE_CATALOG_ICON1, null);
@@ -78,9 +97,21 @@ public class TicketBootstrapper implements Action {
         keyWords.add(new KeyWord("keyWord2 Test"));
 
 
-        registerService("Bootstrapped Service1", servCat1, "Service1(boot)",
+        Service service = registerService("Bootstrapped Service1", servCat1, "Service1(boot)",
                 "Service 1 long description bootstrapped", approvalTask, form, manualTaskSpec,
                 "test Icon", keyWords);
+
+        Collaborator collab = addCollabController.addNewCollaborator("username2", "Password1", "email@email.com",
+                new HashSet<>(), "fullName fullName","shortName", "address", 987456321, "companyRole");
+
+        Task task = new Task(Calendar.getInstance(), Description.valueOf("Completed helpDescription"),
+                collab, ApprovalStatus.ACCEPTED);
+
+        addTicketController.addTicket(urgency, service, deadline, creationDate, priority, fileName,
+                completedForm, task);
+
+
+
         return false;
 
     }

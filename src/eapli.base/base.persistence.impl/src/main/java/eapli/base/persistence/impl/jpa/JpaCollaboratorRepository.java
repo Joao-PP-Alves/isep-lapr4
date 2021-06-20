@@ -9,6 +9,8 @@ import eapli.framework.domain.repositories.TransactionalContext;
 import eapli.framework.infrastructure.authz.domain.model.Username;
 import eapli.framework.infrastructure.repositories.impl.jpa.JpaAutoTxRepository;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 class JpaCollaboratorRepository extends JpaAutoTxRepository<Collaborator, Long, Long>
@@ -29,6 +31,8 @@ implements CollaboratorRepository {
 
     @Override
     public Optional<Collaborator> findByUsername(Username user) {
-        throw new UnsupportedOperationException("Collaborator - findByUsername not implemented yet");
+        final Map<String, Object> params = new HashMap<>();
+        params.put("user", user);
+        return matchOne("e.systemUser.username=:user", params);
     }
 }

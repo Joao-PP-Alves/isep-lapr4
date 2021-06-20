@@ -75,4 +75,16 @@ public class Task implements AggregateRoot<Long> {
         }
         return -1;
     }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", date=" + date +
+                ", helpDescription=" + helpDescription +
+                ", approvalStatus=" + approvalStatus +
+                '}';
+    }
+
+
 }

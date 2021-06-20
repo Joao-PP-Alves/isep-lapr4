@@ -153,4 +153,8 @@ public class Ticket implements AggregateRoot<Long> {
     public boolean hasIdentity(Long otherId) {
         return otherId.equals(this.identity());
     }
+
+    public Service service() {
+        return this.service;
+    }
 }
