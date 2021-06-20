@@ -21,31 +21,31 @@ public class JpaTicketRepository extends JpaAutoTxRepository<Ticket, Long, Long>
     }
 
     @Override
-    public Long findPendingAmount() {
+    public int findPendingAmount() {
 
         final Query q = createNativeQuery("SELECT COUNT(*) FROM TICKET INNER JOIN TASK t\n" +
-                "ON t.approvedStatus = 'PENDING'", Ticket.class);
+                "ON t.approvedStatus = 'submetido'", Ticket.class);
 
-        return (Long) q.getSingleResult();
+        return (int) q.getSingleResult();
     }
 
     @Override
-    public Long findExpiredAmount() {
+    public int findExpiredAmount() {
 
         final Query q = createNativeQuery("SELECT COUNT(*) FROM TICKET INNER JOIN TASK t\n" +
-                "ON t.approvedStatus = 'EXPIRED'", Ticket.class);
+                "ON t.approvedStatus = 'resolvido'", Ticket.class);
 
-        return (Long) q.getSingleResult();
+        return (int) q.getSingleResult();
     }
 
     @Override
-    public Long findSoonToBeExpiredAmount(Calendar startDate, Calendar endDate) {
+    public int findSoonToBeExpiredAmount(Calendar startDate, Calendar endDate) {
 
         final Query q = createNativeQuery("SELECT COUNT(*) FROM Ticket t\n" +
                 "WHERE t.deadline BETWEEN :startDate AND :endDate", Ticket.class);
         q.setParameter("startDate", startDate);
         q.setParameter("endDate", endDate);
 
-        return (Long) q.getSingleResult();
+        return (int) q.getSingleResult();
     }
 }
