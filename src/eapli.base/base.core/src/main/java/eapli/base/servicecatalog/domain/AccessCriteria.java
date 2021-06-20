@@ -5,31 +5,30 @@ import eapli.base.team.domain.Team;
 import eapli.framework.domain.model.ValueObject;
 
 import javax.persistence.Embeddable;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.xml.bind.annotation.XmlElement;
-import java.util.Set;
 
 @Embeddable
 public class AccessCriteria implements ValueObject {
 
     @JsonProperty
     @XmlElement
-    @OneToMany
-    private Set<Team> teamsWithAccess;
+    @OneToOne
+    private Team teamWithAccess;
 
     protected AccessCriteria() {
         //
     }
 
-    public AccessCriteria(Set<Team> teamsWithAccess) {
-        this.teamsWithAccess = teamsWithAccess;
+    public AccessCriteria(Team teamWithAccess) {
+        this.teamWithAccess = teamWithAccess;
     }
 
-    public Set<Team> getTeamsWithAccess() {
-        return this.teamsWithAccess;
+    public Team getTeamWithAccess() {
+        return this.teamWithAccess;
     }
 
-    public void setAccess(Set<Team> teamsWithAccess) {
-        this.teamsWithAccess = teamsWithAccess;
+    public void giveAccess(Team teamsWithAccess) {
+        this.teamWithAccess = teamsWithAccess;
     }
 }

@@ -16,6 +16,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 public class TicketBootstrapper implements Action {
@@ -55,7 +57,8 @@ public class TicketBootstrapper implements Action {
         for (Team team : iter) {
             listTeams.add(team);
         }
-        servCat1.defineAccessCriteria(new AccessCriteria(listTeams));
+        List<Team> teams = new LinkedList<>(listTeams);
+        servCat1.defineAccessCriteria(new AccessCriteria(teams.get(0)));
 
         ServiceCatalog servCat2 = registerServiceCatalog(SERVICE_CATALOG_TITLE2, SERVICE_CATALOG_SHORTDESC2,
                 SERVICE_CATALOG_LONGDESC2, SERVICE_CATALOG_ICON2,null);

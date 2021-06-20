@@ -99,4 +99,12 @@ public class Team implements AggregateRoot<Designation> {
     public Designation identity() {
         return this.id;
     }
+
+    @Override
+    public String toString() {
+        return "Team{" +
+                ", id=" + id +
+                ", teamType=" + teamType +
+                '}';
+    }
 }

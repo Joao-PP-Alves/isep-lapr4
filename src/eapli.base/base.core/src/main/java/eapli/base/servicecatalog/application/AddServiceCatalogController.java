@@ -47,8 +47,8 @@ public class AddServiceCatalogController {
         return list;
     }
 
-    public ServiceCatalog manageAccessCriteria(ServiceCatalog sc, Set<Team> list) {
-        sc.defineAccessCriteria(new AccessCriteria(list));
+    public ServiceCatalog manageAccessCriteria(ServiceCatalog sc, Team team) {
+        sc.defineAccessCriteria(new AccessCriteria(team));
         return servCatSvc.updateServiceCatalog(sc);
     }
 
