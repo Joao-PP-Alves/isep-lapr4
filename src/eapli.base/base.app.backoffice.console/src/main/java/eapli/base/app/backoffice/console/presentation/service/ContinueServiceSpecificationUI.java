@@ -56,6 +56,7 @@ public class ContinueServiceSpecificationUI extends AbstractUI {
             String formName = Console.readLine("Form name");
             System.out.println("Fill the form");
             Set<Field> fieldSet = new HashSet<>();
+            Set<Field> fields = new HashSet<>();
             boolean go=false;
             while (!go){
                 String fname = Console.readLine("Variable name");
@@ -71,7 +72,8 @@ public class ContinueServiceSpecificationUI extends AbstractUI {
                 } else {
                     data = DataTypesAllowed.STRING;
                 }
-                fieldSet.add(new Field(new RegularExpression(expr),fname, Description.valueOf(helpDescription),new PresentationTicket(pres),data));
+                fieldSet.add(new Field(new RegularExpression(expr),fname, Description.valueOf(helpDescription),
+                        fields, new PresentationTicket(pres),data));
                 String keepAdding = Console.readLine("Add more Fields?? (Y/N)");
                 if (keepAdding.equalsIgnoreCase("N") || keepAdding.equalsIgnoreCase("No")){
                     go = true;
@@ -105,6 +107,7 @@ public class ContinueServiceSpecificationUI extends AbstractUI {
                 String formName = Console.readLine("Form name");
                 System.out.println("Fill the form");
                 Set<Field> fieldSet = new HashSet<>();
+                Set<Field> fields = new HashSet<>();
                 boolean go=false;
                 while (!go){
                     String fname = Console.readLine("Variable name");
@@ -120,7 +123,8 @@ public class ContinueServiceSpecificationUI extends AbstractUI {
                     } else {
                         data = DataTypesAllowed.STRING;
                     }
-                    fieldSet.add(new Field(new RegularExpression(expr),fname, Description.valueOf(helpDescription),new PresentationTicket(pres),data));
+                    fieldSet.add(new Field(new RegularExpression(expr),fname, Description.valueOf(helpDescription),
+                            fields,new PresentationTicket(pres),data));
                     String keepAdding = Console.readLine("Add more Fields?? (Y/N)");
                     if (keepAdding.equalsIgnoreCase("N") || keepAdding.equalsIgnoreCase("No")){
                         go = true;

@@ -38,10 +38,10 @@ public class AddServiceUI extends AbstractUI {
         final String longServiceDescription = Console.readLine("Long Description");
         boolean keepGoing = false;
         Set<KeyWord> keyWords = new HashSet<>();
-        while (!keepGoing){
+        while (!keepGoing) {
             keyWords.add(new KeyWord(Console.readLine("Key Word")));
             String keepAdding = Console.readLine("Add more KeyWords? (Y/N)");
-            if (keepAdding.equalsIgnoreCase("N") || keepAdding.equalsIgnoreCase("No")){
+            if (keepAdding.equalsIgnoreCase("N") || keepAdding.equalsIgnoreCase("No")) {
                 keepGoing = true;
             }
         }
@@ -60,41 +60,50 @@ public class AddServiceUI extends AbstractUI {
             theController.addService(name, listCatalogs.get(0), shortServiceDescription, longServiceDescription, null, null, null, "icon", keyWords);
             return true;
         }
+
+        Form form = createForm();
+
+/*
         String formName = Console.readLine("Form name");
         System.out.println("Fill the form");
         Set<Field> fieldSet = new HashSet<>();
-        keepGoing=false;
-        while (!keepGoing){
+        keepGoing = false;
+        while (!keepGoing) {
             String fname = Console.readLine("Variable name");
             String expr = Console.readLine("Regular expression to validate answer");
             String helpDescription = Console.readLine("Help to fill the field");
             String pres = Console.readLine("Presentation ticket");
             String dataType = Console.readLine("Type of data needed");
             DataTypesAllowed data;
-            if (dataType.equalsIgnoreCase("double")){
+            if (dataType.equalsIgnoreCase("double")) {
                 data = DataTypesAllowed.DOUBLE;
-            } else if (dataType.equalsIgnoreCase("int")){
+            } else if (dataType.equalsIgnoreCase("int")) {
                 data = DataTypesAllowed.INT;
             } else {
                 data = DataTypesAllowed.STRING;
             }
-            fieldSet.add(new Field(new RegularExpression(expr),fname, Description.valueOf(helpDescription),new PresentationTicket(pres),data));
+            fieldSet.add(new Field(new RegularExpression(expr), fname, Description.valueOf(helpDescription), new PresentationTicket(pres), data));
             String keepAdding = Console.readLine("Add more Fields?? (Y/N)");
-            if (keepAdding.equalsIgnoreCase("N") || keepAdding.equalsIgnoreCase("No")){
+            if (keepAdding.equalsIgnoreCase("N") || keepAdding.equalsIgnoreCase("No")) {
                 keepGoing = true;
             }
         }
         String sc = Console.readLine("Introduce the file containing the script");
         Script script = new Script(theController.makeStringFromFile(sc));
-        Form form = new Form(Designation.valueOf(formName), fieldSet,script);
+        Form form = new Form(Designation.valueOf(formName), fieldSet, script);
+*/
+
+
         if (submenu()) {
             theController.addService(name, listCatalogs.get(0), shortServiceDescription, longServiceDescription, null, form, null, "icon", keyWords);
             return true;
         }
         String approvalTaskS = Console.readLine("Need aproval Task?? (Y/N)");
         boolean apr;
-        if (approvalTaskS.equalsIgnoreCase("y") || approvalTaskS.equalsIgnoreCase("yes")){
+        if (approvalTaskS.equalsIgnoreCase("y") || approvalTaskS.equalsIgnoreCase("yes")) {
             apr = false;
+
+
         } else {
             apr = true;
         }
@@ -109,44 +118,49 @@ public class AddServiceUI extends AbstractUI {
         String type = Console.readLine("Will the task be Manual(1) or Automatic(2)?");
         TaskSpec taskSpec = new TaskSpec(type);
         //TODO Let User choose from Manual or Automatic Task
-        if (type.equalsIgnoreCase("Manual") || type.equalsIgnoreCase("1")){
+        if (type.equalsIgnoreCase("Manual") || type.equalsIgnoreCase("1")) {
             final String taskSpecId = Console.readLine("TaskSpec ID");
+
+            form = createForm();
+
+/*
             formName = Console.readLine("Form name");
             System.out.println("Fill the form");
             fieldSet = new HashSet<>();
-            boolean go=false;
-            while (!go){
+            boolean go = false;
+            while (!go) {
                 String fname = Console.readLine("Variable name");
                 String expr = Console.readLine("Regular expression to validate answer");
                 String helpDescription = Console.readLine("Help to fill the field");
                 String pres = Console.readLine("Presentation ticket");
                 String dataType = Console.readLine("Type of data needed");
                 DataTypesAllowed data;
-                if (dataType.equalsIgnoreCase("double")){
+                if (dataType.equalsIgnoreCase("double")) {
                     data = DataTypesAllowed.DOUBLE;
-                } else if (dataType.equalsIgnoreCase("int")){
+                } else if (dataType.equalsIgnoreCase("int")) {
                     data = DataTypesAllowed.INT;
                 } else {
                     data = DataTypesAllowed.STRING;
                 }
-                fieldSet.add(new Field(new RegularExpression(expr),fname, Description.valueOf(helpDescription),new PresentationTicket(pres),data));
+                fieldSet.add(new Field(new RegularExpression(expr), fname, Description.valueOf(helpDescription), new PresentationTicket(pres), data));
                 String keepAdding = Console.readLine("Add more Fields?? (Y/N)");
-                if (keepAdding.equalsIgnoreCase("N") || keepAdding.equalsIgnoreCase("No")){
+                if (keepAdding.equalsIgnoreCase("N") || keepAdding.equalsIgnoreCase("No")) {
                     go = true;
                 }
             }
             sc = Console.readLine("Introduce the script");
             script = new Script(sc);
-            form = theManController.createForm(formName, fieldSet,script);
+            form = theManController.createForm(formName, fieldSet, script);
+*/
 
             manualTaskSpec = theManController.addManualTaskSpec(taskSpecId, form);
             taskSpec = manualTaskSpec;
-        } else if (type.equalsIgnoreCase("Automatic") || type.equalsIgnoreCase("2") || type.equalsIgnoreCase("Auto") ){
+        } else if (type.equalsIgnoreCase("Automatic") || type.equalsIgnoreCase("2") || type.equalsIgnoreCase("Auto")) {
             final String taskSpecId = Console.readLine("TaskSpec ID");
-            formName = Console.readLine("Put in the script");
+            String scriptString = Console.readLine("Put in the script");
 
-            script = theAutoController.addScript(formName);
-            autoTaskSpec = theAutoController.addAutoTaskSpec(taskSpecId,script);
+            Script script = theAutoController.addScript(scriptString);
+            autoTaskSpec = theAutoController.addAutoTaskSpec(taskSpecId, script);
             taskSpec = autoTaskSpec;
         } else {
             return false;
@@ -158,8 +172,8 @@ public class AddServiceUI extends AbstractUI {
 
         Service s = theController.addService(name, listCatalogs.get(0), shortServiceDescription, longServiceDescription, approvalTask, form, taskSpec, "icon", keyWords);
         String completion = Console.readLine("Consider this service specification complete? (Y/N)");
-        if (completion.equalsIgnoreCase("y") || completion.equalsIgnoreCase("yes")){
-            if (theController.verifyIfPossible(s)){
+        if (completion.equalsIgnoreCase("y") || completion.equalsIgnoreCase("yes")) {
+            if (theController.verifyIfPossible(s)) {
                 theController.done(s);
             }
         }
@@ -167,28 +181,29 @@ public class AddServiceUI extends AbstractUI {
     }
 
 
-    private boolean submenu(){
+    private boolean submenu() {
         boolean show;
         Set<Integer> integers = new HashSet<>();
-        do{
+        do {
             show = showOptions(integers);
         } while (!show);
         if (integers.contains(1)) {
-           return true;
+            return true;
         }
         return false;
     }
+
     private boolean showServiceCatalogs(final Set<ServiceCatalog> serviceCatalogs) {
         final Menu serviceCatalogsMenu = buildServiceCatalogsMenu(serviceCatalogs);
         final MenuRenderer renderer = new VerticalMenuRenderer(serviceCatalogsMenu, MenuItemRenderer.DEFAULT);
         return renderer.render();
     }
 
-    private Menu buildServiceCatalogsMenu(final Set<ServiceCatalog> serviceCatalogs){
+    private Menu buildServiceCatalogsMenu(final Set<ServiceCatalog> serviceCatalogs) {
         final Menu serviceCatalogsMenu = new Menu();
         int counter = 0;
-        for (ServiceCatalog sc: theController.getCatalogs()) {
-            serviceCatalogsMenu.addItem(counter++, sc.getTitleAndBriefDescription(),() -> serviceCatalogs.add(sc));
+        for (ServiceCatalog sc : theController.getCatalogs()) {
+            serviceCatalogsMenu.addItem(counter++, sc.getTitleAndBriefDescription(), () -> serviceCatalogs.add(sc));
         }
         return serviceCatalogsMenu;
     }
@@ -204,6 +219,38 @@ public class AddServiceUI extends AbstractUI {
         optionsMenu.addItem(MenuItem.of(1, "Pause Specification", () -> options.add(1)));
         optionsMenu.addItem(MenuItem.of(2, "Continue Specification", () -> options.add(2)));
         return optionsMenu;
+    }
+
+
+    private Form createForm() {
+        String formName = Console.readLine("Form name");
+        System.out.println("Fill the form");
+        Set<Field> fieldSet = new HashSet<>();
+        Set<Field> fields = new HashSet<>();
+        boolean keepGoing = false;
+        while (!keepGoing) {
+            String fname = Console.readLine("Variable name");
+            String expr = Console.readLine("Regular expression to validate answer");
+            String helpDescription = Console.readLine("Help to fill the field");
+            String pres = Console.readLine("Presentation ticket");
+            String dataType = Console.readLine("Type of data needed");
+            DataTypesAllowed data;
+            if (dataType.equalsIgnoreCase("double")) {
+                data = DataTypesAllowed.DOUBLE;
+            } else if (dataType.equalsIgnoreCase("int")) {
+                data = DataTypesAllowed.INT;
+            } else {
+                data = DataTypesAllowed.STRING;
+            }
+            fieldSet.add(new Field(new RegularExpression(expr), fname, Description.valueOf(helpDescription), fields, new PresentationTicket(pres), data));
+            String keepAdding = Console.readLine("Add more Fields?? (Y/N)");
+            if (keepAdding.equalsIgnoreCase("N") || keepAdding.equalsIgnoreCase("No")) {
+                keepGoing = true;
+            }
+        }
+        String sc = Console.readLine("Introduce the file containing the script");
+        Script script = new Script(theController.makeStringFromFile(sc));
+        return theManController.createForm(formName, fieldSet, script);
     }
 
     @Override

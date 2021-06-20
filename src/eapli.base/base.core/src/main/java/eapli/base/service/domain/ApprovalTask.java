@@ -1,6 +1,7 @@
 package eapli.base.service.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import eapli.base.collaboratormanagement.domain.Collaborator;
 import eapli.framework.domain.model.ValueObject;
 import org.springframework.lang.Nullable;
 
@@ -29,17 +30,22 @@ public class ApprovalTask implements ValueObject, Serializable {
     @XmlElement
     @JsonProperty
     @OneToOne(cascade = CascadeType.ALL)
-    private ManualTaskSpec manualTask;
+    private Form form;
 
+    @JsonProperty
+    @XmlElement
+    @OneToOne(orphanRemoval = true, cascade = CascadeType.ALL)
+    private Collaborator solverCollab;
 
-
+    
     public ApprovalTask(boolean approved) {
         this.approved = approved;
     }
 
-    public ApprovalTask(boolean approved, ManualTaskSpec mts) {
-        this.approved = approved;
-        this.manualTask = mts;
+    public ApprovalTask(Form form, Collaborator solverCollab) {
+        this.approved = false;
+        this.form = form;
+        this.solverCollab = solverCollab;
     }
 
 
