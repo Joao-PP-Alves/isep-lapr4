@@ -9,6 +9,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+//TODO: complete and find a way to communicate with others about the responses
 public class TcpFluxCli extends Thread{
 	static InetAddress serverIP;
 	static SSLSocket sock;
