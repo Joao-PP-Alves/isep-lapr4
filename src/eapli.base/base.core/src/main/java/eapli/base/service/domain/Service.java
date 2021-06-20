@@ -6,6 +6,7 @@ import eapli.base.servicecatalog.domain.ServiceCatalog;
 import eapli.framework.domain.model.AggregateRoot;
 import eapli.framework.general.domain.model.Description;
 import eapli.framework.general.domain.model.Designation;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
@@ -54,6 +55,8 @@ public class Service implements AggregateRoot<Long> {
 
     @JsonProperty
     @XmlElement
+    @Nullable
+    @OneToOne(orphanRemoval = true, cascade = CascadeType.ALL)
     private ApprovalTask approvalTask;
 
     @XmlElement

@@ -77,4 +77,12 @@ public class TeamType implements AggregateRoot<TeamTypeId> {
     public String getTeamId() {
         return id.toString();
     }
+
+    @Override
+    public String toString() {
+        return "TeamType{" +
+                ", id=" + id +
+                ", color=" + color +
+                '}';
+    }
 }
