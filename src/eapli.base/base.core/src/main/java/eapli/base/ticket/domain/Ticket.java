@@ -104,6 +104,7 @@ public class Ticket implements AggregateRoot<Long> {
         return state() == TicketState.SUBMETIDO;
     }
 
+    public Calendar deadLine(){return this.deadline;}
     public boolean isInApproval() {
         return state() == TicketState.EM_APROVACAO;
     }

@@ -1,16 +1,12 @@
 package eapli.base.ticket.application;
 
 import eapli.base.infrastructure.persistence.PersistenceContext;
-import eapli.base.ticket.domain.Ticket;
 import eapli.base.ticket.repositories.TicketRepository;
 import eapli.base.usermanagement.domain.BaseRoles;
 import eapli.framework.infrastructure.authz.application.AuthorizationService;
 import eapli.framework.infrastructure.authz.application.AuthzRegistry;
-import org.springframework.data.jpa.repository.Query;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 public class GetTicketTaskInfoController {
 
